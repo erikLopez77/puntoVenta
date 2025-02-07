@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node main.js",
     "server": "nodemon main.js",
-    "css":"postcss public/css/tailwind.css -o public/css/app.css --watch"
+    "css": "postcss public/css/tailwind.css -o public/css/app.css --watch"
   },
   "keywords": [],
   "author": "",
