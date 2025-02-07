@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from '../config/database.js';
 
-const Menu = sequelize.define('Menu', {
+const Menu = sequelize.define('menu', {
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     descripcion: {
@@ -18,5 +18,4 @@ const Menu = sequelize.define('Menu', {
     timestamps: false // No agrega createdAt y updatedAt automáticamente
 });
 
-const Orden = sequelize.define('Orden',)
-export { Menu }
+export default Menu;
