@@ -1,8 +1,10 @@
 import express from "express";
-import { menu } from "../controllers/principal.js";
+import { nosotros, menu } from "../controllers/principal.js";
 
 const router = express.Router();
 
-router.get('/principal', menu);
+router.get('/nosotros', nosotros);
+
+router.get('/menu', menu);
 
 export default router;
