@@ -27,11 +27,7 @@ const importarSemilla = async () => {
 
 const eliminarDatos = async () => {
     try {//eliminamos las tablas
-        await Promise.all([
-            Categoria.destroy({ where: {}, truncate: true }),
-            Usuario.destroy({ where: {}, truncate: true }),
-            Menu.destroy({ where: {}, truncate: true })
-        ]);
+        await sequelize.sync({ force: true });
         console.log("Datos eliminados correctamente");
         exit(0);
     } catch (error) {

@@ -15,7 +15,8 @@ const Menu = sequelize.define('menu', {
         allowNull: false
     }
 }, {
-    timestamps: false // No agrega createdAt y updatedAt automáticamente
+    timestamps: false, // No agrega createdAt y updatedAt automáticamente
+    freezeTableName: true    // No pluraliza el nombre de la tabla
 });
 
 export default Menu;
