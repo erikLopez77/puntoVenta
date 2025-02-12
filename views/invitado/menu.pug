@@ -1,4 +1,19 @@
 extends ../layout/head
 
 block contenido
-    p Menuuu
+    -// Título de la categoría ocupa todo el ancho
+    div(class="menu-container bg-white p-6 space-y-8")
+    -//nombre toma el nombre de la clave, categoria toma el valor de las claves
+    each categoria, nombre in { Bebidas: bebidas, Desayunos: desayunos, "Sopas y pastas": sopas, "Plato fuerte": platoFuerte, Postres: postres }
+        -// Contenedor de cada categoría con espacio entre secciones
+        div(class="space-y-4")
+            -// Título de la categoría con margen inferior
+            h2.text-2xl.font-extrabold.text-gray-800.border-b-2.border-blue-500.pb-1.mb-8= nombre
+            
+            -// Contenedor de platillos con espaciado entre elementos
+            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-6")
+                each platillo in categoria
+                    .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
+                        h2.text-xl.font-bold.text-blue-700= platillo.nombre
+                        p.text-gray-700= platillo.descripcion
+                        p.price.text-blue-600.font-semibold Precio: $#{platillo.precio}
