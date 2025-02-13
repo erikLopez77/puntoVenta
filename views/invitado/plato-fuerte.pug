@@ -1,4 +1,15 @@
 extends ../layout/head
 
 block contenido
-    p Plato fuerte
+    div(class="menu-container bg-white p-6 space-y-8")
+        div(class="space-y-4")
+            -// Título de la categoría con margen inferior
+            h2.text-2xl.font-extrabold.text-gray-800.border-b-2.border-blue-500.pb-1.mb-8 Plato fuerte
+            
+            -// Contenedor de platillos con espaciado entre elementos
+            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-6")
+                each platoFuerte in platosFuertes
+                    .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
+                        h2.text-xl.font-bold.text-blue-700= platoFuerte.nombre
+                        p.text-gray-700= platoFuerte.descripcion
+                        p.price.text-blue-600.font-semibold Precio: $#{platoFuerte.precio}
