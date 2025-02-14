@@ -13,6 +13,16 @@ const menu = async (req, res) => {
     res.render('invitado/menu', { bebidas, desayunos, sopas, platoFuerte, postres, pagina: 'Menu general' });
 };
 
+const ordenarMenu = async (req, res) => {
+    const { id } = req.body;
+    // Validación básica del ID
+    if (!id || isNaN(id)) {
+        return res.redirect('/menu-general');
+    } // Redirige si el ID no es válido
+    //validacion o poner a mi plantilla para que no tenga el cero
+    res.redirect(`/ordenar-pedido/${id}`)
+}
+
 
 const desayunos = async (req, res) => {
     const desayunos = await Menu.findAll({ where: { categoriaId: 2 } });
@@ -40,12 +50,39 @@ const bebidas = async (req, res) => {
     res.render('invitado/bebidas', { bebidas, pagina: 'Bebidas' });
 }
 
+const ordenar = async (req, res) => {
+    const { id } = req.params;
+
+    // Validación básica del ID
+    if (!id || isNaN(id)) {
+        return res.redirect('/menu-general'); // Redirige si el ID no es válido
+    }
+
+    try {
+        // Busca el platillo por su ID
+        const platillo = await Menu.findByPk(id); // findByPk espera directamente el valor, no un objeto
+
+        // Si no se encuentra el platillo, redirige al menú general
+        if (!platillo) {
+            return res.redirect('/menu-general');
+        }
+
+        // Renderiza la plantilla con los datos del platillo
+        res.render('invitado/ordenar', { platillo });
+    } catch (error) {
+        console.error('Error al buscar el platillo:', error);
+        res.redirect('/menu-general'); // Redirige en caso de error
+    }
+}
+
 export {
     nosotros,
     menu,
+    ordenarMenu,
     desayunos,
     sopas,
     platoFuerte,
     postres,
-    bebidas
+    bebidas,
+    ordenar
 }
