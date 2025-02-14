@@ -99,8 +99,12 @@ const ordenarItem= async (req,res)=>{
     }
 }
 
-const vistaCarrito = (req,res) =>{
-    res.render('invitado/carrito')
+const vistaCarrito = async (req,res) =>{
+    const token = req.session.userId;
+    console.log(token, 'Tokeen');
+    const items= await ItemOrden.findAll({where: {token}});
+    console.log(items, 'Items');
+    res.render('invitado/carrito',{items})
 }
 
 export {
