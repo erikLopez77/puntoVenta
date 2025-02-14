@@ -8,7 +8,7 @@ Menu.belongsTo(Categoria, { foreignKey: 'categoriaId' });
 Categoria.hasMany(Menu, { foreignKey: 'categoriaId' });
 
 // Asociación entre ItemOrden y Menu
-ItemOrden.belongsTo(Menu, { foreignKey: 'platilloId' });
+//ItemOrden.belongsTo(Menu, { foreignKey: 'platilloId' });
 Menu.hasMany(ItemOrden, { foreignKey: 'platilloId' });
 
 // Asociación entre Orden e ItemOrden

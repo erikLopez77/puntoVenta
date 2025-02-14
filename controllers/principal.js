@@ -1,4 +1,4 @@
-import { Menu } from '../models/asociaciones.js';
+import { ItemOrden, Menu } from '../models/asociaciones.js';
 const nosotros = (req, res) => {
     res.render('invitado/nosotros');
 }
@@ -75,6 +75,34 @@ const ordenar = async (req, res) => {
     }
 }
 
+const ordenarItem= async (req,res)=>{
+    const { id,indicaciones,cantidad }=req.body;
+
+    try {
+        // Busca el platillo por su ID
+        const platillo = await Menu.findByPk(id); // findByPk espera directamente el valor, no un objeto
+
+        // Si no se encuentra el platillo, redirige al menú general
+        if (!platillo) {
+            return res.redirect('/menu-general');
+        }
+        //capturamos el token de la sesion
+        const token = req.session.userId;
+        const total=cantidad*platillo.precio;
+        await ItemOrden.create({cantidad,subtotal:platillo.precio,total,indicacionExtra:indicaciones,token,platilloId:platillo.id});
+
+        // Renderiza la plantilla con los datos del platillo
+        res.redirect('/menu-general')
+    } catch (error) {
+        console.error('Error al buscar el platillo:', error);
+        res.redirect('/menu-general'); // Redirige en caso de error
+    }
+}
+
+const vistaCarrito = (req,res) =>{
+    res.render('invitado/carrito')
+}
+
 export {
     nosotros,
     menu,
@@ -84,5 +112,7 @@ export {
     platoFuerte,
     postres,
     bebidas,
-    ordenar
+    ordenar,
+    ordenarItem,
+    vistaCarrito
 }

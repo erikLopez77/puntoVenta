@@ -1,7 +1,7 @@
 import express from "express";
 import {
     nosotros, menu, desayunos, sopas, platoFuerte, postres, bebidas,
-    ordenarMenu, ordenar
+    ordenarMenu, ordenar,ordenarItem, vistaCarrito
 } from "../controllers/principal.js";
 
 const router = express.Router();
@@ -18,5 +18,9 @@ router.get('/postres', postres);
 router.get('/bebidas', bebidas);
 
 router.get('/ordenar-pedido/:id', ordenar);
+router.post('/ordenar-pedido/:id',ordenarItem);
+
+router.get('/carrito',vistaCarrito);
+
 
 export default router;

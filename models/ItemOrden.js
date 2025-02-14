@@ -14,6 +14,8 @@ const ItemOrden=sequelize.define('itemOrden',{
     },indicacionExtra:{
         type:DataTypes.TEXT,
         allowNull: true
+    },token:{
+        type:DataTypes.STRING
     }
 },{
     timestamps:false //no registra fecha y hora de creacion y actualizacion

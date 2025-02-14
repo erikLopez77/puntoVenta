@@ -38,7 +38,7 @@ html(lang="es")
       aside#leftSidebar(class="w-64 bg-gray-800 text-white p-4 hidden")
         h2(class="text-xl mb-4") Barra Lateral
         // Botón con ícono de "carro"
-        button(type="button", class="w-full flex items-center p-2 bg-blue-500 hover:bg-blue-400 rounded mb-4")
+        a(href="/carrito", class="w-full flex items-center p-2 bg-blue-500 hover:bg-blue-400 rounded mb-4")
           // Ícono de carro (shopping cart) – utiliza un SVG de ejemplo
           svg(xmlns="http://www.w3.org/2000/svg", class="h-6 w-6 mr-2", fill="none", viewBox="0 0 24 24", stroke="currentColor")
             path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13L17 13M7 13H5.4")
@@ -53,4 +53,3 @@ html(lang="es")
         block contenido
 
     block scripts
-      
