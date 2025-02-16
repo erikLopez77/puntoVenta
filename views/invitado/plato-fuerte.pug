@@ -13,3 +13,8 @@ block contenido
                         h2.text-xl.font-bold.text-blue-700= platoFuerte.nombre
                         p.text-gray-700= platoFuerte.descripcion
                         p.price.text-blue-600.font-semibold Precio: $#{platoFuerte.precio}
+                         -// Formulario para ordenar el platillo
+                        form(action="/plato-fuerte", method="POST")
+                            input(type="hidden", name="id", value=platoFuerte.id)
+                            button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Ordenar
+

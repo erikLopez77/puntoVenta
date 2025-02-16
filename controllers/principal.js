@@ -75,8 +75,8 @@ const ordenar = async (req, res) => {
     }
 }
 
-const ordenarItem= async (req,res)=>{
-    const { id,indicaciones,cantidad }=req.body;
+const ordenarItem = async (req, res) => {
+    const { id, indicaciones, cantidad } = req.body;
 
     try {
         // Busca el platillo por su ID
@@ -88,8 +88,8 @@ const ordenarItem= async (req,res)=>{
         }
         //capturamos el token de la sesion
         const token = req.session.userId;
-        const total=cantidad*platillo.precio;
-        await ItemOrden.create({cantidad,subtotal:platillo.precio,total,indicacionExtra:indicaciones,token,platilloId:platillo.id});
+        const total = cantidad * platillo.precio;
+        await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
 
         // Renderiza la plantilla con los datos del platillo
         res.redirect('/menu-general')
@@ -99,12 +99,16 @@ const ordenarItem= async (req,res)=>{
     }
 }
 
-const vistaCarrito = async (req,res) =>{
+const vistaCarrito = async (req, res) => {
     const token = req.session.userId;
     console.log(token, 'Tokeen');
-    const items= await ItemOrden.findAll({where: {token}});
-    console.log(items, 'Items');
-    res.render('invitado/carrito',{items})
+    const items = await ItemOrden.findAll({
+        where: { token },
+        include: [{ model: Menu, attributes: ['nombre'] }]
+    });
+    console.log(JSON.stringify(items, null, 2));
+
+    res.render('invitado/carrito', { items })
 }
 
 export {
