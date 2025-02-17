@@ -101,47 +101,26 @@ const vistaCarrito = async (req, res) => {
         where: { token },
         include: [{ model: Menu, attributes: ['nombre'] }]
     });
-    console.log(items, 'ITEMS');
     res.render('invitado/carrito', { items, pagina: 'Mi carrito' })
 }
 
-/* const eliminarItem = async (req, res) => {
-    const { id } = req.params;
+const eliminarItem = async (req, res) => {
+    const { id } = req.body;
 
     try {
-        // Busca el ítem en la base de datos
         const item = await ItemOrden.findByPk(id);
 
-        // Si el ítem no existe, devuelve un error
         if (!item) {
             return res.redirect('/carrito');
         }
-
-        // Elimina el ítem
+        console.log("el id es",id);
         await item.destroy();
+
+        res.redirect('/carrito');
 
     } catch (error) {
         console.error('Error al eliminar el ítem:', error);
         return res.redirect('/carrito');
-    }
-} */
-const eliminarItem = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const item = await ItemOrden.findByPk(id);
-
-        if (!item) {
-            return res.status(404).json({ mensaje: "Ítem no encontrado" });
-        }
-
-        await item.destroy();
-
-        res.json({ mensaje: "Ítem eliminado correctamente" }); // ✅ RESPUESTA
-
-    } catch (error) {
-        console.error('Error al eliminar el ítem:', error);
-        res.status(500).json({ mensaje: "Error al eliminar el ítem" });
     }
 };
 

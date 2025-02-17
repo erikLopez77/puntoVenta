@@ -10,9 +10,11 @@ block contenido
           div(class="border-b border-gray-200 pb-4")
             div(class="flex justify-between items-center")
               h2(class="text-xl font-semibold text-gray-800")= item.menu.nombre
-              button(type="button",onclick=`eliminarItem(${item.id})`, class="text-red-500 hover:text-red-700")
-                svg(xmlns="http://www.w3.org/2000/svg", class="h-6 w-6", fill="none", viewBox="0 0 24 24", stroke="currentColor")
-                  path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16")
+              form(class="formDelete" action="/carrito/eliminar" method="POST")
+                input(type="hidden", name="id", value=item.id)
+                button(type="submit" class="text-red-500 hover:text-red-700 btnSubmit")
+                  svg(xmlns="http://www.w3.org/2000/svg", class="h-6 w-6", fill="none", viewBox="0 0 24 24", stroke="currentColor")
+                    path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16")
 
             p(class="text-gray-600") Cantidad: #{item.cantidad}
             p(class="text-gray-600") Subtotal: $#{item.subtotal}
@@ -28,34 +30,5 @@ block contenido
       p(class="text-center text-gray-600") No has pedido ningún platillo.
 
   block scripts
-    script.
-      function eliminarItem(itemId) {
-        if (confirm('¿Estás seguro de que quieres eliminar este ítem?')) {
-          fetch(`/carrito/eliminar/${itemId}`, {
-            method: 'DELETE',
-          })
-          .then(response => {
-            if (response.ok) {
-              window.location.reload(); // Recarga la página para actualizar el carrito
-            } else {
-              alert('Error al eliminar el ítem');
-            }
-          })
-          .catch(error => console.error('Error:', error));
-        }
-      }
-      function enviarOrden() {
-        if (confirm('¿Estás seguro de que quieres enviar la orden a cocina?')) {
-          fetch('/carrito/enviar', {
-            method: 'POST',
-          })
-          .then(response => {
-            if (response.ok) {
-              window.location.href = '/menu-general'; // Redirige al menú general
-            } else {
-              alert('Error al enviar la orden');
-            }
-          })
-          .catch(error => console.error('Error:', error));
-        }
-      }
+    script(src="/js/eliminaItem.js")
+

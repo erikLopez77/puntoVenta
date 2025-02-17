@@ -31,7 +31,7 @@ router.get('/ordenar-pedido/:id', ordenar);
 router.post('/ordenar-pedido/:id', ordenarItem);
 
 router.get('/carrito', vistaCarrito);
-router.delete('/carrito/eliminar/:id', eliminarItem);
+router.post('/carrito/eliminar', eliminarItem);
 
 
 export default router;
