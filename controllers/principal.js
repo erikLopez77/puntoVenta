@@ -1,6 +1,6 @@
 import { ItemOrden, Menu } from '../models/asociaciones.js';
 const nosotros = (req, res) => {
-    res.render('invitado/nosotros');
+    res.render('invitado/nosotros', { pagina: 'Nostros' });
 }
 
 const menu = async (req, res) => {
@@ -13,10 +13,10 @@ const menu = async (req, res) => {
     res.render('invitado/menu', { bebidas, desayunos, sopas, platoFuerte, postres, pagina: 'Menu general' });
 };
 
-const ordenarMenu = async (req, res) => {
+const ordenarMenu = (req, res) => {
     const { id } = req.body;
     // Validación básica del ID
-    if (!id || isNaN(id)) {
+    if (!id) {
         return res.redirect('/menu-general');
     } // Redirige si el ID no es válido
     //validacion o poner a mi plantilla para que no tenga el cero
@@ -53,11 +53,6 @@ const bebidas = async (req, res) => {
 const ordenar = async (req, res) => {
     const { id } = req.params;
 
-    // Validación básica del ID
-    if (!id || isNaN(id)) {
-        return res.redirect('/menu-general'); // Redirige si el ID no es válido
-    }
-
     try {
         // Busca el platillo por su ID
         const platillo = await Menu.findByPk(id); // findByPk espera directamente el valor, no un objeto
@@ -68,7 +63,7 @@ const ordenar = async (req, res) => {
         }
 
         // Renderiza la plantilla con los datos del platillo
-        res.render('invitado/ordenar', { platillo });
+        res.render('invitado/ordenar', { platillo, pagina: 'Ordenar' });
     } catch (error) {
         console.error('Error al buscar el platillo:', error);
         res.redirect('/menu-general'); // Redirige en caso de error
@@ -88,7 +83,8 @@ const ordenarItem = async (req, res) => {
         }
         //capturamos el token de la sesion
         const token = req.session.userId;
-        const total = cantidad * platillo.precio;
+        // Calculamos el total y lo limitamos a dos decimales
+        const total = parseFloat((cantidad * platillo.precio).toFixed(2));
         await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
 
         // Renderiza la plantilla con los datos del platillo
@@ -101,15 +97,54 @@ const ordenarItem = async (req, res) => {
 
 const vistaCarrito = async (req, res) => {
     const token = req.session.userId;
-    console.log(token, 'Tokeen');
     const items = await ItemOrden.findAll({
         where: { token },
         include: [{ model: Menu, attributes: ['nombre'] }]
     });
-    console.log(JSON.stringify(items, null, 2));
-
-    res.render('invitado/carrito', { items })
+    console.log(items, 'ITEMS');
+    res.render('invitado/carrito', { items, pagina: 'Mi carrito' })
 }
+
+/* const eliminarItem = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Busca el ítem en la base de datos
+        const item = await ItemOrden.findByPk(id);
+
+        // Si el ítem no existe, devuelve un error
+        if (!item) {
+            return res.redirect('/carrito');
+        }
+
+        // Elimina el ítem
+        await item.destroy();
+
+    } catch (error) {
+        console.error('Error al eliminar el ítem:', error);
+        return res.redirect('/carrito');
+    }
+} */
+const eliminarItem = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const item = await ItemOrden.findByPk(id);
+
+        if (!item) {
+            return res.status(404).json({ mensaje: "Ítem no encontrado" });
+        }
+
+        await item.destroy();
+
+        res.json({ mensaje: "Ítem eliminado correctamente" }); // ✅ RESPUESTA
+
+    } catch (error) {
+        console.error('Error al eliminar el ítem:', error);
+        res.status(500).json({ mensaje: "Error al eliminar el ítem" });
+    }
+};
+
 
 export {
     nosotros,
@@ -122,5 +157,6 @@ export {
     bebidas,
     ordenar,
     ordenarItem,
-    vistaCarrito
+    vistaCarrito,
+    eliminarItem
 }

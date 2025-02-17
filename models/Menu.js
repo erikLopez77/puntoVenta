@@ -2,6 +2,12 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
 const Menu = sequelize.define('menu', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+    },
     nombre: {
         type: DataTypes.TEXT,
         allowNull: false
