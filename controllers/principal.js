@@ -124,6 +124,17 @@ const eliminarItem = async (req, res) => {
     }
 };
 
+const mandarOrden= (req,res)=>{
+    //validar que se manda con un propietario
+    const platillos = req.body.platillos; // Array de IDs de platillos
+    console.log('Platillos enviados a cocina:', platillos);
+
+    // Aquí puedes procesar la orden (guardar en la base de datos, etc.)
+    // ...
+
+    res.redirect('/carrito'); // Redirigir al carrito después de enviar la orden
+}
+
 
 export {
     nosotros,
@@ -137,5 +148,6 @@ export {
     ordenar,
     ordenarItem,
     vistaCarrito,
-    eliminarItem
+    eliminarItem,
+    mandarOrden
 }

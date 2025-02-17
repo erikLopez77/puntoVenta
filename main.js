@@ -24,7 +24,7 @@ app.use(session({
 
 //habilitar lectura de datos del formulario
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser());//middleware p/analizar cookies en node (seguro y facil)
 
 app.set('view engine', 'pug');
 app.set('views', './views');
