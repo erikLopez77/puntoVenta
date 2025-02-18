@@ -137,6 +137,7 @@ const mandarOrden = async (req, res) => {
             include: [{ model: Menu, attributes: ['nombre'] }]
         });
         if (!resultado.isEmpty()) {
+            await transaction.rollback(); // Rollback si hay errores de validación
             return res.render('invitado/carrito', { items, pagina: 'Mi carrito', error: resultado.array() })
         }
         const { nombre } = req.body; // Array de IDs de platillos
@@ -148,12 +149,14 @@ const mandarOrden = async (req, res) => {
         });
         console.log(total, '++++');
         // Aquí puedes procesar la orden (guardar en la base de datos, etc.)
-        const orden = await Orden.create({ status: '', propietario: nombre, total }, { transaction })
+        const orden = await Orden.create({ status: false, propietario: nombre, total }, { transaction })
         await Promise.all(
             items.map(item => {
-                item.update({ ordenId: orden.id }, { transaction })
+                return item.update({ ordenId: orden.id }, { transaction })
             })
         );
+        await transaction.commit(); // Finalizar la transacción con commit
+        console.log('Orden creada con éxito:', orden.id);
         res.redirect('/carrito'); // Redirigir al carrito después de enviar la orden
     } catch (error) {
         await transaction.rollback();
