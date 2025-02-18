@@ -24,7 +24,8 @@ const ItemOrden = sequelize.define('itemOrden', {
         type: DataTypes.STRING
     }
 }, {
-    timestamps: false //no registra fecha y hora de creacion y actualizacion
+    timestamps: false, //no registra fecha y hora de creacion y actualizacion
+    freezeTableName: true    // No pluraliza el nombre de la tabla
 });
 
 export default ItemOrden;

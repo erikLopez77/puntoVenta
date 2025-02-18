@@ -1,4 +1,6 @@
-import { ItemOrden, Menu } from '../models/asociaciones.js';
+import { validationResult } from 'express-validator';
+import { ItemOrden, Menu, Orden } from '../models/asociaciones.js';
+import sequelize from '../config/database.js';
 const nosotros = (req, res) => {
     res.render('invitado/nosotros', { pagina: 'Nostros' });
 }
@@ -88,7 +90,7 @@ const ordenarItem = async (req, res) => {
         await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
 
         // Renderiza la plantilla con los datos del platillo
-        res.redirect('/menu-general')
+        res.redirect('/menu-general?success=true')
     } catch (error) {
         console.error('Error al buscar el platillo:', error);
         res.redirect('/menu-general'); // Redirige en caso de error
@@ -113,7 +115,7 @@ const eliminarItem = async (req, res) => {
         if (!item) {
             return res.redirect('/carrito');
         }
-        console.log("el id es",id);
+        console.log("el id es", id);
         await item.destroy();
 
         res.redirect('/carrito');
@@ -124,15 +126,39 @@ const eliminarItem = async (req, res) => {
     }
 };
 
-const mandarOrden= (req,res)=>{
-    //validar que se manda con un propietario
-    const platillos = req.body.platillos; // Array de IDs de platillos
-    console.log('Platillos enviados a cocina:', platillos);
+const mandarOrden = async (req, res) => {
+    const transaction = await sequelize.transaction();// Inicia la transacción
+    try {
+        //validar que se manda con un propietario
+        let resultado = validationResult(req);
+        const token = req.session.userId;
+        const items = await ItemOrden.findAll({
+            where: { token },
+            include: [{ model: Menu, attributes: ['nombre'] }]
+        });
+        if (!resultado.isEmpty()) {
+            return res.render('invitado/carrito', { items, pagina: 'Mi carrito', error: resultado.array() })
+        }
+        const { nombre } = req.body; // Array de IDs de platillos
+        console.log('Platillos enviados a cocina:', items);
+        var total = 0;
 
-    // Aquí puedes procesar la orden (guardar en la base de datos, etc.)
-    // ...
-
-    res.redirect('/carrito'); // Redirigir al carrito después de enviar la orden
+        items.forEach(item => {
+            total += item.total;
+        });
+        console.log(total, '++++');
+        // Aquí puedes procesar la orden (guardar en la base de datos, etc.)
+        const orden = await Orden.create({ status: '', propietario: nombre, total }, { transaction })
+        await Promise.all(
+            items.map(item => {
+                item.update({ ordenId: orden.id }, { transaction })
+            })
+        );
+        res.redirect('/carrito'); // Redirigir al carrito después de enviar la orden
+    } catch (error) {
+        await transaction.rollback();
+        console.error('Error al mandar la orden:', error);
+    }
 }
 
 
