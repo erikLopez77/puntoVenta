@@ -22,6 +22,7 @@ app.use(session({
     next();
   });
 
+  app.use(express.json()); // Para analizar el cuerpo de las solicitudes como JSON
 //habilitar lectura de datos del formulario
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());//middleware p/analizar cookies en node (seguro y facil)

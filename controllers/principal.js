@@ -100,7 +100,7 @@ const ordenarItem = async (req, res) => {
 const vistaCarrito = async (req, res) => {
     const token = req.session.userId;
     const items = await ItemOrden.findAll({
-        where: { token },
+        where: { token, ordenId:null },
         include: [{ model: Menu, attributes: ['nombre'] }]
     });
     res.render('invitado/carrito', { items, pagina: 'Mi carrito' })
@@ -113,17 +113,15 @@ const eliminarItem = async (req, res) => {
         const item = await ItemOrden.findByPk(id);
 
         if (!item) {
-            return res.redirect('/carrito');
+            return res.status(404).json({ success: false, message: 'Ítem no encontrado' });
         }
-        console.log("el id es", id);
         await item.destroy();
 
-        res.redirect('/carrito');
+        res.status(200).json({ success: true, message: 'Ítem eliminado correctamente' });
 
     } catch (error) {
         console.error('Error al eliminar el ítem:', error);
-        return res.redirect('/carrito');
-    }
+        res.status(500).json({ success: false, message: 'Error al eliminar el ítem' });  }
 };
 
 const mandarOrden = async (req, res) => {
