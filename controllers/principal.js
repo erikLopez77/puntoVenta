@@ -136,7 +136,7 @@ const mandarOrden = async (req, res) => {
         });
         if (!resultado.isEmpty()) {
             await transaction.rollback(); // Rollback si hay errores de validación
-            return res.render('invitado/carrito', { items, pagina: 'Mi carrito', error: resultado.array() })
+            return res.status(500).json({ success: false, message: 'Ingresa tu nombre' })
         }
         const { nombre } = req.body; // Array de IDs de platillos
         console.log('Platillos enviados a cocina:', items);
@@ -155,10 +155,10 @@ const mandarOrden = async (req, res) => {
         );
         await transaction.commit(); // Finalizar la transacción con commit
         console.log('Orden creada con éxito:', orden.id);
-        res.redirect('/carrito'); // Redirigir al carrito después de enviar la orden
+        res.status(200).json({ success: true, message: 'Por favor espera mientras se prepara tu orden' }); // Redirigir al carrito después de enviar la orden
     } catch (error) {
         await transaction.rollback();
-        console.error('Error al mandar la orden:', error);
+        res.status(500).json({ success: false, message: 'Algo salió mal, intentálo más tarde' })
     }
 }
 

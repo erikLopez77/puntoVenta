@@ -58,16 +58,18 @@ btnEnviaOrden.addEventListener('submit', (e) => {
     if (result.isConfirmed) {
       const respuesta = await fetch('/carrito/mandar-orden', {
         method: 'POST',
-        body: new FormData(btnEnviaOrden), // Enviar los datos del formulario
+        headers: { 'Content-Type': 'application/json' },
+        //body: new FormData(btnEnviaOrden), // Enviar los datos del formulario
+        body: JSON.stringify({ nombre: btnEnviaOrden.querySelector('input[name="nombre"]').value })
       })
-        .then(response => {
-          if (response.ok) {
-            window.location.href = '/carrito'; // Redirige al carrito
-            alert('Tu orden se realizó con éxito, espera su entrega, por favor');
-          } else {
-            alert('Error al enviar la orden');
-          }
-        })
+      const solicitud = await respuesta.json();
+      if (respuesta.ok && solicitud.success) {
+        await Swal.fire('¡Enviado!', solicitud.message, 'success');
+        window.location.href = '/menu-general'; // Redirige al carrito
+      } else {
+        await Swal.fire('¡Error!', solicitud.message, 'error');
+        window.location.reload(); // recarga
+      }
     }
   })
 });
