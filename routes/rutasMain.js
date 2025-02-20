@@ -2,8 +2,8 @@ import express from "express";
 import { body } from "express-validator";
 import {
     nosotros, menu, desayunos, sopas, platoFuerte,
-    postres, bebidas,
-    ordenarMenu, ordenar, ordenarItem, vistaCarrito, eliminarItem, mandarOrden
+    postres, bebidas, ordenarMenu, ordenar, ordenarItem,
+    vistaCarrito, eliminarItem, mandarOrden
 } from "../controllers/principal.js";
 
 const router = express.Router();

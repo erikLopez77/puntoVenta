@@ -1,0 +1,31 @@
+extends ../layout/head
+
+block contenido
+  div(class="min-h-screen bg-gray-50 flex items-center justify-center p-4")
+    div(class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full")
+      h2(class="text-2xl font-bold text-blue-600 mb-6 text-center") Iniciar Sesión
+        if errores
+            div(class='max-w-md mx-auto my-10')
+                each errors in errores
+                    a.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold= errors.msg
+
+      // Formulario de Login
+      form(action="/usuario/login", method="POST", class="space-y-6" noValidate)
+        div
+          label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre de usuario
+          input(type="nombre", id="nombre", name="nombre", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario")
+
+        div
+          label(for="password", class="block text-sm font-medium text-gray-700") Contraseña
+          input(type="password", id="password", name="password", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu contraseña")
+
+        //div
+            a(href="#", class="text-sm text-blue-600 hover:text-blue-500") ¿Olvidaste tu contraseña?
+
+        div
+          button(type="submit", class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500") Iniciar Sesión
+
+      // Enlace para registrarse
+      //div(class="mt-6 text-center")
+        p(class="text-sm text-gray-600") ¿No tienes una cuenta?
+        a(href="/registro", class="text-sm text-blue-600 hover:text-blue-500") Regístrate aquí

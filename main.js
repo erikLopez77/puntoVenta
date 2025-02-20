@@ -1,7 +1,8 @@
 import express from 'express';
 import session from 'express-session'; // Importa express-session
 import cookieParser from 'cookie-parser';
-import routerPrincipal from './routes/rutasMain.js'
+import routerPrincipal from './routes/rutasMain.js';
+import routerUsuario from './routes/rutaUsuario.js';
 import { generarId } from './helpers/token.js';
 
 const app = express();
@@ -33,6 +34,7 @@ app.set('views', './views');
 app.use(express.static('public'));
 
 app.use('/', routerPrincipal);
+app.use('/usuario',routerUsuario);
 const port = 5000;
 
 app.listen(port, () => {
