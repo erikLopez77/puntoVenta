@@ -81,7 +81,7 @@ const ordenarItem = async (req, res) => {
 
         // Si no se encuentra el platillo, redirige al menú general
         if (!platillo) {
-            return res.redirect('/menu-general');
+            return res.status(404).json({ success: false, message: 'Platillo no encontrado' });
         }
         //capturamos el token de la sesion
         const token = req.session.userId;
@@ -89,18 +89,17 @@ const ordenarItem = async (req, res) => {
         const total = parseFloat((cantidad * platillo.precio).toFixed(2));
         await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
 
-        // Renderiza la plantilla con los datos del platillo
-        res.redirect('/menu-general?success=true')
+        res.status(200).json({ success: true, message: 'Se ha agregado un nuevo item al carrito' })
     } catch (error) {
         console.error('Error al buscar el platillo:', error);
-        res.redirect('/menu-general'); // Redirige en caso de error
+        res.status(500).json({ success: false });
     }
 }
 
 const vistaCarrito = async (req, res) => {
     const token = req.session.userId;
     const items = await ItemOrden.findAll({
-        where: { token, ordenId:null },
+        where: { token, ordenId: null },
         include: [{ model: Menu, attributes: ['nombre'] }]
     });
     res.render('invitado/carrito', { items, pagina: 'Mi carrito' })
@@ -121,7 +120,8 @@ const eliminarItem = async (req, res) => {
 
     } catch (error) {
         console.error('Error al eliminar el ítem:', error);
-        res.status(500).json({ success: false, message: 'Error al eliminar el ítem' });  }
+        res.status(500).json({ success: false, message: 'Error al eliminar el ítem' });
+    }
 };
 
 const mandarOrden = async (req, res) => {

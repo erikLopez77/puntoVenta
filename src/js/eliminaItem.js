@@ -54,9 +54,9 @@ btnEnviaOrden.addEventListener('submit', (e) => {
     confirmButtonText: 'Sí, eliminar',
     cancelButtonText: 'Cancelar'
   }).then(async (result) => {
-  // Mostrar un mensaje de confirmación
-    if(result.isConfirmed){
-      const respuesta= await fetch('/carrito/mandar-orden', {
+    // Mostrar un mensaje de confirmación
+    if (result.isConfirmed) {
+      const respuesta = await fetch('/carrito/mandar-orden', {
         method: 'POST',
         body: new FormData(btnEnviaOrden), // Enviar los datos del formulario
       })
