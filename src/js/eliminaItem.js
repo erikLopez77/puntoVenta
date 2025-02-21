@@ -51,7 +51,7 @@ btnEnviaOrden.addEventListener('submit', (e) => {
     text: 'No podrás revertir esta acción',
     icon: 'question',
     showCancelButton: true,
-    confirmButtonText: 'Sí, eliminar',
+    confirmButtonText: 'Si, enviar',
     cancelButtonText: 'Cancelar'
   }).then(async (result) => {
     // Mostrar un mensaje de confirmación

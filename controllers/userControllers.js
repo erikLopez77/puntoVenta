@@ -1,6 +1,6 @@
 import { check, validationResult } from "express-validator";
 import Usuario from "../models/Usuario.js";
-import { Orden, ItemOrden } from '../models/asociaciones.js'
+import { Orden, ItemOrden,Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
 const login = (req, res) => {
     res.render('usuario/login', { pagina: 'Iniciar sesión' });
@@ -10,7 +10,6 @@ const loginPost = async (req, res) => {
     await check('password').notEmpty().withMessage('La contraseña es obligatoria').run(req);
 
     let errores = validationResult(req);
-    console.log('Errores...', errores.errors)
     if (!errores.isEmpty()) {
         return res.render('usuario/login', { errores: errores.errors, pagina: 'Iniciar sesión' })
     }
@@ -40,10 +39,18 @@ const loginPost = async (req, res) => {
 
 const ordenPendiente = async (req, res) => {
     //cargar vista de las ordenes
-    const ordenes = await Orden.findAll({ where: { status: false } });
-
-    //console.log(ordenes);
-    console.log("PuntoVenta");
+    const ordenes = await Orden.findAll({ where: { status: false },//orden no preparada
+        include:[{
+            model:ItemOrden,
+            include:[{
+                model:Menu,//incluir info de platillo
+                attributes:['nombre']//solo el nombre del platillo
+            }],
+            attributes:['id','cantidad', 'subtotal','total','indicacionExtra']//campo itemOrden
+        }],
+        order:[['createdAt','ASC']]//mas antiguas primero
+    });
+    res.render('usuario/ordenes',{pagina: 'Ordenes', ordenes})
 }
 export {
     login,

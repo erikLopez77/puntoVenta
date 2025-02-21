@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import { ItemOrden, Menu, Orden } from '../models/asociaciones.js';
 import sequelize from '../config/database.js';
+import { generarId } from '../helpers/token.js';
 const nosotros = (req, res) => {
     res.render('invitado/nosotros', { pagina: 'Nostros' });
 }
@@ -154,6 +155,7 @@ const mandarOrden = async (req, res) => {
             })
         );
         await transaction.commit(); // Finalizar la transacción con commit
+        req.session.userId = generarId();
         console.log('Orden creada con éxito:', orden.id);
         res.status(200).json({ success: true, message: 'Por favor espera mientras se prepara tu orden' }); // Redirigir al carrito después de enviar la orden
     } catch (error) {
