@@ -1,11 +1,11 @@
 import express from "express";
-import { login, loginPost,ordenPendiente } from "../controllers/userControllers.js";
+import { login, loginPost, ordenPendiente } from "../controllers/userControllers.js";
 
-const router =express.Router();
+const router = express.Router();
 
-router.get('/login',login);
-router.post('/login',loginPost);
+router.get('/login', login);
+router.post('/login', loginPost);
 
-router.post('/ordenes-pendientes',ordenPendiente);
+router.get('/ordenes-pendientes', ordenPendiente);
 
 export default router;
