@@ -22,6 +22,10 @@ const ItemOrden = sequelize.define('itemOrden', {
         allowNull: true
     }, token: {
         type: DataTypes.STRING
+    }, entregado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 }, {
     timestamps: false, //no registra fecha y hora de creacion y actualizacion

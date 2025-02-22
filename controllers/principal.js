@@ -139,7 +139,8 @@ const mandarOrden = async (req, res) => {
             await transaction.rollback(); // Rollback si hay errores de validación
             return res.status(500).json({ success: false, message: 'Ingresa tu nombre' })
         }
-        const { nombre } = req.body; // Array de IDs de platillos
+        const { nombre, mesa } = req.body; // Array de IDs de platillos
+        console.log(nombre, '    ', mesa)
         console.log('Platillos enviados a cocina:', items);
         var total = 0;
 
@@ -148,7 +149,7 @@ const mandarOrden = async (req, res) => {
         });
         console.log(total, '++++');
         // Aquí puedes procesar la orden (guardar en la base de datos, etc.)
-        const orden = await Orden.create({ status: false, propietario: nombre, total }, { transaction })
+        const orden = await Orden.create({ status: false, propietario: nombre, total, noMesa: mesa }, { transaction })
         await Promise.all(
             items.map(item => {
                 return item.update({ ordenId: orden.id }, { transaction })

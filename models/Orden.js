@@ -12,6 +12,9 @@ const Orden = sequelize.define('orden', {
     }, total: {
         type: DataTypes.FLOAT,
         allowNull: false
+    }, noMesa: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }, {
     timestamps: true, //registra fecha y hora de creacion y actualizacion

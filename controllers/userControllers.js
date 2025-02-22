@@ -1,6 +1,6 @@
 import { check, validationResult } from "express-validator";
 import Usuario from "../models/Usuario.js";
-import { Orden, ItemOrden,Menu } from '../models/asociaciones.js'
+import { Orden, ItemOrden, Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
 const login = (req, res) => {
     res.render('usuario/login', { pagina: 'Iniciar sesión' });
@@ -39,21 +39,48 @@ const loginPost = async (req, res) => {
 
 const ordenPendiente = async (req, res) => {
     //cargar vista de las ordenes
-    const ordenes = await Orden.findAll({ where: { status: false },//orden no preparada
-        include:[{
-            model:ItemOrden,
-            include:[{
-                model:Menu,//incluir info de platillo
-                attributes:['nombre']//solo el nombre del platillo
+    const ordenes = await Orden.findAll({
+        where: { status: false },//orden no preparada
+        include: [{
+            model: ItemOrden,
+            where: { entregado: false }, // Solo ítems no confirmados
+            include: [{
+                model: Menu,//incluir info de platillo
+                attributes: ['nombre']//solo el nombre del platillo
             }],
-            attributes:['id','cantidad', 'subtotal','total','indicacionExtra']//campo itemOrden
+            attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']//campo itemOrden
         }],
-        order:[['createdAt','ASC']]//mas antiguas primero
+        order: [['createdAt', 'ASC']]//mas antiguas primero
     });
-    res.render('usuario/ordenes',{pagina: 'Ordenes', ordenes})
+    res.render('usuario/ordenes', { pagina: 'Ordenes', ordenes })
+}
+
+const confirmarOrden = async (req, res) => {
+    const { id } = req.body;
+    try {
+        // Busca el ítem por su ID
+        const item = await ItemOrden.findByPk(id);
+
+        if (!item) {
+            return res.status(404).json({ error: 'Ítem no encontrado' });
+        }
+        // Marca el ítem como entregado
+        await item.update({ entregado: true });
+
+        // Redirige de vuelta a la página de órdenes
+        res.redirect('/ordenes');
+    } catch (error) {
+        console.error('Error al confirmar el ítem:', error);
+        res.status(500).json({ error: 'Error al confirmar el ítem' });
+    }
+}
+const historial = (req, res) => {
+    res.render('usuario/historial')
 }
 export {
     login,
     loginPost,
-    ordenPendiente
+    ordenPendiente,
+    confirmarOrden,
+    historial
 }

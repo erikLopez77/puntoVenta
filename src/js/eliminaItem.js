@@ -60,7 +60,7 @@ btnEnviaOrden.addEventListener('submit', (e) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         //body: new FormData(btnEnviaOrden), // Enviar los datos del formulario
-        body: JSON.stringify({ nombre: btnEnviaOrden.querySelector('input[name="nombre"]').value })
+        body: JSON.stringify({ nombre: btnEnviaOrden.querySelector('input[name="nombre"]').value, mesa: btnEnviaOrden.querySelector('select[name="mesa"]').value })
       })
       const solicitud = await respuesta.json();
       if (respuesta.ok && solicitud.success) {

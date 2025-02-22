@@ -1,0 +1,49 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Click-comanda | #{pagina}
+    link(rel="stylesheet", href="/css/app.css")
+    script.
+        function toggleSidebar() {
+          document.getElementById('leftSidebar').classList.toggle('hidden');
+        }
+    block styles
+  body.min-h-screen.bg-gray-50
+    // Header superior con el botón de menú (hamburguesa)
+    header(class="flex justify-between items-center p-4 bg-white shadow")
+      // Botón de la izquierda para mostrar/ocultar el sidebar
+      button(type="button", onclick="toggleSidebar()", class="p-2 focus:outline-none")
+        // Ícono de hamburguesa (tres líneas)
+        svg(xmlns="http://www.w3.org/2000/svg", class="h-6 w-6 text-gray-700", fill="none", viewBox="0 0 24 24", stroke="currentColor")
+          path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M4 6h16M4 12h16M4 18h16")
+      h1(class="text-lg font-bold") Click-comanda
+      // Puedes dejar el lado derecho vacío o agregar algún otro ícono si lo deseas
+      div
+    nav(class="bg-blue-600 text-white p-2")
+      ul(class="flex justify-around")
+        li: a(href="/usuario/ordenes-pendientes", class="hover:underline") Ordenes pendientes
+        li: a(href="/usuario/historial", class="hover:underline") Historial de ordenes confirmadas 
+       
+    // Contenedor principal con el sidebar a la izquierda y el contenido principal
+    main(class="flex")
+      // Sidebar (ahora ubicado en el lado izquierdo)
+      aside#leftSidebar(class="w-64 bg-gray-800 text-white p-4 hidden")
+        h2(class="text-xl mb-4") Barra Lateral
+        // Botón con ícono de "carro"
+        a(href="/carrito", class="w-full flex items-center p-2 bg-blue-500 hover:bg-blue-400 rounded mb-4")
+          // Ícono de carro (shopping cart) – utiliza un SVG de ejemplo
+          svg(xmlns="http://www.w3.org/2000/svg", class="h-6 w-6 mr-2", fill="none", viewBox="0 0 24 24", stroke="currentColor")
+            path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13L17 13M7 13H5.4")
+          span Carro
+        // Enlaces adicionales dentro del sidebar
+        ul
+          li: a(href="/nosotros", class="block py-2 hover:bg-gray-700") Acerca de nosotros
+          li: a(href="/usuario/login", class="block py-2 hover:bg-gray-700") Iniciar sesión
+
+      // Bloque para el contenido principal
+      section(class="flex-1 p-4")
+        block contenido
+
+    block scripts
