@@ -7,9 +7,11 @@ block contenido
             .bg-white.p-6.rounded-lg.shadow-lg.mb-6.border.border-blue-100
                 h2.text-2xl.font-semibold.text-blue-800.mb-4 Orden ##{orden.id}
                 div(grid.grid-cols-1.md:grid-cols-2.gap-4.mb-4 mt-2)
+                    p.text-gray-700.font-medium No. de mesa: 
+                        span.font-normal.text-gray-600 #{orden.noMesa}
                     p.text-gray-700.font-medium Mesero: 
                         span.font-normal.text-gray-600 #{orden.propietario}
-                    p.text-gray-700.font-medium Total a pagar: 
+                    p.text-gray-700.font-medium Total pagado: 
                         span.font-normal.text-gray-600 $#{orden.total}
                     p.text-gray-700.font-medium Fecha: 
                         span.font-normal.text-gray-600 #{orden.createdAt.toLocaleString()}

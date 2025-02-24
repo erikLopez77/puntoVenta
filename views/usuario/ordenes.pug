@@ -28,13 +28,12 @@ block contenido
                         form(action="/usuario/ordenes-pendientes", method="POST", class="mt-4")
                             input(type="hidden" name="id" value=item.id)
                             button(type="submit", class="hover:bg-blue-700 text-white bg-blue-500 font-bold rounded-lg py-2 px-4") Confirmar platillo
-        if !ordenes.length
-            p(class="text-center text-gray-600") Por el momento no hay alguna orden pendiente. 
 block scripts
-  script(src="/socket.io/socket.io.js") // Incluye el script de Socket.IO
+  script(src="/socket.io/socket.io.js") // Incluye el script de Socket.IO p/comunicacion en tiempo real por websockets
   script.
     const socket = io(); // Conecta con el servidor Socket.IO
     // Escuchar actualizaciones de órdenes
+    //se emiten por el servidor al recibir una orden
     socket.on('actualizar-ordenes', (orden) => {
         console.log('Orden recibida:', orden);
         

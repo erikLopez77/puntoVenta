@@ -21,4 +21,12 @@ const Orden = sequelize.define('orden', {
     freezeTableName: true    // No pluraliza el nombre de la tabla
 });
 
+Orden.prototype.actualizarStatus = async function () {
+    const items = await this.getItemOrdens();
+    const entregados = items.every((item) => item.entregado);
+    if (entregados) {
+        await this.update({ status: true });
+    }
+}
+
 export default Orden;

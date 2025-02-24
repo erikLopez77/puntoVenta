@@ -8,7 +8,7 @@ import routerUsuario from './routes/rutaUsuario.js';
 import { generarId } from './helpers/token.js';
 
 const app = express();
-const server = http.createServer(app);//server http
+const server = http.createServer(app);//server http usando app ed express
 export const io = new Server(server);//instancia de socket.io
 
 // Configuración de sesiones
@@ -41,11 +41,11 @@ app.use('/', routerPrincipal);
 app.use('/usuario', routerUsuario);
 
 
-// Configuración de Socket.IO
+// servidor escucha nuevas conexiones de clientes (registros con socket.id) 
 io.on('connection', (socket) => {
   console.log('Un cliente se ha conectado:', socket.id);
 
-  // Escuchar eventos personalizados desde el cliente
+  // server escucha eventos personalizados desde cualquier cliente
   socket.on('nueva-orden', (orden) => {
     console.log('Nueva orden recibida:', orden);
 

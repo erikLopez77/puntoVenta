@@ -67,6 +67,8 @@ const confirmarOrden = async (req, res) => {
         // Marca el ítem como entregado
         await item.update({ entregado: true });
 
+        const orden = await Orden.findByPk(item.ordenId);
+        await orden.actualizarStatus();
         // Redirige de vuelta a la página de órdenes
         res.redirect(req.originalUrl);
 
@@ -75,8 +77,21 @@ const confirmarOrden = async (req, res) => {
         res.status(500).json({ error: 'Error al confirmar el ítem' });
     }
 }
-const historial = (req, res) => {
-    res.render('usuario/historial')
+const historial = async (req, res) => {
+    const ordenes = await Orden.findAll({
+        where: { status: true },//orden no preparada
+        include: [{
+            model: ItemOrden,
+            where: { entregado: true }, // Solo ítems confirmados
+            include: [{
+                model: Menu,//incluir info de platillo
+                attributes: ['nombre']//solo el nombre del platillo
+            }],
+            attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']//campo itemOrden
+        }],
+        order: [['createdAt', 'ASC']]//mas antiguas primero
+    });
+    res.render('usuario/historial', { pagina: 'Historial', ordenes })
 }
 export {
     login,

@@ -185,7 +185,7 @@ const mandarOrden = async (req, res) => {
                    hour12: true
                })
            };
-    */
+    */  //emite  nueva orden a todo cliente aconectado
         io.emit('actualizar-ordenes', ordenCompleta.toJSON());
         console.log('Evento emitido:', ordenCompleta.toJSON());
 
