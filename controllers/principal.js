@@ -2,6 +2,7 @@ import { validationResult } from 'express-validator';
 import { ItemOrden, Menu, Orden } from '../models/asociaciones.js';
 import sequelize from '../config/database.js';
 import { generarId } from '../helpers/token.js';
+import { io } from '../main.js';
 const nosotros = (req, res) => {
     res.render('invitado/nosotros', { pagina: 'Nostros' });
 }
@@ -140,8 +141,6 @@ const mandarOrden = async (req, res) => {
             return res.status(500).json({ success: false, message: 'Ingresa tu nombre' })
         }
         const { nombre, mesa } = req.body; // Array de IDs de platillos
-        console.log(nombre, '    ', mesa)
-        console.log('Platillos enviados a cocina:', items);
         var total = 0;
 
         items.forEach(item => {
@@ -155,12 +154,46 @@ const mandarOrden = async (req, res) => {
                 return item.update({ ordenId: orden.id }, { transaction })
             })
         );
-        await transaction.commit(); // Finalizar la transacción con commit
+        await transaction.commit();
+
+        // 4. Ahora sí, obtener la orden completa (fuera de la transacción)
+        const ordenCompleta = await Orden.findByPk(orden.id, {
+            include: [
+                {
+                    model: ItemOrden,
+                    include: [{ model: Menu, attributes: ['nombre'] }],
+                    attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']
+                }
+            ]
+        });
+
+        if (!ordenCompleta) {
+            return res.status(500).json({
+                success: false,
+                message: 'Error al obtener la orden completa'
+            });
+        }
+        /*    const ordenFormateada = {
+               ...ordenCompleta.toJSON(),
+               createdAt: new Date(ordenCompleta.createdAt).toLocaleString('es-MX', {
+                   day: 'numeric',
+                   month: 'numeric',
+                   year: 'numeric',
+                   hour: 'numeric',
+                   minute: 'numeric',
+                   second: 'numeric',
+                   hour12: true
+               })
+           };
+    */
+        io.emit('actualizar-ordenes', ordenCompleta.toJSON());
+        console.log('Evento emitido:', ordenCompleta.toJSON());
+
         req.session.userId = generarId();
-        console.log('Orden creada con éxito:', orden.id);
         res.status(200).json({ success: true, message: 'Por favor espera mientras se prepara tu orden' }); // Redirigir al carrito después de enviar la orden
     } catch (error) {
         await transaction.rollback();
+        console.error('Error al mandar la orden:', error);
         res.status(500).json({ success: false, message: 'Algo salió mal, intentálo más tarde' })
     }
 }

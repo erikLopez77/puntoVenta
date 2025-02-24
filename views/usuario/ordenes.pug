@@ -1,16 +1,16 @@
 extends ../layout/headUser
 
 block contenido
-    .container.mx-auto.px-4.py-8
-        h1.text-3xl.font-bold.text-blue-600.mb-8 Ordenes para cocina
+    .container.mx-auto.px-4.py-8(id="contenedor-ordenes")
+        h1.text-3xl.font-bold.text-blue-600.mb-8.text-center Ordenes pendientes
         each orden in ordenes
             .bg-white.p-6.rounded-lg.shadow-lg.mb-6.border.border-blue-100
                 h2.text-2xl.font-semibold.text-blue-800.mb-4 Orden ##{orden.id}
                 div(grid.grid-cols-1.md:grid-cols-2.gap-4.mb-4 mt-2)
+                    p.text-gray-700.font-medium No. de mesa: 
+                        span.font-normal.text-gray-600 #{orden.noMesa}
                     p.text-gray-700.font-medium Mesero: 
                         span.font-normal.text-gray-600 #{orden.propietario}
-                    p.text-gray-700.font-medium Total a pagar: 
-                        span.font-normal.text-gray-600 $#{orden.total}
                     p.text-gray-700.font-medium Fecha: 
                         span.font-normal.text-gray-600 #{orden.createdAt.toLocaleString()}
 
@@ -21,13 +21,64 @@ block contenido
                             span.font-normal.text-gray-600 #{item.menu.nombre}
                         p.text-gray-700.font-medium Cantidad: 
                             span.font-normal.text-gray-600 #{item.cantidad}
-                        p.text-gray-700.font-medium Subtotal: 
-                            span.font-normal.text-gray-600 $#{item.subtotal}
-                        p.text-gray-700.font-medium Total: 
-                            span.font-normal.text-gray-600 $#{item.total}
                         if item.indicacionExtra
                             p.text-gray-700.font-medium Indicaciones: 
                                 span.font-normal.text-gray-600 #{item.indicacionExtra}
                 
-                        form(action=`/confirmar-item/${item.id}`, method="POST", class="mt-4")
+                        form(action="/usuario/ordenes-pendientes", method="POST", class="mt-4")
+                            input(type="hidden" name="id" value=item.id)
                             button(type="submit", class="hover:bg-blue-700 text-white bg-blue-500 font-bold rounded-lg py-2 px-4") Confirmar platillo
+        if !ordenes.length
+            p(class="text-center text-gray-600") Por el momento no hay alguna orden pendiente. 
+block scripts
+  script(src="/socket.io/socket.io.js") // Incluye el script de Socket.IO
+  script.
+    const socket = io(); // Conecta con el servidor Socket.IO
+    // Escuchar actualizaciones de órdenes
+    socket.on('actualizar-ordenes', (orden) => {
+        console.log('Orden recibida:', orden);
+        
+        // Validación crítica
+        if (!orden || !orden.id || !orden.itemOrdens) {
+            console.error('Orden inválida:', orden);
+            return;
+        }
+
+        const contenedor = document.getElementById('contenedor-ordenes');
+        const ordenHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-lg mb-6 border border-blue-100">
+                <h2 class="text-2xl font-semibold text-blue-800 mb-4 ">Orden #${orden.id}</h2>
+                <div>
+                    <p class="text-gray-700 font-medium">No. de mesa: 
+                        <span class="font-normal text-gray-600">${orden.noMesa}</span>
+                    </p>
+                    <p class="text-gray-700 font-medium">Mesero: 
+                        <span class="font-normal text-gray-600">${orden.propietario}</span>
+                    </p>
+                    <p class="text-gray-700 font-medium">Fecha: 
+                        <span class="font-normal text-gray-600">${orden.createdAt.toLocaleString()}</span>
+                    </p>
+                </div>
+                <h3 class="text-xl font-semibold text-blue-700 mt-6 mb-4">Platillos: </h3>
+                ${orden.itemOrdens.map(item => `
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4 border border-blue-100">
+                        <p class="text-gray-700 font-medium">Platillo: 
+                            <span class="font-normal text-gray-600">${item.menu.nombre}</span>
+                        </p>
+                        <p class="text-gray-700 font-medium">Cantidad: 
+                            <span class="font-normal text-gray-600">${item.cantidad}</span>
+                        </p>
+                        ${item.indicacionExtra && `
+                        <p class="text-gray-700 font-medium">Indicaciones: 
+                            <span class="font-normal text-gray-600">${item.indicacionExtra}</span>
+                        </p> `}
+                        <form action="/usuario/ordenes-pendientes" method="POST" class="mt-4">
+                            <input type="hidden" name="id" value=${item.id}>
+                            <button type="submit" class="hover:bg-blue-700 text-white bg-blue-500 font-bold rounded-lg py-2 px-4"> Confirmar platillo </button>
+                        </form>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        contenedor.innerHTML += ordenHTML;
+    });

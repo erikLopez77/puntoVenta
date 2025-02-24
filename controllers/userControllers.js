@@ -68,7 +68,8 @@ const confirmarOrden = async (req, res) => {
         await item.update({ entregado: true });
 
         // Redirige de vuelta a la página de órdenes
-        res.redirect('/ordenes');
+        res.redirect(req.originalUrl);
+
     } catch (error) {
         console.error('Error al confirmar el ítem:', error);
         res.status(500).json({ error: 'Error al confirmar el ítem' });
