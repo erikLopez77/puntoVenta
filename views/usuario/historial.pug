@@ -13,8 +13,8 @@ block contenido
                         span.font-normal.text-gray-600 #{orden.propietario}
                     p.text-gray-700.font-medium Total pagado: 
                         span.font-normal.text-gray-600 $#{orden.total}
-                    p.text-gray-700.font-medium Fecha: 
-                        span.font-normal.text-gray-600 #{orden.createdAt.toLocaleString()}
+                    p.text-gray-700.font-medium Fecha y hora de entrega: 
+                        span.font-normal.text-gray-600 #{orden.entregado}
 
                 h3.text-xl.font-semibold.text-blue-700.mt-6.mb-4 Platillos:
                 each item in orden.itemOrdens

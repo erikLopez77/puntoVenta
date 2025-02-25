@@ -146,9 +146,16 @@ const mandarOrden = async (req, res) => {
         items.forEach(item => {
             total += item.total;
         });
-        console.log(total, '++++');
+        const fechaActual = new Date().toLocaleString('es-MX', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        });
         // Aquí puedes procesar la orden (guardar en la base de datos, etc.)
-        const orden = await Orden.create({ status: false, propietario: nombre, total, noMesa: mesa }, { transaction })
+        const orden = await Orden.create({ status: false, propietario: nombre, total, noMesa: mesa, creado: fechaActual }, { transaction })
         await Promise.all(
             items.map(item => {
                 return item.update({ ordenId: orden.id }, { transaction })
@@ -173,19 +180,7 @@ const mandarOrden = async (req, res) => {
                 message: 'Error al obtener la orden completa'
             });
         }
-        /*    const ordenFormateada = {
-               ...ordenCompleta.toJSON(),
-               createdAt: new Date(ordenCompleta.createdAt).toLocaleString('es-MX', {
-                   day: 'numeric',
-                   month: 'numeric',
-                   year: 'numeric',
-                   hour: 'numeric',
-                   minute: 'numeric',
-                   second: 'numeric',
-                   hour12: true
-               })
-           };
-    */  //emite  nueva orden a todo cliente aconectado
+        //emite  nueva orden a todo cliente aconectado
         io.emit('actualizar-ordenes', ordenCompleta.toJSON());
         console.log('Evento emitido:', ordenCompleta.toJSON());
 

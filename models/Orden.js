@@ -15,9 +15,16 @@ const Orden = sequelize.define('orden', {
     }, noMesa: {
         type: DataTypes.INTEGER,
         allowNull: false
+    }, creado: {
+        type: DataTypes.STRING, // Campo personalizado para la fecha
+        allowNull: false,
+    },
+    entregado: {
+        type: DataTypes.STRING, // Campo para la fecha de entrega en formato string
+        allowNull: true, // Puede ser nulo si la orden no ha sido entregada
     }
 }, {
-    timestamps: true, //registra fecha y hora de creacion y actualizacion
+    timestamps: false,
     freezeTableName: true    // No pluraliza el nombre de la tabla
 });
 

@@ -2,6 +2,7 @@ import { check, validationResult } from "express-validator";
 import Usuario from "../models/Usuario.js";
 import { Orden, ItemOrden, Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
+import { where } from "sequelize";
 const login = (req, res) => {
     res.render('usuario/login', { pagina: 'Iniciar sesión' });
 }
@@ -50,7 +51,7 @@ const ordenPendiente = async (req, res) => {
             }],
             attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']//campo itemOrden
         }],
-        order: [['createdAt', 'ASC']]//mas antiguas primero
+        order: [['creado', 'ASC']]//mas antiguas primero
     });
     res.render('usuario/ordenes', { pagina: 'Ordenes', ordenes })
 }
@@ -64,10 +65,28 @@ const confirmarOrden = async (req, res) => {
         if (!item) {
             return res.status(404).json({ error: 'Ítem no encontrado' });
         }
+        const fechaActual = new Date().toLocaleString('es-MX', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        });
+
         // Marca el ítem como entregado
         await item.update({ entregado: true });
 
         const orden = await Orden.findByPk(item.ordenId);
+        orden.entregado = new Date().toLocaleString('es-MX', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        });
+        await orden.save();
         await orden.actualizarStatus();
         // Redirige de vuelta a la página de órdenes
         res.redirect(req.originalUrl);
@@ -89,7 +108,7 @@ const historial = async (req, res) => {
             }],
             attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']//campo itemOrden
         }],
-        order: [['createdAt', 'ASC']]//mas antiguas primero
+        order: [['id', 'DESC']]
     });
     res.render('usuario/historial', { pagina: 'Historial', ordenes })
 }

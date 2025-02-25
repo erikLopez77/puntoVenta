@@ -12,7 +12,7 @@ block contenido
                     p.text-gray-700.font-medium Mesero: 
                         span.font-normal.text-gray-600 #{orden.propietario}
                     p.text-gray-700.font-medium Fecha: 
-                        span.font-normal.text-gray-600 #{orden.createdAt.toLocaleString()}
+                        span.font-normal.text-gray-600 #{orden.creado}
 
                 h3.text-xl.font-semibold.text-blue-700.mt-6.mb-4 Platillos:
                 each item in orden.itemOrdens
@@ -55,7 +55,7 @@ block scripts
                         <span class="font-normal text-gray-600">${orden.propietario}</span>
                     </p>
                     <p class="text-gray-700 font-medium">Fecha: 
-                        <span class="font-normal text-gray-600">${orden.createdAt.toLocaleString()}</span>
+                        <span class="font-normal text-gray-600">${orden.creado}</span>
                     </p>
                 </div>
                 <h3 class="text-xl font-semibold text-blue-700 mt-6 mb-4">Platillos: </h3>
