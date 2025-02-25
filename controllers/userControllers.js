@@ -2,7 +2,7 @@ import { check, validationResult } from "express-validator";
 import Usuario from "../models/Usuario.js";
 import { Orden, ItemOrden, Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
-import { where } from "sequelize";
+
 const login = (req, res) => {
     res.render('usuario/login', { pagina: 'Iniciar sesión' });
 }
@@ -112,10 +112,17 @@ const historial = async (req, res) => {
     });
     res.render('usuario/historial', { pagina: 'Historial', ordenes })
 }
+const logout = (req, res) => {
+    // Eliminar la cookie "_token"
+    res.clearCookie('_token');
+    // Redirigir al usuario a la página de inicio de sesión o a la página principal
+    return res.redirect('/usuario/iniciar-sesion');
+}
 export {
     login,
     loginPost,
     ordenPendiente,
     confirmarOrden,
-    historial
+    historial,
+    logout
 }
