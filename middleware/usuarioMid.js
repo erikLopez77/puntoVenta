@@ -8,9 +8,11 @@ export const verificarAutorizacion = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, 'TobitoSecret');
         const usuario = await Usuario.scope('eliminarPassword').findByPk(decoded.id);
-        if (usuario) {
+        if (usuario.id==1) {
             req.usuario = usuario;
-        } else {
+        } else if(usuario.id>1){
+
+        }else {
             return res.redirect('/usuario/iniciar-sesion');
         }
         next();
