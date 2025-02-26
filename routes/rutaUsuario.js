@@ -1,7 +1,7 @@
 import express from "express";
 import {
     login, loginPost, ordenPendiente, confirmarOrden, historial,
-    crudMenu, creaPlatillo, postPlatillo, editaPlatillo, eliminaPlatillo, logout, denegado
+    crudMenu, creaPlatillo, postPlatillo, editaPlatillo,editaPlatilloPost, eliminaPlatillo, logout, denegado
 } from "../controllers/userControllers.js";
 import { verificarAdmin } from "../middleware/midAdmin.js";
 import { verificarCocinero } from "../middleware/kitchenMid.js";
@@ -20,7 +20,8 @@ router.get('/vista-menu', crudMenu);
 router.get('/crear-platillo', creaPlatillo);
 router.post('/crear-platillo', postPlatillo);
 
-router.post('/edita-platillo', editaPlatillo);
+router.get('/edita-platillo/:id', editaPlatillo);
+router.post('/edita-platillo/:id', editaPlatilloPost);
 router.post('/elimina-platillo', eliminaPlatillo);
 
 router.get('/cerrar-sesion', logout);

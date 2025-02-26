@@ -6,7 +6,7 @@ block contenido
             h2.text-2xl.font-bold.text-gray-800.mb-6.text-center Agregar nuevo platillo
 
             // Formulario para crear un nuevo platillo
-            form(action="/usuario/crear-platillo", method="POST", class="space-y-6")
+            form(action="/usuario/crear-platillo", method="POST",id="createPlate" class="space-y-6")
                 // Campo para el nombre
                 div
                     label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre del platillo
@@ -15,7 +15,7 @@ block contenido
                 // Campo para la descripción
                 div
                     label(for="descripcion", class="block text-sm font-medium text-gray-700") Descripción
-                    textarea(name="descripcion", id="descripcion", rows="3", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")=datos.decripcion?datos.decripcion:""
+                    textarea(name="descripcion", id="descripcion", rows="2", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")=datos.decripcion?datos.decripcion:""
 
                 // Campo para el precio
                 div
@@ -25,14 +25,46 @@ block contenido
                 // Selector de categoría
                 div
                     label(for="categoria", class="block text-sm font-medium text-gray-700") Categoría
-                    select(name="categoria", id="categoria", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")
+                    select(name="categoriaId", id="categoria", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")
                         option(value="") Selecciona una categoría
-                        option(value="1", selected=datos.categoria === "1") Bebidas
-                        option(value="2", selected=datos.categoria === "2") Desayunos
-                        option(value="3", selected=datos.categoria === "3") Sopas y pastas
-                        option(value="4", selected=datos.categoria === "4") Plato fuerte
-                        option(value="5", selected=datos.categoria === "5") Postres
+                        option(value="1", selected=datos.categoria === 1) Bebidas
+                        option(value="2", selected=datos.categoria === 2) Desayunos
+                        option(value="3", selected=datos.categoria === 3) Sopas y pastas
+                        option(value="4", selected=datos.categoria === 4) Plato fuerte
+                        option(value="5", selected=datos.categoria === 5) Postres
 
                 // Botón para enviar el formulario
                 div
                     button(type="submit", class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300") Guardar platillo
+block scripts
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script.
+        const addForm = document.querySelector("#createPlate");
+        addForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nombre = addForm.querySelector('input[name="nombre"]').value;
+            const descripcion = addForm.querySelector('textarea[name="descripcion"]').value;
+            const categoriaId = addForm.querySelector('select[name="categoriaId"]').value;
+            const precio = addForm.querySelector('input[name="precio"]').value;
+            try {
+                const solicitud = await fetch('/usuario/crear-platillo/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, descripcion, categoriaId,precio }) // Enviar todos los datos necesarios
+                });
+
+                const mensaje = await solicitud.json();
+
+                if (solicitud.ok && mensaje.success) {
+                    await Swal.fire('¡Platillo creado!', mensaje.message, 'success');
+                    window.location.href = '/usuario/vista-menu'; // Redirigir después de mostrar el mensaje
+                } else {
+                    await Swal.fire('¡Error!', mensaje.message || 'No se pudo agregar el ítem', 'error');
+                    window.location.href = '/usuario/vista-menu'; // Redirigir después de mostrar el mensaje
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                await Swal.fire('¡Error!', 'Hubo un problema al procesar la solicitud', 'error');
+                window.location.href = '/usuario/vista-menu';  // Redirigir después de mostrar el mensaje
+            }
+        })
