@@ -1,0 +1,38 @@
+extends ../layout/headAdmin
+
+block contenido
+    .min-h-screen.flex.items-center.justify-center.bg-gray-100
+        .bg-white.p-8.rounded-lg.shadow-lg.w-full.max-w-md
+            h2.text-2xl.font-bold.text-gray-800.mb-6.text-center Agregar nuevo platillo
+
+            // Formulario para crear un nuevo platillo
+            form(action="/usuario/crear-platillo", method="POST", class="space-y-6")
+                // Campo para el nombre
+                div
+                    label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre del platillo
+                    input(type="text", name="nombre", id="nombre", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" value=datos.nombre?datos.nombre:"")
+
+                // Campo para la descripción
+                div
+                    label(for="descripcion", class="block text-sm font-medium text-gray-700") Descripción
+                    textarea(name="descripcion", id="descripcion", rows="3", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")=datos.decripcion?datos.decripcion:""
+
+                // Campo para el precio
+                div
+                    label(for="precio", class="block text-sm font-medium text-gray-700") Precio
+                    input(type="number", name="precio", id="precio", step="0.01", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" value=datos.precio?datos.precio:"")
+
+                // Selector de categoría
+                div
+                    label(for="categoria", class="block text-sm font-medium text-gray-700") Categoría
+                    select(name="categoria", id="categoria", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")
+                        option(value="") Selecciona una categoría
+                        option(value="1", selected=datos.categoria === "1") Bebidas
+                        option(value="2", selected=datos.categoria === "2") Desayunos
+                        option(value="3", selected=datos.categoria === "3") Sopas y pastas
+                        option(value="4", selected=datos.categoria === "4") Plato fuerte
+                        option(value="5", selected=datos.categoria === "5") Postres
+
+                // Botón para enviar el formulario
+                div
+                    button(type="submit", class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300") Guardar platillo

@@ -119,6 +119,16 @@ const crudMenu = async (req, res) => {
     res.render('admin/vistaMenu', { pagina: 'Vista del menu', bebidas, desayunos, sopas, platoFuerte, postres })
 
 }
+const creaPlatillo = (req, res) => {
+    res.render('admin/crearPlatillo');
+}
+
+const postPlatillo = async (req, res) => {
+    const { nombre, descripcion, precio, categoriaId } = req.body;
+    await Menu.create({ nombre, descripcion, precio, categoriaId });
+
+
+}
 const editaPlatillo = (req, res) => {
 
 }
@@ -153,6 +163,8 @@ export {
     confirmarOrden,
     historial,
     crudMenu,
+    creaPlatillo,
+    postPlatillo,
     editaPlatillo,
     eliminaPlatillo,
     logout,
