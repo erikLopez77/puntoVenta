@@ -5,7 +5,7 @@ formularios.forEach((formulario) => {
     e.preventDefault(); // Evitar el envío automático del formulario
 
     Swal.fire({
-      title: '¿Estás seguro de que deseas eliminar este ítem?',
+      title: '¿Estás de acuerdo con eliminar este ítem?',
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,

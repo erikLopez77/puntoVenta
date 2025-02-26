@@ -33,9 +33,15 @@ const loginPost = async (req, res) => {
     }
 
     const token = generarJWT({ id: usuario.id, nombre: usuario.nombre });
-    return res.cookie('_token', token, {
-        httOnly: true, //no se puede acceder al token por alguna fuente externa
-    }).redirect('/usuario/ordenes-pendientes');
+    if (usuario.id == 1) {
+        return res.cookie('_token', token, {
+            httOnly: true, //no se puede acceder al token por alguna fuente externa
+        }).redirect('/usuario/vista-menu');
+    } else if (usuario.id > 1) {
+        return res.cookie('_token', token, {
+            httOnly: true, //no se puede acceder al token por alguna fuente externa
+        }).redirect('/usuario/ordenes-pendientes');
+    }
 }
 
 const ordenPendiente = async (req, res) => {
@@ -65,15 +71,6 @@ const confirmarOrden = async (req, res) => {
         if (!item) {
             return res.status(404).json({ error: 'Ítem no encontrado' });
         }
-        const fechaActual = new Date().toLocaleString('es-MX', {
-            day: 'numeric',
-            month: 'numeric',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-        });
-
         // Marca el ítem como entregado
         await item.update({ entregado: true });
 
@@ -112,11 +109,42 @@ const historial = async (req, res) => {
     });
     res.render('usuario/historial', { pagina: 'Historial', ordenes })
 }
+const crudMenu = async (req, res) => {
+    const bebidas = await Menu.findAll({ where: { categoriaId: 1 } });
+    const desayunos = await Menu.findAll({ where: { categoriaId: 2 } });
+    const sopas = await Menu.findAll({ where: { categoriaId: 3 } });
+    const platoFuerte = await Menu.findAll({ where: { categoriaId: 4 } });
+    const postres = await Menu.findAll({ where: { categoriaId: 5 } });
+
+    res.render('admin/vistaMenu', { pagina: 'Vista del menu', bebidas, desayunos, sopas, platoFuerte, postres })
+
+}
+const editaPlatillo = (req, res) => {
+
+}
+const eliminaPlatillo = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const platillo = await Menu.findByPk(id);
+        if (!platillo) {
+            return res.status(404).json({ success: false, message: 'No se encuentra el platillo' })
+        }
+        await platillo.destroy();
+        res.status(200).json({ success: true, message: 'Platillo eliminado con éxito' });
+
+    } catch (error) {
+        console.error('Error al eliminar el ítem:', error);
+        res.status(500).json({ success: false, message: 'Error al eliminar el ítem' });
+    }
+}
 const logout = (req, res) => {
     // Eliminar la cookie "_token"
     res.clearCookie('_token');
     // Redirigir al usuario a la página de inicio de sesión o a la página principal
     return res.redirect('/usuario/iniciar-sesion');
+}
+const denegado = (req, res) => {
+    res.render('usuario/acceso-denegado', { pagina: 'Acceso denegado' });
 }
 export {
     login,
@@ -124,5 +152,9 @@ export {
     ordenPendiente,
     confirmarOrden,
     historial,
-    logout
+    crudMenu,
+    editaPlatillo,
+    eliminaPlatillo,
+    logout,
+    denegado
 }

@@ -1,7 +1,7 @@
-extends ../layout/headUser
+extends ../layout/headAdmin
 
 block contenido
-     -// Título de la categoría ocupa todo el ancho
+    -// Título de la categoría ocupa todo el ancho
     div(class="menu-container bg-white p-3 space-y-8")
     -//nombre toma el nombre de la clave, categoria toma el valor de las claves
     each categoria, nombre in { Bebidas: bebidas, Desayunos: desayunos, "Sopas y pastas": sopas, "Plato fuerte": platoFuerte, Postres: postres }
@@ -17,10 +17,19 @@ block contenido
                         h2.text-xl.font-bold.text-blue-700= platillo.nombre
                         p.text-gray-700= platillo.descripcion
                         p.price.text-blue-600.font-semibold Precio: $#{platillo.precio}
-                         -// Formulario para ordenar el platillo
-                        form(action="/menu-general", method="POST")
-                            input(type="hidden", name="id", value=platillo.id)
-                            button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Editar
-                        form(action="/menu-general", method="POST")
-                            input(type="hidden", name="id", value=platillo.id)
-                            button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Eliminar
+
+                        -// Contenedor para los botones (flexbox para alinearlos horizontalmente)
+                        div(class="flex space-x-4 mt-4")
+                            -// Botón "Editar"
+                            div.flex-1
+                                form(action="/usuario/edita-platilllo", method="POST", class="flex-1")
+                                    input(type="hidden", name="id", value=platillo.id)
+                                    button(type="submit", class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Editar
+                            div.flex-1
+                                -// Botón "Eliminar"
+                                form(action="/usuario/elimina-platillo", method="POST", class="formDelete")
+                                    input(type="hidden", name="id", value=platillo.id)
+                                    button(type="submit", class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded") Eliminar
+block scripts 
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script(src="/js/deletePl.js")

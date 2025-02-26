@@ -3,7 +3,8 @@ export default {
     mode: 'development',
     entry: {
         eliminaItem: './src/js/eliminaItem.js',
-        agregaItem: './src/js/agregaItem.js'
+        agregaItem: './src/js/agregaItem.js',
+        deletePl: './src/js/deletePl.js'
     }, output: {
         filename: '[name].js',
         path: path.resolve('public/js')
