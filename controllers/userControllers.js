@@ -120,36 +120,36 @@ const crudMenu = async (req, res) => {
 
 }
 const creaPlatillo = (req, res) => {
-    const datos='';
-    res.render('admin/crearPlatillo',{datos});
+    const datos = '';
+    res.render('admin/crearPlatillo', { datos, pagina: 'Crear platillo' });
 }
 
 const postPlatillo = async (req, res) => {
     const { nombre, descripcion, precio, categoriaId } = req.body;
     const platillo = await Menu.create({ nombre, descripcion, precio, categoriaId });
-    if(!platillo){
-        return res.status(500).json({success:false,message:'Error no se pudo crear al objeto'});
+    if (!platillo) {
+        return res.status(500).json({ success: false, message: 'Error no se pudo crear al objeto' });
     }
-    res.status(200).json({success:true, message:'La creación se realizó con éxito'})
+    res.status(200).json({ success: true, message: 'La creación se realizó con éxito' })
 }
-const editaPlatillo = async(req, res) => {
-    const {id}=req.params;
+const editaPlatillo = async (req, res) => {
+    const { id } = req.params;
     console.log(id);
-    const datos=await Menu.findByPk(id);
-    if(!id){
+    const datos = await Menu.findByPk(id);
+    if (!id) {
         return res.redirect('/usuario/vista-menu');
     }
-    res.render('admin/editaPlatillo',{datos,pagina:'Editar platillo'});
+    res.render('admin/editaPlatillo', { datos, pagina: 'Editar platillo' });
 }
-const editaPlatilloPost =async  (req,res)=>{
-    const {id,nombre, descripcion, precio, categoriaId}=req.body;
+const editaPlatilloPost = async (req, res) => {
+    const { id, nombre, descripcion, precio, categoriaId } = req.body;
     try {
-        const platillo=await Menu.findByPk(id);
-        await platillo.update({nombre, descripcion, precio, categoriaId});
-        res.status(200).json({success: true, message:'Se ha actualizado el platillo'});
+        const platillo = await Menu.findByPk(id);
+        await platillo.update({ nombre, descripcion, precio, categoriaId });
+        res.status(200).json({ success: true, message: 'Se ha actualizado el platillo' });
     } catch (error) {
         console.log('Error al actualizar:', error);
-        res.status(500).json({success: false, message: 'Error al actualizar al platillo'})
+        res.status(500).json({ success: false, message: 'Error al actualizar al platillo' })
     }
 }
 const eliminaPlatillo = async (req, res) => {

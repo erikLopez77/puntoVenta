@@ -10,17 +10,17 @@ block contenido
                 // Campo para el nombre
                 div
                     label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre del platillo
-                    input(type="text", name="nombre", id="nombre", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" value=datos.nombre?datos.nombre:"")
+                    input(type="text", name="nombre", id="nombre", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" value=datos.nombre?datos.nombre:"" placeholder="Escriba el nombre del platillo")
 
                 // Campo para la descripción
                 div
                     label(for="descripcion", class="block text-sm font-medium text-gray-700") Descripción
-                    textarea(name="descripcion", id="descripcion", rows="2", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")=datos.decripcion?datos.decripcion:""
+                    textarea(name="descripcion", id="descripcion", rows="2", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Una breve descripción para conocer la bebida o platillo")=datos.decripcion?datos.decripcion:""
 
                 // Campo para el precio
                 div
                     label(for="precio", class="block text-sm font-medium text-gray-700") Precio
-                    input(type="number", name="precio", id="precio", step="0.01", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" value=datos.precio?datos.precio:"")
+                    input(type="number", name="precio", id="precio", step="0.01", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" value=datos.precio?datos.precio:"" placeholder="00.00")
 
                 // Selector de categoría
                 div

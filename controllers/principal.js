@@ -91,7 +91,7 @@ const ordenarItem = async (req, res) => {
         const total = parseFloat((cantidad * platillo.precio).toFixed(2));
         await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
 
-        res.status(200).json({ success: true, message: 'Se ha agregado un nuevo item al carrito' })
+        res.status(200).json({ success: true, message: 'Se ha agregado un nuevo platillo al carrito' })
     } catch (error) {
         console.error('Error al buscar el platillo:', error);
         res.status(500).json({ success: false });

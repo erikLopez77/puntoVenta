@@ -8,7 +8,6 @@ block contenido
         a(href="/usuario/crear-platillo", class="mb-6 inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ml-6 mt-5 transition duration-300")
             svg(xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor")
                 path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4")
-
             | Crear platillo
     -//nombre toma el nombre de la clave, categoria toma el valor de las claves
     each categoria, nombre in { Bebidas: bebidas, Desayunos: desayunos, "Sopas y pastas": sopas, "Plato fuerte": platoFuerte, Postres: postres }
