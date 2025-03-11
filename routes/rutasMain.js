@@ -3,7 +3,8 @@ import { body } from "express-validator";
 import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
-    vistaCarrito, eliminarItem, mandarOrden
+    vistaCarrito, eliminarItem, mandarOrden, mostrarRegistro,
+    mostrarRegistroRec
 } from "../controllers/principal.js";
 
 const router = express.Router();
@@ -36,6 +37,8 @@ router.post('/carrito/eliminar', eliminarItem);
 router.post('/carrito/mandar-orden',
     body('nombre').notEmpty().withMessage('No se detectó un propietario de la orden'),
     mandarOrden)
-
+//sin cuenta
+router.get('/registrate', mostrarRegistro);
+router.get('/recuperar-contraseña', mostrarRegistroRec);
 
 export default router;

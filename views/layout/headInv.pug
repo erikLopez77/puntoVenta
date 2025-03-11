@@ -21,33 +21,23 @@ html(lang="es")
       h1(class="text-lg font-bold") Click-comanda
       // Puedes dejar el lado derecho vacío o agregar algún otro ícono si lo deseas
       div
-
-    // Barra de navegación debajo del header
-    nav(class="bg-blue-600 text-white p-1 sm:p-2")
-      ul(class="flex justify-around text-xs sm:text-base")
-        li: a(href="/menu-general", class="hover:underline") Menu general
-        li: a(href="/desayunos", class="hover:underline") Desayunos
-        li: a(href="/sopas-pastas", class="hover:underline") Sopas y pastas
-        li: a(href="/plato-fuerte", class="hover:underline") Plato fuerte
-        li: a(href="/postres", class="hover:underline") Postres
-        li: a(href="/bebidas", class="hover:underline") Bebidas
+    -//nav(class="bg-blue-600 text-white p-2")
+      -//ul(class="flex justify-around")
+        -//li: a(href="/usuario/vista-menu", class="hover:underline") Platillos en el menu
+        -//li: a(href="/usuario/historial", class="hover:underline") Historial de ordenes confirmadas
 
     // Contenedor principal con el sidebar a la izquierda y el contenido principal
     main(class="flex")
       // Sidebar (ahora ubicado en el lado izquierdo)
       aside#leftSidebar(class="w-64 bg-gray-800 text-white p-4 hidden")
         h2(class="text-xl mb-4") Click-comanda
-        // Botón con ícono de "carro"
-        a(href="/carrito", class="w-full flex items-center p-2 bg-blue-500 hover:bg-blue-400 rounded mb-4")
-          // Ícono de carro (shopping cart) – utiliza un SVG de ejemplo
-          svg(xmlns="http://www.w3.org/2000/svg", class="h-6 w-6 mr-2", fill="none", viewBox="0 0 24 24", stroke="currentColor")
-            path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13L17 13M7 13H5.4")
-          span Carrito
-        // Enlaces adicionales dentro del sidebar
         ul
-          li: a(href="#",id="frmC", class="block py-2 hover:bg-gray-700") Cerrar sesión
+            li: a(href="/nosotros", class="block py-2 hover:bg-gray-700") Acerca de nosotros
+            li: a(href="/usuario/iniciar-sesion",id="frmC", class="block py-2 hover:bg-gray-700") Iniciar sesión
+
       // Bloque para el contenido principal
       section(class="flex-1 p-4")
         block contenido
 
     block scripts
+                

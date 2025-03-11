@@ -1,0 +1,41 @@
+extends ../layout/headInv
+
+block contenido
+    .min-h-screen.flex.items-center.justify-center.bg-gray-100
+        .bg-white.p-8.rounded-lg.shadow-lg.w-full.max-w-md
+            h2.text-2xl.font-bold.text-gray-800.mb-6.text-center= pagina
+
+            // Formulario para crear un nuevo platillo
+            form(action="/usuario/registrate", method="POST" class="space-y-6")
+                // Campo para el nombre
+                div
+                    label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre(s)
+                    input(type="text", name="nombre", id="nombre", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre")
+
+                div
+                    label(for="apellidos", class="block text-sm font-medium text-gray-700") Apellidos 
+                    input(type="text", name="apellidos", id="apellidos", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre")
+
+                div
+                    label(for="apellidos", class="block text-sm font-medium text-gray-700") Nombre de usuario 
+                    input(type="text", name="apellidos", id="apellidos", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre de usuario para iniciar sesión")
+                
+                div
+                    label(for="password", class="block text-sm font-medium text-gray-700") Contraseña
+                    input(type="password", name="password", id="password", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="La longitud minima de 8 carácteres")
+                
+                div
+                    label(for="passwordRep", class="block text-sm font-medium text-gray-700") Repite tu contraseña
+                    input(type="password", name="passwordRep", id="passwordRep",  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Repite la contraseña")
+
+                // Selector de rol
+                div
+                    label(for="rol", class="block text-sm font-medium text-gray-700") Rol
+                    select(name="rol", id="rol", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500")
+                        option(value="") Selecciona tu rol
+                        option(value="Mesero" ) Mesero
+                        option(value="Cocinero") Cocinero
+
+                // Botón para enviar el formulario
+                div
+                    button(type="submit", class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300") Crear cuenta

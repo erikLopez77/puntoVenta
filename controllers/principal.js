@@ -192,7 +192,13 @@ const mandarOrden = async (req, res) => {
         res.status(500).json({ success: false, message: 'Algo salió mal, intentálo más tarde' })
     }
 }
-
+//sin cuenta
+const mostrarRegistro = (req, res) => {
+    res.render('sin-cuenta/registrate', { pagina: 'Registrate' });
+}
+const mostrarRegistroRec = (req, res) => {
+    res.render('sin-cuenta/registrate', { pagina: 'Recupera tu contraseña' });
+}
 
 export {
     nosotros,
@@ -207,5 +213,7 @@ export {
     ordenarItem,
     vistaCarrito,
     eliminarItem,
-    mandarOrden
+    mandarOrden,
+    mostrarRegistro,
+    mostrarRegistroRec
 }

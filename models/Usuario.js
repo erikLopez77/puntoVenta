@@ -5,6 +5,15 @@ import sequelize from '../config/database.js';
 
 const Usuario = sequelize.define('usuario', {
     nombre: {
+        type: DataTypes.STRING(30),
+        allowNull: false
+    }, apellidos: {
+        type: DataTypes.STRING(35),
+        allowNull: false
+    }, rol: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }, nombreUsuario: {
         type: DataTypes.STRING,
         allowNull: false
     }, password: {

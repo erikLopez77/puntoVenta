@@ -1,4 +1,49 @@
-extends ../layout/head
+extends ../layout/headInv
 
 block contenido
-  p Aquí va información acerca de nosotros...
+  .container.mx-auto.px-4.py-8.text-center
+    // Logo o nombre del software
+    h1.text-5xl.font-bold.text-blue-600.mb-8 Click-comanda
+    p.text-xl.text-gray-700.mb-8 Simula el entorno de un restaurante con fines educativos.
+
+    // Descripción del software
+    .bg-white.p-8.rounded-lg.shadow-lg.mx-auto.max-w-2xl.mb-8
+      h2.text-3xl.font-bold.text-blue-800.mb-6 ¿Qué es "Click-comanda"?
+      p.text-gray-700.mb-4
+        | Este software es una herramienta educativa diseñada para simular el entorno de un restaurante. Su objetivo principal es ayudar a los estudiantes y profesionales a comprender y practicar los procesos clave de un restaurante, como la toma de pedidos, la gestión de órdenes y la interacción entre meseros, cocina y clientes.
+      p.text-gray-700.mb-4
+        | Con esta plataforma, los usuarios pueden experimentar en un entorno controlado y aprender de manera práctica cómo funciona un restaurante, desde la recepción de órdenes hasta la entrega de platillos.
+      p.text-gray-700
+        | ¡Ideal para cursos de gastronomía, administración de restaurantes y capacitación de personal!
+
+    // Características principales
+    .bg-white.p-8.rounded-lg.shadow-lg.mx-auto.max-w-2xl.mb-8
+      h2.text-3xl.font-bold.text-blue-800.mb-6 Características Principales
+      ul.list-disc.list-inside.text-gray-700.text-left
+        li.mb-2 Simulación de toma de pedidos en tiempo real.
+        li.mb-2 Gestión de órdenes.
+        li.mb-2 Interacción entre meseros, cocina y clientes.
+        li.mb-2 Visualización de órdenes pendientes y confirmadas.
+        li.mb-2 Práctica de indicaciones especiales y personalización de platillos.
+        li.mb-2 Entorno educativo y fácil de usar.
+
+    // Cómo usar el software
+    .bg-white.p-8.rounded-lg.shadow-lg.mx-auto.max-w-2xl.mb-8
+      h2.text-3xl.font-bold.text-blue-800.mb-6 ¿Cómo usar "Click-comanda"?
+      p.text-gray-700.mb-4
+        | Para comenzar, inicia sesión . Y dependiendo tu rol, podrás:
+      ul.list-disc.list-inside.text-gray-700.text-left
+        li.mb-2 Tomar pedidos de los clientes.
+        li.mb-2 Enviar órdenes a la cocina.
+        li.mb-2 Confirmar la entrega de platillos.
+        li.mb-2 Gestionar múltiples mesas y órdenes simultáneamente.
+      p.text-gray-700.mt-4
+        | ¡Explora todas las funcionalidades y aprende de manera interactiva!
+
+    // Botón para comenzar
+    a(href="/usuario/iniciar-sesion", class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300") Comenzar
+
+    // Nota legal
+    .mt-8.text-sm.text-gray-500
+      p Este software es exclusivamente para fines educativos. No está destinado a ser utilizado en un entorno de producción real.
+
