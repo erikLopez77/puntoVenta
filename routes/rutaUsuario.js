@@ -14,7 +14,7 @@ router.post('/iniciar-sesion', loginPost);
 router.get('/ordenes-pendientes', verificarCocinero, ordenPendiente);
 router.post('/ordenes-pendientes', verificarCocinero, confirmarOrden);
 
-router.get('/historial', verificarCocinero, historial);
+router.get('/ordenes-confirmadas', verificarCocinero, historial);
 //admin
 router.get('/vista-menu', verificarAdmin, crudMenu);
 router.get('/crear-platillo', verificarAdmin, creaPlatillo);

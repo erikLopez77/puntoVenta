@@ -781,6 +781,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
+.p-1 {
+  padding: 0.25rem;
+}
 .p-2 {
   padding: 0.5rem;
 }
@@ -974,6 +977,17 @@ video {
 }
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
+}
+@media (min-width: 640px) {
+
+  .sm\:p-2 {
+    padding: 0.5rem;
+  }
+
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }
 @media (min-width: 768px) {
 

@@ -19,14 +19,14 @@ block contenido
 
                 -// Selector de cantidad (1 a 30)
                 div(class="space-y-2")
-                    label(for="cantidad" class="block text-gray-700 font-medium") Cantidad:
+                    label(for="cantidad" class="block text-gray-700 font-medium") Cantidad **
                     select(id="cantidad" name="cantidad" class="w-full p-2 border border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500")
                         - for (let i = 1; i <= 30; i++)
                             option(value=i)= i
 
                 -// Input de texto para indicaciones adicionales (opcional)
                 div(class="space-y-2")
-                    label(for="indicaciones" class="block text-gray-700 font-medium") Indicaciones adicionales (opcional):
+                    label(for="indicaciones" class="block text-gray-700 font-medium") Indicaciones adicionales (opcional)
                     textarea(id="indicaciones" name="indicaciones" class="w-full p-2 border border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3")
 
                 -// Botones de acción
@@ -39,3 +39,4 @@ block contenido
 block scripts
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
     script(src="/js/agregaItem.js")
+    

@@ -69,7 +69,7 @@ const confirmarOrden = async (req, res) => {
         const item = await ItemOrden.findByPk(id);
 
         if (!item) {
-            return res.status(404).json({ error: 'Ítem no encontrado' });
+            return res.status(404).json({ error: 'Platillo no encontrado' });
         }
         // Marca el ítem como entregado
         await item.update({ entregado: true });
@@ -89,8 +89,8 @@ const confirmarOrden = async (req, res) => {
         res.redirect(req.originalUrl);
 
     } catch (error) {
-        console.error('Error al confirmar el ítem:', error);
-        res.status(500).json({ error: 'Error al confirmar el ítem' });
+        console.error('Error al confirmar el platillo:', error);
+        res.status(500).json({ error: 'Error al confirmar el platillo' });
     }
 }
 const historial = async (req, res) => {
@@ -101,12 +101,15 @@ const historial = async (req, res) => {
             where: { entregado: true }, // Solo ítems confirmados
             include: [{
                 model: Menu,//incluir info de platillo
-                attributes: ['nombre']//solo el nombre del platillo
+                as: 'menu',
+                attributes: ['nombre'],//solo el nombre del platillo
+                required: true
             }],
             attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']//campo itemOrden
         }],
         order: [['id', 'DESC']]
     });
+    //res.json(ordenes);
     res.render('usuario/historial', { pagina: 'Historial', ordenes })
 }
 const crudMenu = async (req, res) => {
@@ -163,8 +166,8 @@ const eliminaPlatillo = async (req, res) => {
         res.status(200).json({ success: true, message: 'Platillo eliminado con éxito' });
 
     } catch (error) {
-        console.error('Error al eliminar el ítem:', error);
-        res.status(500).json({ success: false, message: 'Error al eliminar el ítem' });
+        console.error('Error al eliminar el platillo:', error);
+        res.status(500).json({ success: false, message: 'Hubo un error en la base de datos' });
     }
 }
 const logout = (req, res) => {

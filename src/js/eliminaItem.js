@@ -5,12 +5,13 @@ formularios.forEach((formulario) => {
     e.preventDefault(); // Evitar el envío automático del formulario
 
     Swal.fire({
-      title: '¿Estás de acuerdo con eliminar este ítem?',
+      title: '¿Desea eliminar el platillo?',
       text: 'No podrás revertir esta acción',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
+      timer: 5000, // Cierra automáticamente después de 5 segundos
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -26,14 +27,14 @@ formularios.forEach((formulario) => {
 
           if (respuesta.ok && data.success) {
             // Mostrar éxito y esperar a que el usuario lo cierre
-            await Swal.fire('¡Eliminado!', data.message, 'success');
+            await Swal.fire({ title: '¡Eliminado!', text: data.message, icon: 'success', timer: 5000 });
             window.location.reload(); // Recargar la página
           } else {
-            throw new Error(data.message || 'Error al eliminar el ítem.');
+            throw new Error(data.message || 'Error al eliminar el platillo.');
           }
         } catch (error) {
           console.error('Error:', error);
-          Swal.fire('Error', 'Hubo un problema al eliminar el ítem.', 'error');
+          Swal.fire('Error', 'Hubo un problema al eliminar el platillo.', 'error');
         }
       }
     });
@@ -47,7 +48,7 @@ const btnEnviaOrden = document.querySelector('#formOrden');
 btnEnviaOrden.addEventListener('submit', (e) => {
   e.preventDefault(); // Evitar que el formulario se envíe automáticamente
   Swal.fire({
-    title: '¿Estás seguro de que deseas mandar la orden a cocina?',
+    title: '¿Desea mandar la comanda a cocina?',
     text: 'No podrás revertir esta acción',
     icon: 'question',
     showCancelButton: true,

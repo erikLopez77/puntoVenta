@@ -114,15 +114,15 @@ const eliminarItem = async (req, res) => {
         const item = await ItemOrden.findByPk(id);
 
         if (!item) {
-            return res.status(404).json({ success: false, message: 'Ítem no encontrado' });
+            return res.status(404).json({ success: false, message: 'PLatillo no encontrado' });
         }
         await item.destroy();
 
-        res.status(200).json({ success: true, message: 'Ítem eliminado correctamente' });
+        res.status(200).json({ success: true, message: 'Platillo eliminado correctamente' });
 
     } catch (error) {
         console.error('Error al eliminar el ítem:', error);
-        res.status(500).json({ success: false, message: 'Error al eliminar el ítem' });
+        res.status(500).json({ success: false, message: 'Error al eliminar el platillo' });
     }
 };
 

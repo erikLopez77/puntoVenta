@@ -38,6 +38,7 @@ block contenido
                     button(type="submit", class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300") Guardar platillo
 block scripts
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script(src="/js/cerrarSesion.js")
     script.
         const addForm = document.querySelector("#createPlate");
         addForm.addEventListener('submit', async (e) => {
@@ -59,12 +60,12 @@ block scripts
                     await Swal.fire('¡Platillo creado!', mensaje.message, 'success');
                     window.location.href = '/usuario/vista-menu'; // Redirigir después de mostrar el mensaje
                 } else {
-                    await Swal.fire('¡Error!', mensaje.message || 'No se pudo agregar el ítem', 'error');
+                    await Swal.fire('¡Error!', mensaje.message || 'No se pudo agregar el platillo.', 'error');
                     window.location.href = '/usuario/vista-menu'; // Redirigir después de mostrar el mensaje
                 }
             } catch (error) {
                 console.error('Error:', error);
-                await Swal.fire('¡Error!', 'Hubo un problema al procesar la solicitud', 'error');
+                await Swal.fire('¡Error!', 'Hubo un problema al procesar la solicitud en el servidor.', 'error');
                 window.location.href = '/usuario/vista-menu';  // Redirigir después de mostrar el mensaje
             }
         })
