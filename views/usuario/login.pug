@@ -8,6 +8,9 @@ block contenido
         div(class='max-w-md mx-auto my-10')
           each errors in errores
             a.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold= errors.msg
+      if  creado
+        div(class='max-w-md mx-auto my-10')
+          a.bg-green-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold Usuario creado con éxito
 
       // Formulario de Login
       form(action="/usuario/iniciar-sesion", method="POST", class="space-y-6" noValidate)

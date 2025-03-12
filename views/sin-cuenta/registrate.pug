@@ -10,7 +10,7 @@ block contenido
                         a.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold= errors.msg
 
             // Formulario para crear un nuevo platillo
-            form(action="/registrate", method="POST" class="space-y-6")
+            form(action="/registrate" id="crear", method="POST" class="space-y-6")
                 // Campo para el nombre
                 div
                     label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre(s)

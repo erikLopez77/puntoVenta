@@ -3,7 +3,6 @@ import { ItemOrden, Menu, Orden, Usuario } from '../models/asociaciones.js';
 import sequelize from '../config/database.js';
 import { generarId } from '../helpers/token.js';
 import { io } from '../main.js';
-import { where } from 'sequelize';
 const nosotros = (req, res) => {
     res.render('invitado/nosotros', { pagina: 'Nostros' });
 }
@@ -199,9 +198,9 @@ const mostrarRegistro = (req, res) => {
 }
 const creaCuenta = async (req, res) => {
     await check('nombre').notEmpty().withMessage('El nombre es obligatorio').
-        isAlpha().withMessage('El nombre no puede contener números').run(req);
+        matches(/^[A-Za-z\s]+$/).withMessage('El nombre solo debe contener letras').run(req);
     await check('apellidos').notEmpty().withMessage('El apellido es obligatorio').
-        isAlpha().withMessage('Los apellidos no pueden contener números').run(req);
+        matches(/^[A-Za-z\s]+$/).withMessage('Los apellidos solo deben contener letras').run(req);
     await check('nombreUsuario').notEmpty().withMessage('El nombre de usuario es obligatorio').run(req);
     await check('password').notEmpty().withMessage('La contraseña es obligatoria').run(req);
     await check('passwordRep').equals(req.body.password).withMessage('La contraseñas no coinciden')
@@ -217,18 +216,20 @@ const creaCuenta = async (req, res) => {
             datos: req.body
         });
     }
-
-    const usuario = await Usuario.findOne({ where: req.nombreUsuario })
+    const { nombreUsuario } = req.body
+    const usuario = await Usuario.findOne({ where: { nombreUsuario } });
     if (usuario) {
         return res.render('sin-cuenta/registrate', {
             pagina: 'Registrate',
-            errores: { Errors: { msg: 'El nombre de usuario no existe' } },
+            errores: { Errors: { msg: 'El nombre de usuario ya existe' } },
             datos: req.body
         });
     }
-    const { nombre, apellidos, nombreUsuario, password, rol } = req.body;
-    const creado = await Usuario.create({ nombre, apellidos, nombreUsuario, password, rol })
-
+    const token = generarId();
+    const { nombre, apellidos, password, rol } = req.body;
+    await Usuario.create({ nombre, apellidos, nombreUsuario, password, rol, token })
+    //res.status(200).json({ success: true, message: 'El usuario se ha creado con éxito' })
+    res.render('usuario/login', { paina: 'Iniciar sesión', creado: true })
 }
 const mostrarRegistroRec = (req, res) => {
     res.render('sin-cuenta/registrate', { pagina: 'Recupera tu contraseña' });
