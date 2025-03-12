@@ -2,7 +2,6 @@ import { DataTypes } from 'sequelize';
 import bcrypt from 'bcrypt';
 import sequelize from '../config/database.js';
 
-
 const Usuario = sequelize.define('usuario', {
     nombre: {
         type: DataTypes.STRING(30),
@@ -16,7 +15,11 @@ const Usuario = sequelize.define('usuario', {
     }, nombreUsuario: {
         type: DataTypes.STRING,
         allowNull: false
-    }, password: {
+    }, token: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    password: {
         type: DataTypes.STRING,
         alllowNull: false
     },

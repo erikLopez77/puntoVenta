@@ -1,8 +1,9 @@
-import { validationResult } from 'express-validator';
-import { ItemOrden, Menu, Orden } from '../models/asociaciones.js';
+import { validationResult, check } from 'express-validator';
+import { ItemOrden, Menu, Orden, Usuario } from '../models/asociaciones.js';
 import sequelize from '../config/database.js';
 import { generarId } from '../helpers/token.js';
 import { io } from '../main.js';
+import { where } from 'sequelize';
 const nosotros = (req, res) => {
     res.render('invitado/nosotros', { pagina: 'Nostros' });
 }
@@ -192,9 +193,42 @@ const mandarOrden = async (req, res) => {
         res.status(500).json({ success: false, message: 'Algo salió mal, intentálo más tarde' })
     }
 }
-//sin cuenta
+//SIN CUENTA
 const mostrarRegistro = (req, res) => {
-    res.render('sin-cuenta/registrate', { pagina: 'Registrate' });
+    res.render('sin-cuenta/registrate', { pagina: 'Registrate', datos: {} });
+}
+const creaCuenta = async (req, res) => {
+    await check('nombre').notEmpty().withMessage('El nombre es obligatorio').
+        isAlpha().withMessage('El nombre no puede contener números').run(req);
+    await check('apellidos').notEmpty().withMessage('El apellido es obligatorio').
+        isAlpha().withMessage('Los apellidos no pueden contener números').run(req);
+    await check('nombreUsuario').notEmpty().withMessage('El nombre de usuario es obligatorio').run(req);
+    await check('password').notEmpty().withMessage('La contraseña es obligatoria').run(req);
+    await check('passwordRep').equals(req.body.password).withMessage('La contraseñas no coinciden')
+        .isLength({ min: 8 }).withMessage('La contraseña no cumple con los caracteres minimos').run(req);
+    await check('rol').notEmpty().withMessage('Debes de seleccionar un rol').run(req);
+
+    const resultado = validationResult(req);
+    //se muestran errores de validacion
+    if (!resultado.isEmpty()) {
+        return res.render('sin-cuenta/registrate', {
+            pagina: 'Registrate',
+            errores: resultado.array(),
+            datos: req.body
+        });
+    }
+
+    const usuario = await Usuario.findOne({ where: req.nombreUsuario })
+    if (usuario) {
+        return res.render('sin-cuenta/registrate', {
+            pagina: 'Registrate',
+            errores: { Errors: { msg: 'El nombre de usuario no existe' } },
+            datos: req.body
+        });
+    }
+    const { nombre, apellidos, nombreUsuario, password, rol } = req.body;
+    const creado = await Usuario.create({ nombre, apellidos, nombreUsuario, password, rol })
+
 }
 const mostrarRegistroRec = (req, res) => {
     res.render('sin-cuenta/registrate', { pagina: 'Recupera tu contraseña' });
@@ -215,5 +249,6 @@ export {
     eliminarItem,
     mandarOrden,
     mostrarRegistro,
+    creaCuenta,
     mostrarRegistroRec
 }

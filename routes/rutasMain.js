@@ -4,7 +4,7 @@ import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
     vistaCarrito, eliminarItem, mandarOrden, mostrarRegistro,
-    mostrarRegistroRec
+    creaCuenta, mostrarRegistroRec
 } from "../controllers/principal.js";
 
 const router = express.Router();
@@ -37,8 +37,10 @@ router.post('/carrito/eliminar', eliminarItem);
 router.post('/carrito/mandar-orden',
     body('nombre').notEmpty().withMessage('No se detectó un propietario de la orden'),
     mandarOrden)
-//sin cuenta
+//SIN CUENTA
 router.get('/registrate', mostrarRegistro);
+router.post('/registrate', creaCuenta);
+
 router.get('/recuperar-contraseña', mostrarRegistroRec);
 
 export default router;

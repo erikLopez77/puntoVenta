@@ -2,7 +2,7 @@ import Categoria from './Categoria.js';
 import ItemOrden from './ItemOrden.js';
 import Menu from './Menu.js';
 import Orden from './Orden.js';
-
+import Usuario from './Usuario.js';
 // Asociación entre Categoría y Menu
 Menu.belongsTo(Categoria, { foreignKey: 'categoriaId' });
 Categoria.hasMany(Menu, { foreignKey: 'categoriaId' });
@@ -19,7 +19,8 @@ export {
     Categoria,
     ItemOrden,
     Menu,
-    Orden
+    Orden,
+    Usuario
 }
 
 
