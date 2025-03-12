@@ -86,7 +86,7 @@ const ordenarItem = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Platillo no encontrado' });
         }
         //capturamos el token de la sesion
-        const token = req.session.userId;
+        const token = req.usuario.token;
         // Calculamos el total y lo limitamos a dos decimales
         const total = parseFloat((cantidad * platillo.precio).toFixed(2));
         await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
@@ -99,7 +99,10 @@ const ordenarItem = async (req, res) => {
 }
 
 const vistaCarrito = async (req, res) => {
-    const token = req.session.userId;
+    const token = req.usuario.token;
+    let nombre = req.usuario.nombre;
+    nombre += ' ' + req.usuario.apellidos;
+
     const items = await ItemOrden.findAll({
         where: { token, ordenId: null },
         include: [{ model: Menu, attributes: ['nombre'] }]
@@ -129,18 +132,14 @@ const eliminarItem = async (req, res) => {
 const mandarOrden = async (req, res) => {
     const transaction = await sequelize.transaction();// Inicia la transacción
     try {
-        //validar que se manda con un propietario
-        let resultado = validationResult(req);
-        const token = req.session.userId;
+        const token = req.usuario.token;
         const items = await ItemOrden.findAll({
             where: { token },
             include: [{ model: Menu, attributes: ['nombre'] }]
         });
-        if (!resultado.isEmpty()) {
-            await transaction.rollback(); // Rollback si hay errores de validación
-            return res.status(500).json({ success: false, message: 'Ingresa tu nombre' })
-        }
-        const { nombre, mesa } = req.body; // Array de IDs de platillos
+        const { mesa } = req.body; // Array de IDs de platillos
+        var nombre = req.usuario.nombre;
+        nombre += ' ' + req.usuario.apellidos;
         var total = 0;
 
         items.forEach(item => {
@@ -183,8 +182,9 @@ const mandarOrden = async (req, res) => {
         //emite  nueva orden a todo cliente aconectado
         io.emit('actualizar-ordenes', ordenCompleta.toJSON());
         console.log('Evento emitido:', ordenCompleta.toJSON());
-
-        req.session.userId = generarId();
+        const usuario = req.usuario;
+        usuario.token = generarId();
+        usuario.save();
         res.status(200).json({ success: true, message: 'Por favor espera mientras se prepara tu orden' }); // Redirigir al carrito después de enviar la orden
     } catch (error) {
         await transaction.rollback();

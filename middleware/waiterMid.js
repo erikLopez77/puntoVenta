@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import Usuario from '../models/Usuario.js';
-export const verificarCocinero = async (req, res, next) => {
+export const verificarMesero = async (req, res, next) => {
     const token = req.cookies._token;
     if (!token) {
         return res.redirect('/usuario/iniciar-sesion');
@@ -8,7 +8,8 @@ export const verificarCocinero = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, 'TobitoSecret');
         const usuario = await Usuario.scope('eliminarPassword').findByPk(decoded.id);
-        if (usuario.rol == "Cocinero") {
+        if (usuario.rol == "Mesero") {
+            req.usuario = usuario;
             next();
         } else {
             return res.redirect('/usuario/acceso-denegado');

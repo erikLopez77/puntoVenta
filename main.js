@@ -2,8 +2,8 @@ import express from 'express';
 import http from 'http'; //modulo http
 import { Server } from 'socket.io'; //server de socket.io p/ tiempo real
 import cookieParser from 'cookie-parser';
-import routerPrincipal from './routes/rutasMain.js';
-import routerUsuario from './routes/rutaUsuario.js';
+import routerPrincipal from './routes/rutaWaiterInv.js';
+import routerUsuario from './routes/rutaAdminKichen.js';
 
 const app = express();
 const server = http.createServer(app);//server http usando app ed express

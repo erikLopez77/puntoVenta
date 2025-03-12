@@ -2,7 +2,7 @@ import express from "express";
 import {
     login, loginPost, ordenPendiente, confirmarOrden, historial,
     crudMenu, creaPlatillo, postPlatillo, editaPlatillo, editaPlatilloPost, eliminaPlatillo, logout, denegado
-} from "../controllers/userControllers.js";
+} from "../controllers/ContAdminKitchen.js";
 import { verificarAdmin } from "../middleware/midAdmin.js";
 import { verificarCocinero } from "../middleware/kitchenMid.js";
 

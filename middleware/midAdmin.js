@@ -9,7 +9,6 @@ export const verificarAdmin = async (req, res, next) => {
         const decoded = jwt.verify(token, 'TobitoSecret');
         const usuario = await Usuario.scope('eliminarPassword').findByPk(decoded.id);
         if (usuario.id == 1) {
-            req.usuario = usuario;
             next();
         } else {
             return res.redirect('/usuario/acceso-denegado');
