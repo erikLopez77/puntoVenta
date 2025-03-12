@@ -1,31 +1,14 @@
 import express from 'express';
-import session from 'express-session'; // Importa express-session
 import http from 'http'; //modulo http
 import { Server } from 'socket.io'; //server de socket.io p/ tiempo real
 import cookieParser from 'cookie-parser';
 import routerPrincipal from './routes/rutasMain.js';
 import routerUsuario from './routes/rutaUsuario.js';
-import { generarId } from './helpers/token.js';
 
 const app = express();
 const server = http.createServer(app);//server http usando app ed express
 export const io = new Server(server);//instancia de socket.io
 
-// Configuración de sesiones
-app.use(session({
-  secret: 'mi_secreto', // Clave secreta para firmar la sesión
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // Cambia a true si usas HTTPS
-}));
-
-// Middleware para asignar un ID único al usuario
-app.use((req, res, next) => {
-  if (!req.session.userId) {
-    req.session.userId = generarId(); // Asigna un UUID único al usuario
-  }
-  next();
-});
 
 app.use(express.json()); // Para analizar el cuerpo de las solicitudes como JSON
 //habilitar lectura de datos del formulario

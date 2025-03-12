@@ -11,19 +11,22 @@ block contenido
       if  creado
         div(class='max-w-md mx-auto my-10')
           a.bg-green-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold Usuario creado con éxito
+      if  recuperado
+        div(class='max-w-md mx-auto my-10')
+          a.bg-green-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold La contraseña se ha cambiado
 
       // Formulario de Login
       form(action="/usuario/iniciar-sesion", method="POST", class="space-y-6" noValidate)
         div
-          label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre de usuario
-          input(type="nombre", id="nombre", name="nombre", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario" value=nombre?nombre:"" )
+          label(for="nombreUsuario", class="block text-sm font-medium text-gray-700") Nombre de usuario
+          input(type="text", id="nombreUsuario", name="nombreUsuario", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario" value=nombre?nombre:"" )
 
         div
           label(for="password", class="block text-sm font-medium text-gray-700") Contraseña
           input(type="password", id="password", name="password" , class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu contraseña")
 
         div
-          a(href="#", class="text-sm text-blue-600 hover:text-blue-500") ¿Olvidaste tu contraseña?
+          a(href="/recuperar-contrasena", class="text-sm text-blue-600 hover:text-blue-500") ¿Olvidaste tu contraseña?
 
         div
           button(type="submit", class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500") Iniciar Sesión

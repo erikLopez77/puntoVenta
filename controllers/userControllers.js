@@ -7,15 +7,15 @@ const login = (req, res) => {
     res.render('usuario/login', { pagina: 'Iniciar sesión' });
 }
 const loginPost = async (req, res) => {
-    await check('nombre').notEmpty().withMessage('El nombre de usuario es obligatorio').run(req);
+    await check('nombreUsuario').notEmpty().withMessage('El nombre de usuario es obligatorio').run(req);
     await check('password').notEmpty().withMessage('La contraseña es obligatoria').run(req);
 
     let errores = validationResult(req);
     if (!errores.isEmpty()) {
         return res.render('usuario/login', { errores: errores.errors, pagina: 'Iniciar sesión' })
     }
-    const { nombre, password } = req.body;
-    const usuario = await Usuario.findOne({ where: { nombre } });
+    const { nombreUsuario, password } = req.body;
+    const usuario = await Usuario.findOne({ where: { nombreUsuario } });
 
     if (!usuario) {
         return res.render('usuario/login', {
@@ -32,15 +32,19 @@ const loginPost = async (req, res) => {
         });
     }
 
-    const token = generarJWT({ id: usuario.id, nombre: usuario.nombre });
+    const token = generarJWT({ id: usuario.id, nombre: usuario.nombre, rol: usuario.rol });
     if (usuario.id == 1) {
         return res.cookie('_token', token, {
             httOnly: true, //no se puede acceder al token por alguna fuente externa
         }).redirect('/usuario/vista-menu');
-    } else if (usuario.id > 1) {
+    } else if (usuario.rol == "Cocinero") {
         return res.cookie('_token', token, {
             httOnly: true, //no se puede acceder al token por alguna fuente externa
         }).redirect('/usuario/ordenes-pendientes');
+    } else if (usuario.rol == "Mesero") {
+        return res.cookie('_token', token, {
+            httOnly: true, //no se puede acceder al token por alguna fuente externa
+        }).redirect('/menu-general');
     }
 }
 

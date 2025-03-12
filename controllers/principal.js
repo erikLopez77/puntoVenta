@@ -228,11 +228,44 @@ const creaCuenta = async (req, res) => {
     const token = generarId();
     const { nombre, apellidos, password, rol } = req.body;
     await Usuario.create({ nombre, apellidos, nombreUsuario, password, rol, token })
-    //res.status(200).json({ success: true, message: 'El usuario se ha creado con éxito' })
+
     res.render('usuario/login', { paina: 'Iniciar sesión', creado: true })
 }
 const mostrarRegistroRec = (req, res) => {
-    res.render('sin-cuenta/registrate', { pagina: 'Recupera tu contraseña' });
+    res.render('sin-cuenta/recupera-contrasena', { pagina: 'Recupera tu contraseña', nombreUsuario: '' });
+}
+const recuperaPaswword = async (req, res) => {
+    await check('nombreUsuario').notEmpty().withMessage('El nombre de usuario es obligatorio').run(req);
+    await check('password').notEmpty().withMessage('La contraseña es obligatoria').run(req);
+    await check('passwordRep').equals(req.body.password).withMessage('La contraseñas no coinciden')
+        .isLength({ min: 8 }).withMessage('La contraseña no cumple con los caracteres minimos').run(req);
+
+    const resultado = validationResult(req);
+
+    //se muestran errores de validacion
+    if (!resultado.isEmpty()) {
+        return res.render('sin-cuenta/recupera-contrasena', {
+            pagina: 'Recupera tu contraseña',
+            errores: resultado.array(),
+            nombreUsuario
+        });
+    }
+    //recuperamos la inf ingresada
+    const { nombreUsuario, password } = req.body
+
+    const usuario = await Usuario.findOne({ where: { nombreUsuario } });
+    if (!usuario) {
+        return res.render('sin-cuenta/recupera-contrasena', {
+            pagina: 'Recupera tu contraseña',
+            errores: { Errors: { msg: 'El nombre de usuario no existe' } },
+            nombreUsuario
+        });
+    }
+
+    usuario.password = password;
+    usuario.save();
+
+    res.render('usuario/login', { paina: 'Iniciar sesión', recuperado: true })
 }
 
 export {
@@ -251,5 +284,6 @@ export {
     mandarOrden,
     mostrarRegistro,
     creaCuenta,
-    mostrarRegistroRec
+    mostrarRegistroRec,
+    recuperaPaswword
 }

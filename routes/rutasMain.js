@@ -4,7 +4,7 @@ import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
     vistaCarrito, eliminarItem, mandarOrden, mostrarRegistro,
-    creaCuenta, mostrarRegistroRec
+    creaCuenta, mostrarRegistroRec, recuperaPaswword
 } from "../controllers/principal.js";
 
 const router = express.Router();
@@ -41,6 +41,7 @@ router.post('/carrito/mandar-orden',
 router.get('/registrate', mostrarRegistro);
 router.post('/registrate', creaCuenta);
 
-router.get('/recuperar-contraseña', mostrarRegistroRec);
+router.get('/recuperar-contrasena', mostrarRegistroRec);
+router.post('/recuperar-contrasena', recuperaPaswword);
 
 export default router;

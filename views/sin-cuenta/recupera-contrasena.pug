@@ -1,0 +1,32 @@
+extends ../layout/headInv
+
+block contenido
+    .min-h-screen.flex.items-center.justify-center.bg-gray-100
+        .bg-white.p-8.rounded-lg.shadow-lg.w-full.max-w-md
+            h2.text-2xl.font-bold.text-gray-800.mb-6.text-center= pagina
+            if errores
+                div(class='max-w-md mx-auto my-10')
+                    each errors in errores
+                        a.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.block.font-bold= errors.msg
+
+            // Formulario para recuperar contraseña
+            form(action="/recuperar-contrasena", method="POST",id="createPlate" class="space-y-6")
+                div
+                    label(for="nombreUsuario", class="block text-sm font-medium text-gray-700") Nombre de usuario 
+                    input(type="text", name="nombreUsuario", id="nombreUsuario", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre de usuario" value=nombreUsuario?nombreUsuario:"")
+                
+                div
+                    label(for="password", class="block text-sm font-medium text-gray-700") Contraseña
+                    input(type="password", name="password", id="password", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="La longitud minima de 8 carácteres")
+                
+                div
+                    label(for="passwordRep", class="block text-sm font-medium text-gray-700") Repite tu contraseña
+                    input(type="password", name="passwordRep", id="passwordRep",  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Repite la contraseña")
+
+                // Botón para enviar el formulario
+                div
+                    button(type="submit", class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300") Cambiar contraseña
+                -// Botones de acción
+            div(class="flex justify-between mt-8")
+                -// Botón para regresar
+                a(href="/usuario/iniciar-sesion" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300") Regresar
