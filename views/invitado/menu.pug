@@ -1,27 +1,24 @@
 extends ../layout/head
 
 block contenido
-    -// Título de la categoría ocupa todo el ancho
-    div(class="menu-container bg-white p-3 space-y-8")
-    -//nombre toma el nombre de la clave, categoria toma el valor de las claves
-    each categoria, nombre in { Bebidas: bebidas, Desayunos: desayunos, "Sopas y pastas": sopas, "Plato fuerte": platoFuerte, Postres: postres }
-        -// Contenedor de cada categoría con espacio entre secciones
-        div(class="ml-6 space-y-5 mb-12")
-            -// Título de la categoría con margen inferior
-            h2.text-2xl.font-extrabold.text-gray-800.border-b-2.border-blue-500.pb-1.mb-8= nombre
-            
-            -// Contenedor de platillos con espaciado entre elementos
-            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-6")
-                each platillo in categoria
-                    .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
-                        h2.text-xl.font-bold.text-blue-700= platillo.nombre
-                        p.text-gray-700= platillo.descripcion
-                        p.price.text-blue-600.font-semibold Precio: $#{platillo.precio}
-                         -// Formulario para ordenar el platillo
-                        form(action="/menu-general", method="POST")
-                            input(type="hidden", name="id", value=platillo.id)
-                            button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Ordenar
-
-block scripts 
-    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
-    script(src="/js/cerrarSesion.js")
+    // Contenedor del menú
+    div(class="menu-container bg-white p-6 space-y-8")
+        include ../barra-buscar
+        // Contenido del menú
+        each categoria, nombre in { Bebidas: bebidas, Desayunos: desayunos, "Sopas y pastas": sopas, "Plato fuerte": platoFuerte, Postres: postres }
+            // Contenedor de cada categoría con espacio entre secciones
+            div(class="ml-6 space-y-5 mb-12")
+                // Título de la categoría con margen inferior
+                h2.text-2xl.font-extrabold.text-gray-800.border-b-2.border-blue-500.pb-1.mb-8= nombre
+                
+                // Contenedor de platillos con espaciado entre elementos
+                div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-6")
+                    each platillo in categoria
+                        .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
+                            h2.text-xl.font-bold.text-blue-700= platillo.nombre
+                            p.text-gray-700= platillo.descripcion
+                            p.price.text-blue-600.font-semibold Precio: $#{platillo.precio}
+                            // Formulario para ordenar el platillo
+                            form(action="/menu-general", method="POST")
+                                input(type="hidden", name="id", value=platillo.id)
+                                button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Ordenar

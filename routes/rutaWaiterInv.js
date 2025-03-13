@@ -1,11 +1,10 @@
 import express from "express";
-import { body } from "express-validator";
 import { verificarMesero } from "../middleware/waiterMid.js";
 import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
     vistaCarrito, eliminarItem, mandarOrden, mostrarRegistro,
-    creaCuenta, mostrarRegistroRec, recuperaPaswword
+    creaCuenta, mostrarRegistroRec, recuperaPaswword, buscar
 } from "../controllers/ContWaiterInv.js";
 
 const router = express.Router();
@@ -33,7 +32,9 @@ router.post('/ordenar-pedido/:id', verificarMesero, ordenarItem);
 
 router.get('/carrito', verificarMesero, vistaCarrito);//hacer una plantilla p/eliminar orden o con el post
 router.post('/carrito/eliminar', eliminarItem);
-router.post('/carrito/mandar-orden', verificarMesero, mandarOrden)
+router.post('/carrito/mandar-orden', verificarMesero, mandarOrden);
+
+router.get('/buscar', buscar);
 //SIN CUENTA
 router.get('/registrate', mostrarRegistro);
 router.post('/registrate', creaCuenta);

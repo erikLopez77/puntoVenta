@@ -1,6 +1,7 @@
 import { validationResult, check } from 'express-validator';
 import { ItemOrden, Menu, Orden, Usuario } from '../models/asociaciones.js';
 import sequelize from '../config/database.js';
+import Sequelize from 'sequelize';
 import { generarId } from '../helpers/token.js';
 import { io } from '../main.js';
 const nosotros = (req, res) => {
@@ -268,6 +269,19 @@ const recuperaPaswword = async (req, res) => {
     res.render('usuario/login', { paina: 'Iniciar sesión', recuperado: true })
 }
 
+const buscar = async (req, res) => {
+    const query = req.query.q; // Obtén el término de búsqueda
+    //validar que termino no este vacío
+    if (!query.trim()) {
+        return res.redirect('/menu-general');//si estoy en buscaddor hay un probñema si no mando nada
+    }
+    const resultados = await Menu.findAll({
+        where: {
+            nombre: { [Sequelize.Op.like]: `%${query}%` } // Busca coincidencias en el nombre
+        }
+    });
+    res.render('invitado/buscar', { pagina: 'Resultados de búsqueda', resultados }); // Renderiza una vista con los resultados
+}
 export {
     nosotros,
     menu,
@@ -285,5 +299,6 @@ export {
     mostrarRegistro,
     creaCuenta,
     mostrarRegistroRec,
-    recuperaPaswword
+    recuperaPaswword,
+    buscar
 }
