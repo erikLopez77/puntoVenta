@@ -4,30 +4,31 @@ block contenido
     div(class="menu-container bg-white p-6 space-y-8")
         include ../barra-buscar
         div(class="space-y-4 ml-6")
-            -// Título de la categoría con margen inferior
+            // Título de la categoría con margen inferior
             h2.text-2xl.font-extrabold.text-gray-800.border-b-2.border-blue-500.pb-1.mb-8= pagina
             
-            -// Contenedor de platillos con espaciado entre elementos
-            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-6")
-        
-            each resultado in resultados
-                .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
-                    h2.text-xl.font-bold.text-blue-700= resultado.nombre
-                    p.text-gray-700= resultado.descripcion
-                    p.price.text-blue-600.font-semibold Precio: $#{resultado.precio}
-                        -// Formulario para ordenar el platillo
-                    form(action="/sopas-pastas", method="POST")
-                        input(type="hidden", name="id", value=resultado.id)
-                        button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Ordenar
-            if !resultados.length
-                .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
-                    h2.text-l.font-bold.text-blue-700 No se encontraron coincidencias 
+            // Contenedor de platillos con espaciado entre elementos
+            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6")
+                each resultado in resultados
+                    // Tarjeta de platillo
+                    div(class="menu-item bg-blue-100 border border-blue-600 rounded-lg shadow-lg p-4")
+                        h2.text-xl.font-bold.text-blue-700= resultado.nombre
+                        p.text-gray-700= resultado.descripcion
+                        p.price.text-blue-600.font-semibold Precio: $#{resultado.precio}
+                        // Formulario para ordenar el platillo
+                        form(action="/sopas-pastas", method="POST")
+                            input(type="hidden", name="id", value=resultado.id)
+                            button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Ordenar
 
-            -// Botones de acción
+                // Mensaje si no hay resultados
+                if !resultados.length
+                    div(class="col-span-full menu-item bg-blue-100 border border-blue-600 rounded-lg shadow-lg p-4")
+                        h2.text-l.font-bold.text-blue-700 No se encontraron coincidencias
+
+            // Botones de acción
             div(class="flex justify-between mt-10")
-                -// Botón para regresar
+                // Botón para regresar
                 a(href="/menu-general" class="bg-gray-500 hover:bg-gray-700 text-white font-bold mt-10 py-2 px-4 rounded-lg transition duration-300") Regresar
-
 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
