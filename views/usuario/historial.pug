@@ -4,36 +4,59 @@ block contenido
     .container.mx-auto.px-4.py-8
         h1.text-3xl.font-bold.text-blue-600.mb-8.text-center Ordenes confirmadas
         if ordenes.length === 0
-            p.text-gray-700.text-center No hay órdenes confirmadas en este momento.
+            p.text-gray-700.text-center No hay ordenes confirmadas en este momento.
         else
-            each orden in ordenes
-                .bg-white.p-6.rounded-lg.shadow-lg.mb-6.border.border-blue-100
-                    h2.text-2xl.font-semibold.text-blue-800.mb-4 Orden ##{orden.id}
-                    div(grid.grid-cols-1.md:grid-cols-2.gap-4.mb-4 mt-2)
-                        p.text-gray-700.font-medium No. de mesa: 
-                            span.font-normal.text-gray-600 #{orden.noMesa}
-                        p.text-gray-700.font-medium Mesero: 
-                            span.font-normal.text-gray-600 #{orden.propietario}
-                        p.text-gray-700.font-medium Total pagado: 
-                            span.font-normal.text-gray-600 $#{orden.total}
-                        p.text-gray-700.font-medium Fecha y hora de entrega: 
-                            span.font-normal.text-gray-600 #{orden.entregado}
+            // Contenedor de ordenes con grid de 3 columnas en pantallas grandes
+            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6")
+                each orden in ordenes
+                    .bg-white.p-6.rounded-lg.shadow-lg.mb-6.border.border-blue-100
+                        h2.text-2xl.font-semibold.text-blue-800.mb-4 Orden ##{orden.id}
+                        div(class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 mt-2")
+                            p.text-gray-700.font-medium No. de mesa: 
+                                span.font-normal.text-gray-600 #{orden.noMesa}
+                            p.text-gray-700.font-medium Mesero: 
+                                span.font-normal.text-gray-600 #{orden.propietario}
+                            p.text-gray-700.font-medium Total pagado: 
+                                span.font-normal.text-gray-600 $#{orden.total}
+                            p.text-gray-700.font-medium Fecha y hora de entrega: 
+                                span.font-normal.text-gray-600 #{orden.entregado}
 
-                    h3.text-xl.font-semibold.text-blue-700.mt-6.mb-4 Platillos:
-                    each item in orden.itemOrdens
-                        .bg-blue-50.p-4.rounded-lg.mb-4.border.border-blue-100
-                            p.text-gray-700.font-medium Platillo: 
-                                span.font-normal.text-gray-600 #{item.menu.nombre}
-                            p.text-gray-700.font-medium Cantidad: 
-                                span.font-normal.text-gray-600 #{item.cantidad}
-                            p.text-gray-700.font-medium Subtotal: 
-                                span.font-normal.text-gray-600 $#{item.subtotal}
-                            p.text-gray-700.font-medium Total: 
-                                span.font-normal.text-gray-600 $#{item.total}
-                            if item.indicacionExtra
-                                p.text-gray-700.font-medium Indicaciones: 
-                                    span.font-normal.text-gray-600 #{item.indicacionExtra}
+                        // Botón para mostrar/ocultar platillos
+                        button(
+                            onclick="togglePlatillos(this)"
+                            class="w-full mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+                        ) Ver platillos
+
+                        // Contenedor de platillos (oculto por defecto)
+                        div(class="platillos hidden mt-4")
+                            h3.text-xl.font-semibold.text-blue-700.mb-4 Platillos:
+                            each item in orden.itemOrdens
+                                .bg-blue-50.p-4.rounded-lg.mb-4.border.border-blue-100
+                                    p.text-gray-700.font-medium Platillo: 
+                                        span.font-normal.text-gray-600 #{item.menu.nombre}
+                                    p.text-gray-700.font-medium Cantidad: 
+                                        span.font-normal.text-gray-600 #{item.cantidad}
+                                    p.text-gray-700.font-medium Subtotal: 
+                                        span.font-normal.text-gray-600 $#{item.subtotal}
+                                    p.text-gray-700.font-medium Total: 
+                                        span.font-normal.text-gray-600 $#{item.total}
+                                    if item.indicacionExtra
+                                        p.text-gray-700.font-medium Indicaciones: 
+                                            span.font-normal.text-gray-600 #{item.indicacionExtra}
 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
     script(src="/js/cerrarSesion.js")
+    script.
+        // Función para mostrar/ocultar platillos
+        function togglePlatillos(button) {
+            const platillos = button.nextElementSibling; // Obtiene el contenedor de platillos
+            platillos.classList.toggle('hidden'); // Alterna la visibilidad
+
+            // Cambia el texto del botón
+            if (platillos.classList.contains('hidden')) {
+                button.textContent = 'Ver platillos';
+            } else {
+                button.textContent = 'Ocultar platillos';
+            }
+        }
