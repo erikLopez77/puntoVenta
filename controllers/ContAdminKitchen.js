@@ -147,6 +147,17 @@ const eliminarOrden = async (req, res) => {
         console.error(error);
     }
 }
+const eliminarOrden2 = async (req, res) => {
+    try {
+        const { id } = req.body;
+        // Lógica para eliminar la orden de la base de datos
+        await ItemOrden.destroy({ where: { ordenId: id } })
+        await Orden.destroy({ where: { id } });
+        res.redirect('/usuario/ordenes-confirmadas');
+    } catch (error) {
+        console.error(error);
+    }
+}
 const crudMenu = async (req, res) => {
     const bebidas = await Menu.findAll({ where: { categoriaId: 1 } });
     const desayunos = await Menu.findAll({ where: { categoriaId: 2 } });
@@ -234,6 +245,7 @@ export {
     historial,
     historial2,
     eliminarOrden,
+    eliminarOrden2,
     crudMenu,
     creaPlatillo,
     postPlatillo,
