@@ -117,6 +117,36 @@ const historial = async (req, res) => {
     //res.json(ordenes);
     res.render('usuario/historial', { pagina: 'Historial', ordenes })
 }
+const historial2 = async (req, res) => {
+    const ordenes = await Orden.findAll({
+        where: { status: true },//orden no preparada
+        include: [{
+            model: ItemOrden,
+            where: { entregado: true }, // Solo ítems confirmados
+            include: [{
+                model: Menu,//incluir info de platillo
+                as: 'menu',
+                attributes: ['nombre'],//solo el nombre del platillo
+                required: true
+            }],
+            attributes: ['id', 'cantidad', 'subtotal', 'total', 'indicacionExtra']//campo itemOrden
+        }],
+        order: [['id', 'DESC']]
+    });
+    //res.json(ordenes);
+    res.render('usuario/historial', { pagina: 'Historial', ordenes, admin: true })
+}
+const eliminarOrden = async (req, res) => {
+    try {
+        const { id } = req.body;
+        // Lógica para eliminar la orden de la base de datos
+        await ItemOrden.destroy({ where: { ordenId: id } })
+        await Orden.destroy({ where: { id } });
+        res.redirect('/usuario/ordenes-confirmadas-cocina');
+    } catch (error) {
+        console.error(error);
+    }
+}
 const crudMenu = async (req, res) => {
     const bebidas = await Menu.findAll({ where: { categoriaId: 1 } });
     const desayunos = await Menu.findAll({ where: { categoriaId: 2 } });
@@ -124,8 +154,7 @@ const crudMenu = async (req, res) => {
     const platoFuerte = await Menu.findAll({ where: { categoriaId: 4 } });
     const postres = await Menu.findAll({ where: { categoriaId: 5 } });
 
-    res.render('admin/vistaMenu', { pagina: 'Vista del menu', bebidas, desayunos, sopas, platoFuerte, postres })
-
+    res.render('admin/vistaMenu', { pagina: 'Vista del menu', bebidas, desayunos, sopas, platoFuerte, postres });
 }
 const creaPlatillo = (req, res) => {
     const datos = '';
@@ -203,6 +232,8 @@ export {
     ordenPendiente,
     confirmarOrden,
     historial,
+    historial2,
+    eliminarOrden,
     crudMenu,
     creaPlatillo,
     postPlatillo,
