@@ -34,7 +34,7 @@ router.get('/carrito', verificarMesero, vistaCarrito);//hacer una plantilla p/el
 router.post('/carrito/eliminar', eliminarItem);
 router.post('/carrito/mandar-orden', verificarMesero, mandarOrden);
 
-router.get('/buscar', buscar);
+router.get('/buscar', verificarMesero, buscar);
 //SIN CUENTA
 router.get('/registrate', mostrarRegistro);
 router.post('/registrate', creaCuenta);

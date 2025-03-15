@@ -1,7 +1,7 @@
 import { validationResult, check } from 'express-validator';
+import Sequelize from 'sequelize';
 import { ItemOrden, Menu, Orden, Usuario } from '../models/asociaciones.js';
 import sequelize from '../config/database.js';
-import Sequelize from 'sequelize';
 import { generarId } from '../helpers/token.js';
 import { io } from '../main.js';
 const nosotros = (req, res) => {

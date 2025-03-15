@@ -1,4 +1,5 @@
 import { check, validationResult } from "express-validator";
+import Sequelize from 'sequelize';
 import Usuario from "../models/Usuario.js";
 import { Orden, ItemOrden, Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
@@ -174,6 +175,19 @@ const eliminaPlatillo = async (req, res) => {
         res.status(500).json({ success: false, message: 'Hubo un error en la base de datos' });
     }
 }
+const buscarPlato = async (req, res) => {
+    const query = req.query.q; // Obtén el término de búsqueda
+    //validar que termino no este vacío
+    if (!query.trim()) {
+        return res.redirect('/usuario/vista-menu');//si estoy en buscaddor hay un probñema si no mando nada
+    }
+    const resultados = await Menu.findAll({
+        where: {
+            nombre: { [Sequelize.Op.like]: `%${query}%` } // Busca coincidencias en el nombre
+        }
+    });
+    res.render('admin/buscarAdmin', { pagina: 'Resultados de búsqueda', resultados }); // Renderiza una vista con los resultados
+}
 const logout = (req, res) => {
     // Eliminar la cookie "_token"
     res.clearCookie('_token');
@@ -195,6 +209,7 @@ export {
     editaPlatillo,
     editaPlatilloPost,
     eliminaPlatillo,
+    buscarPlato,
     logout,
     denegado
 }
