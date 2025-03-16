@@ -8,6 +8,14 @@ import {
 } from "../controllers/ContWaiterInv.js";
 
 const router = express.Router();
+//SIN CUENTA
+router.get('/', nosotros);
+router.get('/registrate', mostrarRegistro);
+router.post('/registrate', creaCuenta);
+
+router.get('/recuperar-contrasena', mostrarRegistroRec);
+router.post('/recuperar-contrasena', recuperaPaswword);
+
 //rutas mesero
 router.get('/menu-general', verificarMesero, menu);
 router.post('/menu-general', ordenarMenu)
@@ -35,13 +43,5 @@ router.post('/carrito/eliminar', eliminarItem);
 router.post('/carrito/mandar-orden', verificarMesero, mandarOrden);
 
 router.get('/buscar', verificarMesero, buscar);
-//SIN CUENTA
-router.get('/registrate', mostrarRegistro);
-router.post('/registrate', creaCuenta);
-
-router.get('/recuperar-contrasena', mostrarRegistroRec);
-router.post('/recuperar-contrasena', recuperaPaswword);
-
-router.get('/nosotros', nosotros);
 
 export default router;
