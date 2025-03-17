@@ -158,6 +158,9 @@ const eliminarOrden2 = async (req, res) => {
         console.error(error);
     }
 }
+const guiaCocina = (req, res) => {
+    res.render('usuario/guia-cocina')
+}
 const crudMenu = async (req, res) => {
     const bebidas = await Menu.findAll({ where: { categoriaId: 1 } });
     const desayunos = await Menu.findAll({ where: { categoriaId: 2 } });
@@ -228,6 +231,9 @@ const buscarPlato = async (req, res) => {
     });
     res.render('admin/buscarAdmin', { pagina: 'Resultados de búsqueda', resultados }); // Renderiza una vista con los resultados
 }
+const guiaAdmin = (req, res) => {
+    res.render('admin/guia-admin');
+}
 const logout = (req, res) => {
     // Eliminar la cookie "_token"
     res.clearCookie('_token');
@@ -246,6 +252,7 @@ export {
     historial2,
     eliminarOrden,
     eliminarOrden2,
+    guiaCocina,
     crudMenu,
     creaPlatillo,
     postPlatillo,
@@ -253,6 +260,7 @@ export {
     editaPlatilloPost,
     eliminaPlatillo,
     buscarPlato,
+    guiaAdmin,
     logout,
     denegado
 }

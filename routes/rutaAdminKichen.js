@@ -2,7 +2,7 @@ import express from "express";
 import {
     login, loginPost, ordenPendiente, confirmarOrden, historial, historial2,
     crudMenu, creaPlatillo, postPlatillo, editaPlatillo, editaPlatilloPost, eliminaPlatillo, buscarPlato,
-    eliminarOrden, eliminarOrden2, logout, denegado
+    eliminarOrden, eliminarOrden2, guiaCocina, guiaAdmin, logout, denegado
 } from "../controllers/ContAdminKitchen.js";
 import { verificarAdmin } from "../middleware/midAdmin.js";
 import { verificarCocinero } from "../middleware/kitchenMid.js";
@@ -18,6 +18,8 @@ router.post('/ordenes-pendientes', verificarCocinero, confirmarOrden);
 router.get('/ordenes-confirmadas', verificarCocinero, historial);
 router.post('/ordenes-confirmadas', verificarCocinero, eliminarOrden2);
 
+router.get('/guia-cocina', guiaCocina);
+
 //admin
 router.get('/vista-menu', verificarAdmin, crudMenu);
 router.get('/crear-platillo', verificarAdmin, creaPlatillo);
@@ -31,6 +33,7 @@ router.get('/buscar', verificarAdmin, buscarPlato);
 router.get('/ordenes-confirmadas-cocina', verificarAdmin, historial2);
 router.post('/ordenes-confirmadas-cocina', eliminarOrden);
 
+router.get('/guia-administrador', guiaAdmin);
 router.get('/cerrar-sesion', logout);
 router.get('/acceso-denegado', denegado);
 export default router;

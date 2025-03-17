@@ -4,7 +4,8 @@ import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
     vistaCarrito, eliminarItem, mandarOrden, mostrarRegistro,
-    creaCuenta, mostrarRegistroRec, recuperaPaswword, buscar
+    creaCuenta, mostrarRegistroRec, recuperaPaswword,
+    guiaMesero, buscar
 } from "../controllers/ContWaiterInv.js";
 
 const router = express.Router();
@@ -42,6 +43,7 @@ router.get('/carrito', verificarMesero, vistaCarrito);//hacer una plantilla p/el
 router.post('/carrito/eliminar', eliminarItem);
 router.post('/carrito/mandar-orden', verificarMesero, mandarOrden);
 
+router.get('/guia-mesero', guiaMesero);
 router.get('/buscar', verificarMesero, buscar);
 
 export default router;

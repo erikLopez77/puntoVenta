@@ -268,7 +268,9 @@ const recuperaPaswword = async (req, res) => {
 
     res.render('usuario/login', { paina: 'Iniciar sesión', recuperado: true })
 }
-
+const guiaMesero = (req, res) => {
+    res.render('invitado/guia-mesero');
+}
 const buscar = async (req, res) => {
     const query = req.query.q; // Obtén el término de búsqueda
     //validar que termino no este vacío
@@ -300,5 +302,6 @@ export {
     creaCuenta,
     mostrarRegistroRec,
     recuperaPaswword,
+    guiaMesero,
     buscar
 }
