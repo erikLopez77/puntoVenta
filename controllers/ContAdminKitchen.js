@@ -169,7 +169,7 @@ const eliminarOrden2 = async (req, res) => {
     }
 }
 const guiaCocina = (req, res) => {
-    res.render('usuario/guia-cocina')
+    res.render('usuario/guia-cocina', { pagina: 'Guía de usuario' })
 }
 const crudMenu = async (req, res) => {
     const bebidas = await Menu.findAll({ where: { categoriaId: 1 } });
@@ -242,7 +242,7 @@ const buscarPlato = async (req, res) => {
     res.render('admin/buscarAdmin', { pagina: 'Resultados de búsqueda', resultados }); // Renderiza una vista con los resultados
 }
 const guiaAdmin = (req, res) => {
-    res.render('admin/guia-admin');
+    res.render('admin/guia-admin', { pagina: 'Guía de usuario' });
 }
 const logout = (req, res) => {
     // Eliminar la cookie "_token"

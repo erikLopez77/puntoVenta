@@ -3,59 +3,67 @@ extends ../layout/head
 block contenido
     div(class="container mx-auto p-6")
         // Introducción
-        section(class="mb-8")
-            h2(class="text-3xl font-bold text-blue-600 mb-4") Introducción
-            p(class="mb-4") Bienvenido a la guía de usuario de nuestro Software de Punto de Venta. Este documento te ayudará a comprender y utilizar todas las funcionalidades del sistema de manera eficiente.
+        section(class="mb-12 text-center")
+            h1(class="text-2xl font-bold text-blue-600 mb-4") Guía de Usuario
+            p(class="text-gray-700 text-lg") Bienvenido a la guía de usuario de Click Comanda. Aquí aprenderás a navegar y utilizar todas las funcionalidades del sistema de manera eficiente y segura.
 
-        // Sección 1: Inicio de Sesión
-        section(class="mb-8")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 1. Inicio de Sesión
-            p(class="mb-4") Para acceder al sistema, sigue estos pasos:
-            ol(class="list-decimal list-inside mb-4")
-            li Abre el navegador y visita la URL del sistema.
-            li Ingresa tu nombre de usuario y contraseña.
-            li Haz clic en el botón "Iniciar Sesión".
-            // Espacio para imagen futura
-            div(class="bg-gray-200 h-48 flex items-center justify-center mb-4")
-                img(src="//")
-            p(class="text-gray-500") Imagen de ejemplo para el inicio de sesión.
+        // Sección 1: Vista de los Platillos
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-xl font-bold text-blue-600 mb-4") 1. Vista de los Platillos
+            p(class="text-gray-700 mb-4") Explora el menú de platillos con facilidad. Puedes filtrar por categorías o buscar un platillo específico.
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Navega por las categorías o utiliza la barra de búsqueda para encontrar el platillo deseado.
+                li Una vez ubicado el platillo, presiona el botón 
+                    span(class="font-semibold text-blue-600") "Ordenar".
+            div(class="flex justify-center mt-6")
+                img(src="img/mesero/imgMenu.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista del menú")
+            p(class="text-gray-500 text-sm text-center mt-2") Imagen de cómo se muestra el menú.
 
-        // Sección 2: Registro de Ventas
-        section(class="mb-8")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 2. Registro de Ventas
-            p(class="mb-4") Para registrar una venta, sigue estos pasos:
-            ol(class="list-decimal list-inside mb-4")
-            li Selecciona el producto desde el catálogo.
-            li Ingresa la cantidad deseada.
-            li Haz clic en "Agregar al Carrito".
-            li Finaliza la venta haciendo clic en "Cobrar".
-            // Espacio para imagen futura
-            div(class="bg-gray-200 h-48 flex items-center justify-center mb-4")
-            p(class="text-gray-500") Imagen de ejemplo para el registro de ventas.
+        // Sección 2: Ordenar un Platillo
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-2xl font-bold text-blue-600 mb-4") 2. Ordenar un Platillo
+            p(class="text-gray-700 mb-4") Sigue estos pasos para agregar un platillo a la comanda:
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Selecciona la cantidad del platillo.
+                li Escribe alguna indicación especial del comensal (opcional).
+                li Haz clic en 
+                    span(class="font-semibold text-blue-600") "Agregar a la comanda".
+                li Verás un mensaje de confirmación indicando que el platillo se ha agregado correctamente.
+                li Continúa agregando más platillos si es necesario.
+            div(class="flex justify-center mt-6")
+                img(src="img/mesero/ordenar.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
+            p(class="text-gray-500 text-sm text-center mt-2") Vista de la pantalla para ordenar un platillo.
 
-        // Sección 3: Gestión de Inventario
-        section(class="mb-8")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 3. Gestión de Inventario
-            p(class="mb-4") Para gestionar el inventario, sigue estos pasos:
-            ol(class="list-decimal list-inside mb-4")
-            li Accede al menú "Inventario".
-            li Agrega nuevos productos o edita los existentes.
-            li Actualiza el stock según sea necesario.
-            // Espacio para imagen futura
-            div(class="bg-gray-200 h-48 flex items-center justify-center mb-4")
-            p(class="text-gray-500") Imagen de ejemplo para la gestión de inventario.
+        // Sección 3: Comanda
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-2xl font-bold text-blue-600 mb-4") 3. Comanda
+            p(class="text-gray-700 mb-4") Accede a la comanda para revisar y gestionar los pedidos:
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Haz clic en el ícono de 
+                    span(class="font-semibold text-blue-600") tres líneas
+                    |  en la parte superior izquierda.
+                li Selecciona 
+                    span(class="font-semibold text-blue-600") "Comanda"
+                    |  para ver los platillos agregados.
+            div(class="flex justify-center mt-6")
+                img(src="img/mesero/vistaGral.png" class="w-full max-w-md rounded-lg shadow-md" alt="Barra lateral")
+            p(class="text-gray-500 text-sm text-center mt-2") Imagen de la barra lateral y acceso a la comanda.
 
-        // Sección 4: Generación de Reportes
-        section(class="mb-8")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 4. Generación de Reportes
-            p(class="mb-4") Para generar reportes, sigue estos pasos:
-            ol(class="list-decimal list-inside mb-4")
-            li Accede al menú "Reportes".
-            li Selecciona el tipo de reporte que deseas generar.
-            li Configura los filtros y haz clic en "Generar Reporte".
-            // Espacio para imagen futura
-            div(class="bg-gray-200 h-48 flex items-center justify-center mb-4")
-            p(class="text-gray-500") Imagen de ejemplo para la generación de reportes.
+        // Sección 4: Mandar la Comanda a Cocina
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-2xl font-bold text-blue-600 mb-4") 4. Mandar la Comanda a Cocina
+            p(class="text-gray-700 mb-4") Revisa y envía la comanda a cocina siguiendo estos pasos:
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Revisa los platillos en la comanda. Si es necesario, elimina algún platillo con el ícono de 
+                    span(class="font-semibold text-red-500") basura.
+                li Selecciona la mesa correspondiente.
+                li Presiona el botón 
+                    span(class="font-semibold text-blue-600") "Mandar comanda a cocina".
+                li Confirma la acción en el mensaje de confirmación.
+                li ¡Listo! La comanda ha sido enviada y puedes continuar tomando órdenes.
+            div(class="flex justify-center mt-6")
+                img(src="img/mesero/comanda.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista de la comanda")
+            p(class="text-gray-500 text-sm text-center mt-2") Visualización de la comanda antes de enviarla.
 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

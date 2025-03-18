@@ -92,7 +92,7 @@ const ordenarItem = async (req, res) => {
         const total = parseFloat((cantidad * platillo.precio).toFixed(2));
         await ItemOrden.create({ cantidad, subtotal: platillo.precio, total, indicacionExtra: indicaciones, token, platilloId: platillo.id });
 
-        res.status(200).json({ success: true, message: 'Se ha agregado un nuevo platillo al carrito' })
+        res.status(200).json({ success: true, message: 'Se ha agregado un nuevo platillo a la comanda' })
     } catch (error) {
         console.error('Error al buscar el platillo:', error);
         res.status(500).json({ success: false });
@@ -269,7 +269,7 @@ const recuperaPaswword = async (req, res) => {
     res.render('usuario/login', { paina: 'Iniciar sesión', recuperado: true })
 }
 const guiaMesero = (req, res) => {
-    res.render('invitado/guia-mesero');
+    res.render('invitado/guia-mesero', { pagina: 'Guía de usuario' });
 }
 const buscar = async (req, res) => {
     const query = req.query.q; // Obtén el término de búsqueda

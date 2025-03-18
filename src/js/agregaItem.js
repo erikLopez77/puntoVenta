@@ -17,7 +17,7 @@ addForm.addEventListener('submit', async (e) => {
             await Swal.fire('¡Orden agregada!', mensaje.message, 'success');
             window.location.href = '/menu-general'; // Redirigir después de mostrar el mensaje
         } else {
-            await Swal.fire('¡Error!', mensaje.message || 'No se pudo agregar el ítem', 'error');
+            await Swal.fire('¡Error!', mensaje.message || 'No se pudo agregar el platillo', 'error');
             window.location.href = '/menu-general'; // Redirigir después de mostrar el mensaje
         }
     } catch (error) {
