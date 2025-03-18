@@ -4,6 +4,16 @@ import Usuario from "../models/Usuario.js";
 import { Orden, ItemOrden, Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
 
+const eliminaOrdenes = async (req, res) => {
+    try {
+        await ItemOrden.destroy({ where: {} });
+        await Orden.destroy({ where: {} });
+        res.redirect('/usuario/ordenes-confirmadas');
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const login = (req, res) => {
     res.render('usuario/login', { pagina: 'Iniciar sesión' });
 }
@@ -244,6 +254,7 @@ const denegado = (req, res) => {
     res.render('usuario/acceso-denegado', { pagina: 'Acceso denegado' });
 }
 export {
+    eliminaOrdenes,
     login,
     loginPost,
     ordenPendiente,

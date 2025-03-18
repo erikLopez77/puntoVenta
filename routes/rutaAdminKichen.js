@@ -1,6 +1,6 @@
 import express from "express";
 import {
-    login, loginPost, ordenPendiente, confirmarOrden, historial, historial2,
+    eliminaOrdenes, login, loginPost, ordenPendiente, confirmarOrden, historial, historial2,
     crudMenu, creaPlatillo, postPlatillo, editaPlatillo, editaPlatilloPost, eliminaPlatillo, buscarPlato,
     eliminarOrden, eliminarOrden2, guiaCocina, guiaAdmin, logout, denegado
 } from "../controllers/ContAdminKitchen.js";
@@ -8,6 +8,8 @@ import { verificarAdmin } from "../middleware/midAdmin.js";
 import { verificarCocinero } from "../middleware/kitchenMid.js";
 
 const router = express.Router();
+
+router.post('/eliminar-ordenes', eliminaOrdenes)
 
 router.get('/iniciar-sesion', login);
 router.post('/iniciar-sesion', loginPost);

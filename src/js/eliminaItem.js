@@ -53,7 +53,8 @@ btnEnviaOrden.addEventListener('submit', (e) => {
     icon: 'question',
     showCancelButton: true,
     confirmButtonText: 'Si, enviar',
-    cancelButtonText: 'Cancelar'
+    cancelButtonText: 'Cancelar',
+    timer: 5000 // Cierra automáticamente después de 5 segundos
   }).then(async (result) => {
     // Mostrar un mensaje de confirmación
     if (result.isConfirmed) {

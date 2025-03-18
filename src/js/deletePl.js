@@ -10,7 +10,8 @@ forms.forEach((formulario) => {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Si, eliminar',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar',
+            timer: 5000, // Cierra automáticamente después de 5 segundos
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
