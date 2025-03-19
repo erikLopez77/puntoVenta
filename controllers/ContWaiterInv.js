@@ -99,7 +99,7 @@ const ordenarItem = async (req, res) => {
     }
 }
 
-const vistaCarrito = async (req, res) => {
+const vistaComanda = async (req, res) => {
     const token = req.usuario.token;
     let nombre = req.usuario.nombre;
     nombre += ' ' + req.usuario.apellidos;
@@ -108,7 +108,7 @@ const vistaCarrito = async (req, res) => {
         where: { token, ordenId: null },
         include: [{ model: Menu, attributes: ['nombre'] }]
     });
-    res.render('invitado/carrito', { items, pagina: 'Mi carrito' })
+    res.render('invitado/comanda', { items, pagina: 'Mi carrito' })
 }
 
 const eliminarItem = async (req, res) => {
@@ -295,7 +295,7 @@ export {
     bebidas,
     ordenar,
     ordenarItem,
-    vistaCarrito,
+    vistaComanda,
     eliminarItem,
     mandarOrden,
     mostrarRegistro,

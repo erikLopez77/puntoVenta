@@ -14,7 +14,7 @@ addForm.addEventListener('submit', async (e) => {
         const mensaje = await solicitud.json();
 
         if (solicitud.ok && mensaje.success) {
-            await Swal.fire('¡Orden agregada!', mensaje.message, 'success');
+            await Swal.fire({ title: '¡Orden agregada!', text: mensaje.message, icon: 'success', timer: 5000 });
             window.location.href = '/menu-general'; // Redirigir después de mostrar el mensaje
         } else {
             await Swal.fire('¡Error!', mensaje.message || 'No se pudo agregar el platillo', 'error');

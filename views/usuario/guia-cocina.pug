@@ -1,4 +1,47 @@
-h1 guia de cocina
+extends ../layout/headUser
+
+block contenido
+    div(class="container mx-auto p-6")
+        // Introducción
+        section(class="mb-12 text-center")
+            h1(class="text-2xl font-bold text-blue-600 mb-4") Guía de Usuario
+            p(class="text-gray-700 text-lg") Bienvenido a la guía de usuario de Click Comanda. Aquí aprenderás a navegar y utilizar todas las funcionalidades del sistema de manera eficiente y segura.
+
+        // Sección 1: Vista de los Platillos
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-xl font-bold text-blue-600 mb-4") 1. Vista de ordenes pendientes
+            p(class="text-gray-700 mb-4") En este espacio podemos ver las ordenes acumulandose. Se tiene como anuncio informativo que las ordenes se muestran de las más antiguas a las más recientes para dar prioridad al orden en que se pide cada platillo.
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Al dar click en el botón 
+                    span(class="font-semibold text-blue-600") "Confirmar platillo" 
+                    | solo basta dar 
+                    span(class="font-semibold text-blue-600") un solo click, 
+                    | ya que para no perder tiempo en los anuncios mostrados en la pantalla en esta ocasión no se van a mostrar.
+                    li En el caso de no haber alguna orden pendiente, la pantalla tendrá un texto para indicar que no hay ordenes pendientes.
+            div(class="flex justify-center mt-6")
+                img(src="/img/cocina/ordenPending.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista del menú")
+            p(class="text-gray-500 text-sm text-center mt-2") Imagen de cómo se muestran las ordenes pendientes.
+
+        // Sección 2: Vista de ordenes confirmadas
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-xl font-bold text-blue-600 mb-4") 2. Vista de ordenes confirmadas
+            p(class="text-gray-700 mb-4") En esta pantalla podemos ver las ordenes que se han hecho para revisar parte del trabajo pasado, con presionar en 
+                span(class="font-semibold text-blue-600") "Ver platillos" 
+                | podemos ver a detalle cada platillo en la orden.
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li En caso de ser necesario podemos eliminar las ordenes o eliminar una orden en especifica, para ello igual nos muestra un anuncio para confirmar nuestra acción.
+            div(class="flex justify-center mt-6")
+                img(src="/img/admin/historial.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
+            p(class="text-gray-500 text-sm text-center mt-2") Vista de las ordenes confirmadas.
+        -// Botones de acción
+        div(class="flex justify-between mt-8")
+            -// Botón para regresar
+            a(href="/usuario/ordenes-pendientes" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300") Ver las ordenes pendientes
+            
+            a(href="/usuario/ordenes-confirmadas" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300") Ver las ordenes confirmadas
+
+
+       
 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

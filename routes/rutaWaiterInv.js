@@ -3,7 +3,7 @@ import { verificarMesero } from "../middleware/waiterMid.js";
 import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
-    vistaCarrito, eliminarItem, mandarOrden, mostrarRegistro,
+    vistaComanda, eliminarItem, mandarOrden, mostrarRegistro,
     creaCuenta, mostrarRegistroRec, recuperaPaswword,
     guiaMesero, buscar
 } from "../controllers/ContWaiterInv.js";
@@ -39,7 +39,7 @@ router.post('/bebidas', ordenarMenu);
 router.get('/ordenar-pedido/:id', verificarMesero, ordenar);
 router.post('/ordenar-pedido/:id', verificarMesero, ordenarItem);
 
-router.get('/carrito', verificarMesero, vistaCarrito);//hacer una plantilla p/eliminar orden o con el post
+router.get('/comanda', verificarMesero, vistaComanda);//hacer una plantilla p/eliminar orden o con el post
 router.post('/carrito/eliminar', eliminarItem);
 router.post('/carrito/mandar-orden', verificarMesero, mandarOrden);
 

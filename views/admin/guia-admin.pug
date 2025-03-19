@@ -1,5 +1,72 @@
-h1 Guia de admin
+extends ../layout/headAdmin
 
+block contenido
+    div(class="container mx-auto p-6")
+        // Introducción
+        section(class="mb-12 text-center")
+            h1(class="text-2xl font-bold text-blue-600 mb-4") Guía de Usuario
+            p(class="text-gray-700 text-lg") Bienvenido a la guía de usuario de Click Comanda. Aquí aprenderás a navegar y utilizar todas las funcionalidades del sistema de manera eficiente y rápida.
+
+        // Sección 1: Vista general de  los platillos.
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-xl font-bold text-blue-600 mb-4") 1. Vista general de  los platillos.
+            p(class="text-gray-700 mb-4") Explora los platillos que se encuentran en el menu. 
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Navega por cada categoría o utiliza la barra de busqueda para encontrar un platillo en específico.
+                li Una vez ubicado el platillo, presiona el botón para 
+                    span(class="font-semibold text-blue-600") editar 
+                    | o 
+                    span(class="font-semibold text-blue-600") eliminar 
+                    | según sea el caso.
+            p(class="text-gray-700 mb-4") En el caso para editar o crear un platillo, al presionar el botón correspondiente, nos dirige a una pantalla con un formulario que nos ayudará a completar dicha información. 
+            p(class="text-gray-700 mb-4") Mientras que en el caso de eliminar, una vez que se presionó el botón, se mostrará un anuncio para asegurarnos que la acción no fue por error.
+            div(class="flex justify-center mt-6")
+                img(src="/img/admin/principal.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista del menú")
+            p(class="text-gray-500 text-sm text-center mt-2") Imagen de cómo se muestra el menú.
+        
+        // Sección 2: Crear un platillo
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md") 
+            h2(class="text-xl font-bold text-blue-600 mb-4") 2. Crear un platillo
+            p(class="text-gray-700 mb-4") Una vez en esta pantalla, solo hay que completar cada campo.
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li Cada campo tiene una instrucción extra para guiarnos. 
+                li En caso de faltar un campo, el sistema nos lo hará saber por medio de un anuncio.
+                li Finalmente presionamos el botón para guardar los cambios.
+            div(class="flex justify-center mt-6")
+                img(src="/img/admin/crea.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
+            p(class="text-gray-500 text-sm text-center mt-2") Vista de la pantalla para crear un platillo.
+        
+        // Sección 3: Editar un Platillo
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-xl font-bold text-blue-600 mb-4") 3. Editar un platillo
+            p(class="text-gray-700 mb-4") En el momento que estamos en esta pantalla, los campos estarán con la información del platillo a editar para facilitar esta labor.
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li No olvidemos llenar cada campo, de todos modos el sistema nos notificará en caso de que falte llenar un campo.
+                li Al terminar presionamos el botón para guardar los cambios.
+            div(class="flex justify-center mt-6")
+                img(src="/img/admin/edita.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
+            p(class="text-gray-500 text-sm text-center mt-2") Vista de la pantalla para editar un platillo.
+
+        // Sección 4: Vista de ordenes confirmadas
+        section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
+            h2(class="text-xl font-bold text-blue-600 mb-4") 4. Vista de ordenes confirmadas
+            p(class="text-gray-700 mb-4") En esta pantalla podemos ver las ordenes que se han hecho para monitorear el trabajo en cocina, con presionar en 
+                span(class="font-semibold text-blue-600") "Ver platillos" 
+                | podemos ver a detalle cada platillo en la orden.
+            ol(class="list-decimal list-inside mb-4 text-gray-700")
+                li En caso de ser necesario podemos eliminar las ordenes o eliminar una orden en especifica, para ello igual nos muestra un anuncio para confirmar nuestra acción.
+            div(class="flex justify-center mt-6")
+                img(src="/img/admin/historial.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
+            p(class="text-gray-500 text-sm text-center mt-2") Vista de las ordenes confirmadas.
+
+        -// Botones de acción
+        div(class="flex justify-between mt-8")
+            -// Botón para regresar
+            a(href="/usuario/vista-menu" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300") Regresar a ver los platillos en el menú
+            -// Botón para ir 
+            a(href="/usuario/ordenes-confirmadas-cocina" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300") Ver las ordenes confirmadas en la cocina
+
+ 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
     script(src="/js/cerrarSesion.js")

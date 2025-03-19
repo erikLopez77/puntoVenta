@@ -16,12 +16,12 @@ block contenido
                 li Una vez ubicado el platillo, presiona el botón 
                     span(class="font-semibold text-blue-600") "Ordenar".
             div(class="flex justify-center mt-6")
-                img(src="img/mesero/imgMenu.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista del menú")
+                img(src="/img/mesero/imgMenu.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista del menú")
             p(class="text-gray-500 text-sm text-center mt-2") Imagen de cómo se muestra el menú.
 
         // Sección 2: Ordenar un Platillo
         section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 2. Ordenar un Platillo
+            h2(class="text-xl font-bold text-blue-600 mb-4") 2. Ordenar un Platillo
             p(class="text-gray-700 mb-4") Sigue estos pasos para agregar un platillo a la comanda:
             ol(class="list-decimal list-inside mb-4 text-gray-700")
                 li Selecciona la cantidad del platillo.
@@ -31,12 +31,12 @@ block contenido
                 li Verás un mensaje de confirmación indicando que el platillo se ha agregado correctamente.
                 li Continúa agregando más platillos si es necesario.
             div(class="flex justify-center mt-6")
-                img(src="img/mesero/ordenar.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
+                img(src="/img/mesero/ordenar.png" class="w-full max-w-md rounded-lg shadow-md" alt="Pantalla para ordenar")
             p(class="text-gray-500 text-sm text-center mt-2") Vista de la pantalla para ordenar un platillo.
 
         // Sección 3: Comanda
         section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 3. Comanda
+            h2(class="text-xl font-bold text-blue-600 mb-4") 3. Comanda
             p(class="text-gray-700 mb-4") Accede a la comanda para revisar y gestionar los pedidos:
             ol(class="list-decimal list-inside mb-4 text-gray-700")
                 li Haz clic en el ícono de 
@@ -46,12 +46,12 @@ block contenido
                     span(class="font-semibold text-blue-600") "Comanda"
                     |  para ver los platillos agregados.
             div(class="flex justify-center mt-6")
-                img(src="img/mesero/vistaGral.png" class="w-full max-w-md rounded-lg shadow-md" alt="Barra lateral")
+                img(src="/img/mesero/vistaGral.png" class="w-full max-w-md rounded-lg shadow-md" alt="Barra lateral")
             p(class="text-gray-500 text-sm text-center mt-2") Imagen de la barra lateral y acceso a la comanda.
 
         // Sección 4: Mandar la Comanda a Cocina
         section(class="mb-12 bg-white p-6 rounded-lg shadow-md")
-            h2(class="text-2xl font-bold text-blue-600 mb-4") 4. Mandar la Comanda a Cocina
+            h2(class="text-xl font-bold text-blue-600 mb-4") 4. Mandar la Comanda a Cocina
             p(class="text-gray-700 mb-4") Revisa y envía la comanda a cocina siguiendo estos pasos:
             ol(class="list-decimal list-inside mb-4 text-gray-700")
                 li Revisa los platillos en la comanda. Si es necesario, elimina algún platillo con el ícono de 
@@ -62,8 +62,14 @@ block contenido
                 li Confirma la acción en el mensaje de confirmación.
                 li ¡Listo! La comanda ha sido enviada y puedes continuar tomando órdenes.
             div(class="flex justify-center mt-6")
-                img(src="img/mesero/comanda.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista de la comanda")
+                img(src="/img/mesero/comanda.png" class="w-full max-w-md rounded-lg shadow-md" alt="Vista de la comanda")
             p(class="text-gray-500 text-sm text-center mt-2") Visualización de la comanda antes de enviarla.
+
+        -// Botones de acción
+        div(class="flex justify-between mt-8")
+            -// Botón para regresar
+            a(href="/menu-general" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300") Regresar al menu general
+
 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

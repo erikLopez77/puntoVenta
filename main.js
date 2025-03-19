@@ -1,9 +1,15 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import http from 'http'; //modulo http
 import { Server } from 'socket.io'; //server de socket.io p/ tiempo real
 import cookieParser from 'cookie-parser';
 import routerPrincipal from './routes/rutaWaiterInv.js';
 import routerUsuario from './routes/rutaAdminKichen.js';
+
+// Obtener __dirname en módulos ES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);//server http usando app ed express
@@ -18,7 +24,7 @@ app.use(cookieParser());//middleware p/analizar cookies en node (seguro y facil)
 app.set('view engine', 'pug');
 app.set('views', './views');
 //carpeta de archivos estaticos
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routerPrincipal);
 app.use('/usuario', routerUsuario);
