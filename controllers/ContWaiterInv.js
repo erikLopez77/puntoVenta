@@ -230,7 +230,7 @@ const creaCuenta = async (req, res) => {
     const { nombre, apellidos, password, rol } = req.body;
     await Usuario.create({ nombre, apellidos, nombreUsuario, password, rol, token })
 
-    res.render('usuario/login', { paina: 'Iniciar sesión', creado: true })
+    res.render('usuario/login', { pagina: 'Iniciar sesión', creado: true })
 }
 const mostrarRegistroRec = (req, res) => {
     res.render('sin-cuenta/recupera-contrasena', { pagina: 'Recupera tu contraseña', nombreUsuario: '' });
@@ -266,7 +266,36 @@ const recuperaPaswword = async (req, res) => {
     usuario.password = password;
     usuario.save();
 
-    res.render('usuario/login', { paina: 'Iniciar sesión', recuperado: true })
+    res.render('usuario/login', { pagina: 'Iniciar sesión', recuperado: true })
+}
+const FAQ = (req, res) => {
+    const faqs = [
+        {
+            pregunta: "¿Cómo puedo crear una cuenta?",
+            respuesta: "Para crear una cuenta, ve a la página de registro y completa el formulario con tus datos personales. Luego, haz clic en 'Registrarse'."
+        },
+        {
+            pregunta: "¿Cómo restablezco mi contraseña?",
+            respuesta: "Si olvidaste tu contraseña, ve a la página de inicio de sesión y haz clic en '¿Olvidaste tu contraseña?'. Sigue las instrucciones para restablecerla."
+        },
+        {
+            pregunta: "¿Es obligatorio tener una cuenta?",
+            respuesta: "Si, es obligatorio ya que sin cuenta no puedes acceder al sistema."
+        },
+        {
+            pregunta: "¿Cómo puedo tener acceso a ser mesero y cocinero?",
+            respuesta: "Fácil, creando una cuenta para cada rol."
+        },
+        {
+            pregunta: "¿Es lo mismo nombre y nombre de usuario?",
+            respuesta: "No, no  son lo mismo, el nombre de usuario es un identificador para iniciar sesión, mientras que nombre se refiere a el nombre propio."
+        },
+        {
+            pregunta: "¿Puedo abrir este sitio web en mi celular?",
+            respuesta: "Si, puedes abrir este sitio en donde tu te sientas cómodo."
+        }
+    ];
+    res.render("sin-cuenta/FAQ", { pagina: "FAQ'S", faqs })
 }
 const guiaMesero = (req, res) => {
     res.render('invitado/guia-mesero', { pagina: 'Guía de usuario' });
@@ -302,6 +331,7 @@ export {
     creaCuenta,
     mostrarRegistroRec,
     recuperaPaswword,
+    FAQ,
     guiaMesero,
     buscar
 }

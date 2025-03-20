@@ -23,8 +23,10 @@ html(lang="es")
       aside#leftSidebar(class="w-64 bg-gray-800 text-white p-4 hidden")
         h2(class="text-xl mb-4") Click-comanda
         ul
-            li: a(href="/", class="block py-2 hover:bg-gray-700") Acerca de nosotros
             li: a(href="/usuario/iniciar-sesion",id="frmC", class="block py-2 hover:bg-gray-700") Iniciar sesión
+            li: a(href="/", class="block py-2 hover:bg-gray-700") Acerca de nosotros
+            li: a(href="/FAQ's" class="block py-2 hover:bg-gray-700") FAQ's
+            
 
       section(class="flex-1 p-4")
         block contenido

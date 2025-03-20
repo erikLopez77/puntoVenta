@@ -4,7 +4,7 @@ import {
     nosotros, menu, desayunos, sopas, platoFuerte,
     postres, bebidas, ordenarMenu, ordenar, ordenarItem,
     vistaComanda, eliminarItem, mandarOrden, mostrarRegistro,
-    creaCuenta, mostrarRegistroRec, recuperaPaswword,
+    creaCuenta, mostrarRegistroRec, recuperaPaswword, FAQ,
     guiaMesero, buscar
 } from "../controllers/ContWaiterInv.js";
 
@@ -16,6 +16,8 @@ router.post('/registrate', creaCuenta);
 
 router.get('/recuperar-contrasena', mostrarRegistroRec);
 router.post('/recuperar-contrasena', recuperaPaswword);
+
+router.get("/FAQ's", FAQ);
 
 //rutas mesero
 router.get('/menu-general', verificarMesero, menu);

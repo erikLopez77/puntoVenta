@@ -1,0 +1,44 @@
+extends ../layout/headInv
+
+block contenido
+     div(class="container mx-auto px-4 py-12")
+      h1(class="text-4xl font-bold text-center text-blue-600 mb-8") Preguntas Frecuentes
+
+      // Lista de preguntas y respuestas
+      div(class="max-w-3xl mx-auto")
+        each faq, index in faqs
+          div(class="bg-white rounded-lg shadow-md mb-4 overflow-hidden")
+            // Pregunta
+            button(
+              onclick=`toggleFAQ(${index})`
+              class="w-full text-left p-6 flex justify-between items-center focus:outline-none"
+            )
+              span(class="text-lg font-semibold text-blue-800") #{faq.pregunta}
+              svg(
+                id=`icon-${index}`
+                class="h-6 w-6 text-blue-600 transform transition-transform duration-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              )
+                path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M19 9l-7 7-7-7")
+            
+            // Respuesta (oculta por defecto)
+            div(
+              id=`respuesta-${index}`
+              class="px-6 py-6 hidden transition-all duration-300 ease-in-out"
+            )
+              p(class="text-gray-700") #{faq.respuesta}
+block scripts
+    script.
+      function toggleFAQ(index) {
+        const respuesta = document.getElementById(`respuesta-${index}`);
+        const icon = document.getElementById(`icon-${index}`);
+
+        // Alternar visibilidad de la respuesta
+        respuesta.classList.toggle('hidden');
+        respuesta.classList.toggle('block');
+
+        // Rotar el ícono
+        icon.classList.toggle('rotate-180');
+      }

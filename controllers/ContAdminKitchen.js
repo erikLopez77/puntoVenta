@@ -31,14 +31,14 @@ const loginPost = async (req, res) => {
     if (!usuario) {
         return res.render('usuario/login', {
             pagina: 'Iniciar sesión',
-            errores: [{ msg: 'Error, no se ha encontrado al usuario' }]
+            errores: [{ msg: 'Error, el nombre de usuario no existe' }]
         });
     }
 
     if (!usuario.verificarPassword(password)) {
         return res.render('usuario/login', {
             pagina: 'Iniciar sesión',
-            nombre,
+            nombreUsuario,
             errores: { error: { msg: 'Error, contraseña incorrecta' } }
         });
     }
@@ -125,7 +125,7 @@ const historial = async (req, res) => {
         order: [['id', 'DESC']]
     });
     //res.json(ordenes);
-    res.render('usuario/historial', { pagina: 'Historial', ordenes })
+    res.render('usuario/historial', { pagina: 'Ordenes confirmadas', ordenes })
 }
 const historial2 = async (req, res) => {
     const ordenes = await Orden.findAll({
@@ -144,7 +144,7 @@ const historial2 = async (req, res) => {
         order: [['id', 'DESC']]
     });
     //res.json(ordenes);
-    res.render('usuario/historial', { pagina: 'Historial', ordenes, admin: true })
+    res.render('usuario/historial', { pagina: 'Ordenes confirmadas', ordenes, admin: true })
 }
 const eliminarOrden = async (req, res) => {
     try {

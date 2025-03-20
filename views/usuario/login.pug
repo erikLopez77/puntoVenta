@@ -19,7 +19,7 @@ block contenido
       form(action="/usuario/iniciar-sesion", method="POST", class="space-y-6" noValidate)
         div
           label(for="nombreUsuario", class="block text-sm font-medium text-gray-700") Nombre de usuario
-          input(type="text", id="nombreUsuario", name="nombreUsuario", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario" value=nombre?nombre:"" )
+          input(type="text", id="nombreUsuario", name="nombreUsuario", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario" value=nombreUsuario?nombreUsuario:"" )
 
         div
           label(for="password", class="block text-sm font-medium text-gray-700") Contraseña
