@@ -3,7 +3,7 @@ extends ../layout/headInv
 block contenido
   div(class="min-h-screen bg-gray-50 flex items-center justify-center p-4")
     div(class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full")
-      h2(class="text-2xl font-bold text-blue-600 mb-6 text-center") Iniciar Sesión
+      h2(class="text-2xl font-bold text-blue-600 mb-6 text-center sm:text-left") Iniciar Sesión
       if errores
         div(class='max-w-md mx-auto my-10')
           each errors in errores
@@ -19,7 +19,7 @@ block contenido
       form(action="/usuario/iniciar-sesion", method="POST", class="space-y-6" noValidate)
         div
           label(for="nombreUsuario", class="block text-sm font-medium text-gray-700") Nombre de usuario
-          input(type="text", id="nombreUsuario", name="nombreUsuario", required, class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario" value=nombreUsuario?nombreUsuario:"" )
+          input(type="text", id="nombreUsuario", name="nombreUsuario", required,  autocomplete="off" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder="Ingresa tu nombre de usuario" value=nombreUsuario?nombreUsuario:"" )
 
         div
           label(for="password", class="block text-sm font-medium text-gray-700") Contraseña
