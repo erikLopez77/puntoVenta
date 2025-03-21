@@ -33,9 +33,12 @@ block contenido
                         h2.text-l.font-bold.text-blue-700 No se encontraron coincidencias
 
             // Botones de acción
-            div(class="flex justify-between mt-10")
+            div(class="flex flex-col md:flex-row justify-between gap-4 mt-8")
                 // Botón para regresar
-                a(href="/usuario/vista-menu" class="bg-gray-500 hover:bg-gray-700 text-white font-bold mt-10 py-2 px-4 rounded-lg transition duration-300") Regresar
+                a(href="/usuario/vista-menu" class="w-full md:w-auto bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2")
+                    svg(xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                        path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18")
+                    span Regresar
 
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

@@ -14,15 +14,15 @@ block contenido
                 // Campo para el nombre
                 div
                     label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre(s)
-                    input(type="text", name="nombre", id="nombre", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre" value=datos.nombre?datos.nombre:"")
+                    input(type="text", name="nombre", id="nombre", autocomplete="off" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre" value=datos.nombre?datos.nombre:"")
 
                 div
                     label(for="apellidos", class="block text-sm font-medium text-gray-700") Apellidos 
-                    input(type="text", name="apellidos", id="apellidos", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tus apellidos" value=datos.apellidos?datos.apellidos:"")
+                    input(type="text", name="apellidos", id="apellidos", autocomplete="off" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tus apellidos" value=datos.apellidos?datos.apellidos:"")
 
                 div
                     label(for="nombreUsuario", class="block text-sm font-medium text-gray-700") Nombre de usuario 
-                    input(type="text", name="nombreUsuario", id="nombreUsuario", class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre de usuario para iniciar sesión" value=datos.nombreUsuario?datos.nombreUsuario:"")
+                    input(type="text", name="nombreUsuario", id="nombreUsuario", autocomplete="off",class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"  placeholder="Escribe tu nombre de usuario para iniciar sesión" value=datos.nombreUsuario?datos.nombreUsuario:"")
                 
                 div
                     label(for="password", class="block text-sm font-medium text-gray-700") Contraseña

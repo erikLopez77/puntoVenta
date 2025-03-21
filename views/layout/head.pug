@@ -24,13 +24,13 @@ html(lang="es")
 
     // Barra de navegación debajo del header
     nav(class="bg-blue-600 text-white p-1 sm:p-2")
-      ul(class="flex justify-around text-xs sm:text-base")
-        li: a(href="/menu-general", class="hover:underline text-xl") Menú general
-        li: a(href="/desayunos", class="hover:underline text-xl") Desayunos
-        li: a(href="/sopas-pastas", class="hover:underline text-xl") Sopas y pastas
-        li: a(href="/plato-fuerte", class="hover:underline text-xl") Plato fuerte
-        li: a(href="/postres", class="hover:underline text-xl") Postres
-        li: a(href="/bebidas", class="hover:underline text-xl") Bebidas
+      ul(class="flex flex-col items-center sm:flex-row justify-around text-xs sm:text-base")
+        li: a(href="/menu-general", class="hover:underline text-xl text-center sm:text-center") Menú general
+        li: a(href="/desayunos", class="hover:underline text-xl text-center sm:text-center") Desayunos
+        li: a(href="/sopas-pastas", class="hover:underline text-xl text-center sm:text-center") Sopas y pastas
+        li: a(href="/plato-fuerte", class="hover:underline text-xl text-center sm:text-center") Plato fuerte
+        li: a(href="/postres", class="hover:underline text-xl text-center sm:text-center") Postres
+        li: a(href="/bebidas", class="hover:underline text-xl text-center sm:text-center") Bebidas
 
     // Contenedor principal con el sidebar a la izquierda y el contenido principal
     main(class="flex")
