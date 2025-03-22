@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import http from 'http'; //modulo http
-import fs from 'fs';
 import { Server } from 'socket.io'; //server de socket.io p/ tiempo real
 import cookieParser from 'cookie-parser';
 import csrf from 'csurf';
@@ -15,12 +14,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-/* const server = https.createServer(
-  {
-    key: fs.readFileSync('rootCA-key.pem'),
-    cert: fs.readFileSync('rootCA.pem'),
-  },
-  app);//server http usando app ed express */
 const server = http.createServer(app);
 export const io = new Server(server);//instancia de socket.io
 
