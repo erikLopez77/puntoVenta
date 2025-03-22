@@ -16,6 +16,7 @@ block contenido
                         p.price.text-blue-600.font-semibold Precio: $#{postre.precio}
                          -// Formulario para ordenar el platillo
                         form(action="/postres", method="POST")
+                            input(type="hidden" name="_csrf" value=csrfToken)
                             input(type="hidden", name="id", value=postre.id)
                             button(type="submit", class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Ordenar
 

@@ -5,9 +5,15 @@ addForm.addEventListener('submit', async (e) => {
     const cantidad = addForm.querySelector('select[name="cantidad"]').value;
     const indicaciones = addForm.querySelector('textarea[name="indicaciones"]').value;
     try {
+        // Obtener el token CSRF
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        console.log(csrfToken);
         const solicitud = await fetch(`/ordenar-pedido/${id}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+            },
             body: JSON.stringify({ id, cantidad, indicaciones }) // Enviar todos los datos necesarios
         });
 

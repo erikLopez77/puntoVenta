@@ -35,6 +35,7 @@ block contenido
                                         span.font-normal.text-gray-600 #{item.indicacionExtra}
                         
                                 form(action="/usuario/ordenes-pendientes", method="POST", class="mt-4")
+                                    input(type="hidden" name="_csrf" value=csrfToken)
                                     input(type="hidden" name="id" value=item.id)
                                     button(type="submit", class="hover:bg-blue-700 text-white bg-blue-500 font-bold rounded-lg py-2 px-4") Confirmar platillo
 block scripts
@@ -53,7 +54,7 @@ block scripts
             console.error('Orden inválida:', orden);
             return;
         }
-
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const contenedor = document.getElementById('contenedor-ordenes');
         const mensajeNoOrdenes = contenedor.querySelector('.mensaje-no-ordenes');
         if (mensajeNoOrdenes) {
@@ -89,6 +90,7 @@ block scripts
                             <span class="font-normal text-gray-600">${item.indicacionExtra}</span>
                         </p> `}
                         <form action="/usuario/ordenes-pendientes" method="POST" class="mt-4">
+                            <input type="hidden" name="_csrf" value=${csrfToken}>
                             <input type="hidden" name="id" value=${item.id}>
                             <button type="submit" class="hover:bg-blue-700 text-white bg-blue-500 font-bold rounded-lg py-2 px-4"> Confirmar platillo </button>
                         </form>

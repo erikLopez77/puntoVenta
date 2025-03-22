@@ -48,9 +48,13 @@ block scripts
             const categoriaId = addForm.querySelector('select[name="categoriaId"]').value;
             const precio = addForm.querySelector('input[name="precio"]').value;
             try {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 const solicitud = await fetch('/usuario/crear-platillo/', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    },
                     body: JSON.stringify({ nombre, descripcion, categoriaId,precio }) // Enviar todos los datos necesarios
                 });
 

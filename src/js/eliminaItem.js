@@ -16,10 +16,12 @@ formularios.forEach((formulario) => {
       if (result.isConfirmed) {
         try {
           // Enviar la petición para eliminar
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
           const respuesta = await fetch('/carrito/eliminar', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json', // Indicar que el cuerpo es JSON
+              'X-CSRF-Token': csrfToken
             },
             body: JSON.stringify({ id: formulario.querySelector('input[name="id"]').value }), // Enviar el ID como JSON
           });
@@ -58,9 +60,13 @@ btnEnviaOrden.addEventListener('submit', (e) => {
   }).then(async (result) => {
     // Mostrar un mensaje de confirmación
     if (result.isConfirmed) {
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
       const respuesta = await fetch('/carrito/mandar-orden', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
         //body: new FormData(btnEnviaOrden), // Enviar los datos del formulario
         body: JSON.stringify({ mesa: btnEnviaOrden.querySelector('select[name="mesa"]').value })
       })

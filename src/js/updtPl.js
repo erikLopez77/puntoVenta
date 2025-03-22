@@ -2,19 +2,22 @@ const forms = document.querySelector('#updtForm');
 
 forms.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id= forms.querySelector('input[name="id"]').value;
-    const nombre= forms.querySelector('input[name="nombre"]').value;
-    const descripcion= forms.querySelector('textarea[name="descripcion"]').value;
-    const precio=forms.querySelector('input[name="precio"]').value;
-    const categoriaId= forms.querySelector('select[name="categoriaId"]').value;
+    const id = forms.querySelector('input[name="id"]').value;
+    const nombre = forms.querySelector('input[name="nombre"]').value;
+    const descripcion = forms.querySelector('textarea[name="descripcion"]').value;
+    const precio = forms.querySelector('input[name="precio"]').value;
+    const categoriaId = forms.querySelector('select[name="categoriaId"]').value;
     console.log("123");
     try {
+        // Obtener el token CSRF
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         const peticion = await fetch(`/usuario/edita-platillo/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', // Indicar que el cuerpo es JSON
+                'X-CSRF-Token': csrfToken
             },
-            body: JSON.stringify({ id, nombre, descripcion, precio, categoriaId}), // Enviar el ID como JSON
+            body: JSON.stringify({ id, nombre, descripcion, precio, categoriaId }), // Enviar el ID como JSON
         });
         const respuesta = await peticion.json();
         if (peticion.ok && respuesta.success) {

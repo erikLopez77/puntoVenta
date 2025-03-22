@@ -6,10 +6,11 @@ import {
 } from "../controllers/ContAdminKitchen.js";
 import { verificarAdmin } from "../middleware/midAdmin.js";
 import { verificarCocinero } from "../middleware/kitchenMid.js";
+import { identificaUsuario } from "../middleware/identificaUsuario.js";
 
 const router = express.Router();
 
-router.post('/eliminar-ordenes', eliminaOrdenes)
+router.post('/eliminar-ordenes', identificaUsuario, eliminaOrdenes)
 
 router.get('/iniciar-sesion', login);
 router.post('/iniciar-sesion', loginPost);

@@ -6,9 +6,13 @@ import { generarJWT } from '../helpers/token.js';
 
 const eliminaOrdenes = async (req, res) => {
     try {
+        const rol = req.usuario.rol;
         await ItemOrden.destroy({ where: {} });
         await Orden.destroy({ where: {} });
-        res.redirect('/usuario/ordenes-confirmadas');
+        if (rol == "Cocinero")
+            res.redirect('/usuario/ordenes-confirmadas');
+        else
+            res.redirect('/usuario/ordenes-confirmadas-cocina');
     } catch (error) {
         console.log(error)
     }

@@ -11,6 +11,7 @@ block contenido
 
             // Formulario para crear un nuevo platillo
             form(action="/registrate" id="crear", method="POST" class="space-y-6")
+                input(type="hidden" name="_csrf" value=csrfToken)
                 // Campo para el nombre
                 div
                     label(for="nombre", class="block text-sm font-medium text-gray-700") Nombre(s)

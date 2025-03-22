@@ -23,7 +23,7 @@ block contenido
                                     button(type="submit", class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Editar
                             div.flex-1
                                 -// Botón "Eliminar"
-                                form(action="/usuario/elimina-platillo", method="POST", class="formDelete")
+                                form(action="/usuario/elimina-platillo", method="POST", onsubmit="return confirmarEliminacion(event)" class="formDelete")
                                     input(type="hidden", name="id", value=resultado.id)
                                     button(type="submit", class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded") Eliminar
 
@@ -43,4 +43,43 @@ block contenido
 block scripts 
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
     script(src="/js/cerrarSesion.js")
+    script.
+            // Función para confirmar la eliminación de una orden
+        function confirmarEliminacion(event) {
+            event.preventDefault(); // Evita que el formulario se envíe automáticamente
+            const form = event.target;
+
+            Swal.fire({
+                title: '¿Eliminar platillo?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const respuesta = await fetch('/usuario/elimina-platillo', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                        },
+                        //body: new FormData(btnEnviaOrden), // Enviar los datos del formulario
+                        body: JSON.stringify({ id: document.querySelector('input[name="id"]').value })
+                    })
+                    const solicitud = await respuesta.json();
+                    if (respuesta.ok && solicitud.success) {
+                        await Swal.fire('¡Eliminado!', solicitud.message, 'success');
+                       window.location.reload(); 
+                    } else {
+                        await Swal.fire('¡Error!', solicitud.message, 'error');
+                        window.location.reload(); // recarga
+                    }
+                }
+            });
+        }
+
 

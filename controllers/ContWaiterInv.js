@@ -247,8 +247,7 @@ const recuperaPaswword = async (req, res) => {
     if (!resultado.isEmpty()) {
         return res.render('sin-cuenta/recupera-contrasena', {
             pagina: 'Recupera tu contraseña',
-            errores: resultado.array(),
-            nombreUsuario
+            errores: resultado.array()
         });
     }
     //recuperamos la inf ingresada

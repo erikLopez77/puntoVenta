@@ -15,10 +15,13 @@ forms.forEach((formulario) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
+                    // Obtener el token CSRF
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                     const peticion = await fetch('/usuario/elimina-platillo', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json', // Indicar que el cuerpo es JSON
+                            'X-CSRF-Token': csrfToken
                         },
                         body: JSON.stringify({ id: formulario.querySelector('input[name="id"]').value }), // Enviar el ID como JSON
                     });
