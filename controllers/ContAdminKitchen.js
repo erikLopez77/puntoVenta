@@ -29,8 +29,8 @@ const loginPost = async (req, res) => {
     if (!errores.isEmpty()) {
         return res.render('usuario/login', { errores: errores.errors, pagina: 'Iniciar sesión' })
     }
-    const { nombreUsuario: rawNombreUsuario, password } = req.body;
-    const nombreUsuario = rawNombreUsuario.trim();
+    let { nombreUsuario, password } = req.body;
+    nombreUsuario = nombreUsuario.trim();
     const usuario = await Usuario.findOne({ where: { nombreUsuario } });
 
     if (!usuario) {
