@@ -217,7 +217,8 @@ const creaCuenta = async (req, res) => {
             datos: req.body
         });
     }
-    const { nombreUsuario } = req.body
+    let { nombreUsuario } = req.body
+    nombreUsuario = nombreUsuario.trim();
     const usuario = await Usuario.findOne({ where: { nombreUsuario } });
     if (usuario) {
         return res.render('sin-cuenta/registrate', {
@@ -251,8 +252,8 @@ const recuperaPaswword = async (req, res) => {
         });
     }
     //recuperamos la inf ingresada
-    const { nombreUsuario, password } = req.body
-
+    let { nombreUsuario, password } = req.body
+    nombreUsuario = nombreUsuario.trim();
     const usuario = await Usuario.findOne({ where: { nombreUsuario } });
     if (!usuario) {
         return res.render('sin-cuenta/recupera-contrasena', {
