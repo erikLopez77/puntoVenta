@@ -1,5 +1,5 @@
 import { check, validationResult } from "express-validator";
-import Sequelize from 'sequelize';
+import Sequelize, { where } from 'sequelize';
 import Usuario from "../models/Usuario.js";
 import { Orden, ItemOrden, Menu } from '../models/asociaciones.js'
 import { generarJWT } from '../helpers/token.js';
@@ -185,6 +185,26 @@ const crudMenu = async (req, res) => {
 
     res.render('admin/vistaMenu', { pagina: 'Vista del menu', bebidas, desayunos, sopas, platoFuerte, postres });
 }
+const desayunosAdmin = async (req, res) => {
+    const categoria = await Menu.findAll({ where: { categoriaId: 2 } });
+    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+}
+const sopasAdmin = async (req, res) => {
+    const categoria = await Menu.findAll({ where: { categoriaId: 3 } });
+    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+}
+const platoFuertesAdmin = async (req, res) => {
+    const categoria = await Menu.findAll({ where: { categoriaId: 4 } });
+    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+}
+const postresAdmin = async (req, res) => {
+    const categoria = await Menu.findAll({ where: { categoriaId: 5 } });
+    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+}
+const bebidasAdmin = async (req, res) => {
+    const categoria = await Menu.findAll({ where: { categoriaId: 1 } });
+    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+}
 const creaPlatillo = (req, res) => {
     const datos = '';
     res.render('admin/crearPlatillo', { datos, pagina: 'Crear platillo' });
@@ -270,6 +290,11 @@ export {
     eliminarOrden2,
     guiaCocina,
     crudMenu,
+    desayunosAdmin,
+    sopasAdmin,
+    platoFuertesAdmin,
+    postresAdmin,
+    bebidasAdmin,
     creaPlatillo,
     postPlatillo,
     editaPlatillo,

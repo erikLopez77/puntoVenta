@@ -1,7 +1,7 @@
 import express from "express";
 import {
     eliminaOrdenes, login, loginPost, ordenPendiente, confirmarOrden, historial, historial2,
-    crudMenu, creaPlatillo, postPlatillo, editaPlatillo, editaPlatilloPost, eliminaPlatillo, buscarPlato,
+    crudMenu, desayunosAdmin, creaPlatillo, postPlatillo, editaPlatillo, editaPlatilloPost, eliminaPlatillo, buscarPlato,
     eliminarOrden, eliminarOrden2, guiaCocina, guiaAdmin, logout, denegado
 } from "../controllers/ContAdminKitchen.js";
 import { verificarAdmin } from "../middleware/midAdmin.js";
@@ -25,6 +25,12 @@ router.get('/guia-cocina', guiaCocina);
 
 //admin
 router.get('/vista-menu', verificarAdmin, crudMenu);
+router.get('/desayunos-administrador', verificarAdmin, desayunosAdmin);
+router.get('/sopas-administrador', verificarAdmin, desayunosAdmin);
+router.get('/plato-fuerte-administrador', verificarAdmin, desayunosAdmin);
+router.get('/postres-administrador', verificarAdmin, desayunosAdmin);
+router.get('/bebidas-administrador', verificarAdmin, desayunosAdmin);
+
 router.get('/crear-platillo', verificarAdmin, creaPlatillo);
 router.post('/crear-platillo', verificarAdmin, postPlatillo);
 
