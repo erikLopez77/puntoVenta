@@ -23,10 +23,28 @@ html(lang="es")
       h1(class="text-3xl font-bold mb-3") Click-comanda
       // Puedes dejar el lado derecho vacío o agregar algún otro ícono si lo deseas
       div
-    nav(class="bg-blue-600 text-white p-2")
-      ul(class="flex justify-around")
+    //- Barra de navegación inferior con variación de azul
+    nav(class="bg-blue-600 text-white")
+      //– Primera fila de navegación (como ya la tenías)
+      ul(class="flex justify-around p-2")
         li: a(href="/usuario/vista-menu", class="hover:underline text-xl") Platillos en el menú
-        li: a(href="/usuario/ordenes-confirmadas-cocina", class="hover:underline text-xl")  Ordenes confirmadas en cocina 
+        li: a(href="/usuario/ordenes-confirmadas-cocina", class="hover:underline text-xl") Ordenes confirmadas en cocina
+
+      //– Segunda fila: filtros con variación de azul
+      ul(class="flex justify-around items-center bg-blue-500 p-3")
+        li(class="bg-blue-500 px-4 py-2 rounded-full")
+          a(href="/usuario/vista-menu?categoria=Todos", class="text-white") Todos los platillos
+        li(class="bg-blue-500 px-4 py-2 rounded-full")
+          a(href="/usuario/vista-menu?categoria=Desayunos", class="text-white") Desayunos
+        li(class="bg-blue-500 px-4 py-2 rounded-full")
+          a(href="/usuario/vista-menu?categoria=Sopas%20y%20pastas", class="text-white") Sopas y pastas
+        li(class="bg-blue-500 px-4 py-2 rounded-full")
+          a(href="/usuario/vista-menu?categoria=Plato%20fuerte", class="text-white") Plato fuerte
+        li(class="bg-blue-500 px-4 py-2 rounded-full")
+          a(href="/usuario/vista-menu?categoria=Postres", class="text-white") Postres
+        li(class="bg-blue-500 px-4 py-2 rounded-full")
+          a(href="/usuario/vista-menu?categoria=Bebidas", class="text-white") Bebidas
+
 
     // Contenedor principal con el sidebar a la izquierda y el contenido principal
     main(class="flex")
