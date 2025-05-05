@@ -175,7 +175,7 @@ const eliminarOrden2 = async (req, res) => {
 }
 const guiaCocina = (req, res) => {
     res.render('usuario/guia-cocina', { pagina: 'Guía de usuario' })
-}
+}//vista para todos los platillos
 const crudMenu = async (req, res) => {
     const bebidas = await Menu.findAll({ where: { categoriaId: 1 } });
     const desayunos = await Menu.findAll({ where: { categoriaId: 2 } });
@@ -191,19 +191,19 @@ const desayunosAdmin = async (req, res) => {
 }
 const sopasAdmin = async (req, res) => {
     const categoria = await Menu.findAll({ where: { categoriaId: 3 } });
-    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+    res.render('admin/sopas', { pagina: 'Sopas y pastas', categoria })
 }
 const platoFuertesAdmin = async (req, res) => {
     const categoria = await Menu.findAll({ where: { categoriaId: 4 } });
-    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+    res.render('admin/platoFuerte', { pagina: 'Plato fuerte', categoria })
 }
 const postresAdmin = async (req, res) => {
     const categoria = await Menu.findAll({ where: { categoriaId: 5 } });
-    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+    res.render('admin/postres', { pagina: 'Postres', categoria })
 }
 const bebidasAdmin = async (req, res) => {
     const categoria = await Menu.findAll({ where: { categoriaId: 1 } });
-    res.render('admin/desayunos', { pagina: 'Desayunos', categoria })
+    res.render('admin/bebidas', { pagina: 'Bebidas', categoria })
 }
 const creaPlatillo = (req, res) => {
     const datos = '';

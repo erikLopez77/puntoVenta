@@ -1,0 +1,44 @@
+
+extends ../layout/headAdmin
+
+block contenido
+
+    -// Título de la categoría ocupa todo el ancho
+    -//div(class=" container mx-auto p-4")
+        // Botón para crear platillo
+        div(class="menu-container bg-white p-6 space-y-8")
+            include ../barra-buscar-admin
+        a(href="/usuario/crear-platillo", class="mb-6 inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ml-6 mt-5 transition duration-300")
+            svg(xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor")
+                path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4")
+            | Crear platillo
+        -// Contenedor de cada categoría con espacio entre secciones
+        div(class="ml-6 space-y-5 mb-12")
+            -// Título de la categoría con margen inferior
+            h2.text-2xl.font-extrabold.text-gray-800.border-b-2.border-blue-500.pb-1.mb-8 Postres
+
+            -// Contenedor de platillos con espaciado entre elementos
+            div(class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-6")
+                each platillo in categoria
+                    .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
+                        h2.text-xl.font-bold.text-blue-700= platillo.nombre
+                        p.text-gray-700= platillo.descripcion
+                        p.price.text-blue-600.font-semibold Precio: $#{platillo.precio}
+                        -// Contenedor para los botones (flexbox para alinearlos horizontalmente)
+                        div(class="flex space-x-4 mt-4")
+                            -// Botón "Editar"
+                            div.flex-1
+                                form(action=`/usuario/edita-platillo/${platillo.id}`, method="GET", class="flex-1")
+                                    input(type="hidden" name="_csrf" value=csrfToken)
+                                    button(type="submit", class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded") Editar
+                            div.flex-1
+                                -// Botón "Eliminar"
+                                form(action="/usuario/elimina-platillo", method="POST", class="formDelete")
+                                    input(type="hidden" name="_csrf" value=csrfToken)
+                                    input(type="hidden", name="id", value=platillo.id)
+                                    button(type="submit", class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded") Eliminar
+
+block scripts
+    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+    script(src="/js/deletePl.js")
+    script(src="/js/cerrarSesion.js")
