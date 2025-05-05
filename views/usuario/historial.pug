@@ -57,7 +57,7 @@ block contenido
                             p.text-gray-700.font-medium Mesero: 
                                 span.font-normal.text-gray-600 #{orden.propietario}
                             p.text-gray-700.font-medium Total pagado: 
-                                span.font-normal.text-gray-600 $#{orden.total}
+                                span.font-normal.text-gray-600 $#{orden.total} MXN
                             p.text-gray-700.font-medium Fecha y hora de entrega: 
                                 span.font-normal.text-gray-600 #{orden.entregado}
 
@@ -77,9 +77,9 @@ block contenido
                                     p.text-gray-700.font-medium Cantidad: 
                                         span.font-normal.text-gray-600 #{item.cantidad}
                                     p.text-gray-700.font-medium Subtotal: 
-                                        span.font-normal.text-gray-600 $#{item.subtotal}
+                                        span.font-normal.text-gray-600 $#{item.subtotal} MXN
                                     p.text-gray-700.font-medium Total: 
-                                        span.font-normal.text-gray-600 $#{item.total}
+                                        span.font-normal.text-gray-600 $#{item.total} MXN
                                     if item.indicacionExtra
                                         p.text-gray-700.font-medium Indicaciones: 
                                             span.font-normal.text-gray-600 #{item.indicacionExtra}

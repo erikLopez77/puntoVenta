@@ -14,7 +14,7 @@ block contenido
                     .menu-item.bg-blue-100.border.border-blue-600.rounded-lg.shadow-lg.p-4
                         h2.text-xl.font-bold.text-blue-700= bebida.nombre
                         p.text-gray-700= bebida.descripcion
-                        p.price.text-blue-600.font-semibold Precio: $#{bebida.precio}
+                        p.price.text-blue-600.font-semibold Precio: $#{bebida.precio} MXN
                          -// Formulario para ordenar el platillo
                         form(action="/bebidas", method="POST")
                             input(type="hidden" name="_csrf" value=csrfToken)

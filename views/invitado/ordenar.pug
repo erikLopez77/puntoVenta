@@ -10,7 +10,7 @@ block contenido
             p(class="text-gray-700 text-lg mb-6")= platillo.descripcion
 
             -// Precio del platillo
-            p(class="text-blue-600 font-semibold text-xl mb-8") Precio: $#{platillo.precio}
+            p(class="text-blue-600 font-semibold text-xl mb-8") Precio: $#{platillo.precio} MXN
 
             -// Formulario para seleccionar cantidad y agregar indicaciones
             form(method="POST" class="space-y-6" id="addForm")
