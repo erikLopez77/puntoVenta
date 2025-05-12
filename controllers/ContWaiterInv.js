@@ -5,7 +5,7 @@ import sequelize from '../config/database.js';
 import { generarId } from '../helpers/token.js';
 import { io } from '../main.js';
 const nosotros = (req, res) => {
-    res.render('invitado/nosotros', { pagina: 'Nostros' });
+    res.render('invitado/nosotros', { pagina: 'Nosotros' });
 }
 
 const menu = async (req, res) => {

@@ -273,7 +273,7 @@ const logout = (req, res) => {
     // Eliminar la cookie "_token"
     res.clearCookie('_token');
     // Redirigir al usuario a la página de inicio de sesión o a la página principal
-    return res.redirect('/usuario/iniciar-sesion');
+    return res.redirect('/');
 }
 const denegado = (req, res) => {
     res.render('usuario/acceso-denegado', { pagina: 'Acceso denegado' });
